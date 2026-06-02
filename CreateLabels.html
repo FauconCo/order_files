@@ -1,0 +1,185 @@
+
+
+    <script>
+        const app = {
+            charts: {},
+            
+            init() {
+                // Inicializar iconos
+                lucide.createIcons();
+                // Inicializar gráficos
+                this.initAllCharts();
+            },
+
+            // Gestión de Pestañas
+            switchTab(tabId) {
+                // Ocultar contenidos
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                // Mostrar contenido seleccionado
+                document.getElementById(`tab-${tabId}`).classList.add('active');
+                
+                // Actualizar estilos de botones en navbar
+                document.querySelectorAll('.nav-btn').forEach(btn => {
+                    btn.classList.remove('neo-inset', 'text-blue-600');
+                    btn.classList.add('text-slate-500');
+                    if(btn.classList.contains('nav-' + tabId)) {
+                        btn.classList.remove('text-slate-500');
+                        btn.classList.add('neo-inset', 'text-blue-600');
+                    }
+                });
+                
+                // Refrescar MathJax (Ecuaciones) si existe
+                if (window.MathJax) {
+                    MathJax.typesetPromise();
+                }
+
+                // Forzar resize para que Chart.js se ajuste al contenedor que estaba hidden
+                setTimeout(() => window.dispatchEvent(new Event('resize')), 50);
+            },
+
+            initAllCharts() {
+                // Colores globales
+                const blueColor = '#0055FF';
+                const blueLight = 'rgba(0, 85, 255, 0.1)';
+                const emeraldColor = '#00FF7F';
+                const emeraldDark = '#059669';
+                const emeraldLight = 'rgba(0, 255, 127, 0.2)';
+                const slateColor = '#94a3b8';
+
+                // Configuración común de tipografía para Chart.js
+                Chart.defaults.font.family = "'Space Grotesk', sans-serif";
+                Chart.defaults.color = '#64748b';
+
+                // ==========================
+                // TAB 1: DASHBOARD
+                // ==========================
+                const ctxTrend = document.getElementById('trendChart').getContext('2d');
+                this.charts.trend = new Chart(ctxTrend, {
+                    type: 'line',
+                    data: {
+                        labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct'],
+                        datasets: [{
+                            label: 'Flujo de Caja Optimizado',
+                            data: [120, 150, 140, 180, 160, 210, 190, 250, 230, 280],
+                            borderColor: blueColor,
+                            backgroundColor: blueLight,
+                            fill: true,
+                            tension: 0.4,
+                            borderWidth: 3,
+                            pointBackgroundColor: '#ffffff',
+                            pointBorderColor: blueColor,
+                            pointBorderWidth: 2,
+                            pointRadius: 4
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' } }, x: { grid: { display: false } } } }
+                });
+
+                const ctxAsset = document.getElementById('assetChart').getContext('2d');
+                this.charts.asset = new Chart(ctxAsset, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Optimizado ALRO', 'Riesgo Moderado', 'Manual'],
+                        datasets: [{
+                            data: [85, 10, 5],
+                            backgroundColor: [blueColor, emeraldColor, slateColor],
+                            borderWidth: 0,
+                            hoverOffset: 4
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, cutout: '75%', plugins: { legend: { display: false } } }
+                });
+
+                // ==========================
+                // TAB 3: JOURNEY
+                // ==========================
+                const ctxJourney = document.getElementById('journeyChart').getContext('2d');
+                this.charts.journey = new Chart(ctxJourney, {
+                    type: 'line',
+                    data: {
+                        labels: ['Día 1', 'Día 7', 'Día 14', 'Día 21', 'Día 28'],
+                        datasets: [{ 
+                            label: 'Probabilidad Mora (%)', 
+                            data: [15, 22, 65, 78, 89], 
+                            borderColor: '#ef4444', 
+                            backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                            fill: true,
+                            tension: 0.4,
+                            borderWidth: 2,
+                            pointRadius: 0
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, scales: { x: { display: false }, y: { display: false } }, plugins: { legend: { display: false } } }
+                });
+
+                // ==========================
+                // TAB 4: MATEMÁTICAS
+                // ==========================
+                const ctxMathSim = document.getElementById('mathSimChart').getContext('2d');
+                this.charts.mathSim = new Chart(ctxMathSim, {
+                    type: 'line',
+                    data: {
+                        labels: ['-3', '-2', '-1', '0', '1', '2', '3'],
+                        datasets: [
+                            { label: 'Volatilidad Mercado', data: [-3, -2, -1, 0, 1, 2, 3], borderColor: slateColor, borderDash: [5, 5], fill: false, borderWidth: 2 },
+                            { label: 'Acción Tanh ALRO', data: [-0.99, -0.96, -0.76, 0, 0.76, 0.96, 0.99], borderColor: emeraldColor, backgroundColor: emeraldLight, fill: true, tension: 0.4, borderWidth: 3 }
+                        ]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } }, scales: { y: { grid: { color: 'rgba(0,0,0,0.05)' } } } }
+                });
+
+                const ctxEfficiency = document.getElementById('efficiencyChart').getContext('2d');
+                this.charts.efficiency = new Chart(ctxEfficiency, {
+                    type: 'radar',
+                    data: {
+                        labels: ['Determinismo', 'Privacidad', 'Velocidad', 'Rentabilidad', 'Auditoría'],
+                        datasets: [
+                            { label: 'ALRO Core', data: [98, 100, 95, 90, 100], backgroundColor: blueLight, borderColor: blueColor, borderWidth: 2, pointBackgroundColor: blueColor },
+                            { label: 'LLM Genérico', data: [40, 30, 60, 50, 20], backgroundColor: 'rgba(148, 163, 184, 0.2)', borderColor: slateColor, borderWidth: 1 }
+                        ]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, scales: { r: { min: 0, max: 100, ticks: { display: false }, grid: { color: 'rgba(0,0,0,0.1)' }, pointLabels: { font: { size: 11, family: 'Inter' } } } }, plugins: { legend: { position: 'bottom' } } }
+                });
+
+                // ==========================
+                // TAB 5: BUSINESS
+                // ==========================
+                const ctxCost = document.getElementById('costSavingsChart').getContext('2d');
+                this.charts.cost = new Chart(ctxCost, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Trimestre 1', 'Trimestre 2', 'Trimestre 3', 'Trimestre 4'],
+                        datasets: [
+                            { type: 'line', label: 'Costo API Salesforce', data: [15, 18, 20, 25], borderColor: slateColor, borderDash: [5,5], fill: false, borderWidth: 2 },
+                            { type: 'bar', label: 'Ahorro Cartera Evitada ($k)', data: [120, 280, 450, 780], backgroundColor: emeraldColor, borderRadius: 4 }
+                        ]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } }, scales: { y: { grid: { color: 'rgba(0,0,0,0.05)' } }, x: { grid: { display: false } } } }
+                });
+
+                const ctxSF = document.getElementById('sfDeploymentChart').getContext('2d');
+                this.charts.sf = new Chart(ctxSF, {
+                    type: 'polarArea',
+                    data: {
+                        labels: ['Web App UI', 'Agentforce', 'Data Cloud', 'Inferencia Moirai'],
+                        datasets: [{
+                            data: [15, 40, 25, 20],
+                            backgroundColor: [
+                                blueColor, 
+                                emeraldColor, 
+                                slateColor, 
+                                emeraldDark
+                            ],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { font: { family: 'Inter', size: 11 } } } }, scales: { r: { grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { display: false } } } }
+                });
+            }
+        };
+
+        // Inicializar al cargar el DOM
+        window.onload = () => app.init();
+    </script>
+</body>
+</html>
