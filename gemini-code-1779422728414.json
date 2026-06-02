@@ -1,9 +1,0 @@
-{
-  "entityId": "CLI-9982-STRESS-TEST",
-  "taxonomyCode": "RISK_CREDIT_INCONSISTENCY",
-  "intentPayload": {
-    "totalAssets": 5000000,
-    "currentCashFlow": -200000, 
-    "financialStatementStatus": "DISCREPANCY_DETECTED"
-  }
-}
