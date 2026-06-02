@@ -1,0 +1,56 @@
+
+
+    <script>
+        const app = {
+            charts: {},
+            init() {
+                lucide.createIcons();
+                this.initAllCharts();
+            },
+            switchTab(tabId) {
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                document.getElementById(`tab-${tabId}`).classList.add('active');
+                
+                document.querySelectorAll('.nav-btn').forEach(btn => {
+                    btn.classList.remove('text-emerald-700', 'border-emerald-500');
+                    btn.classList.add('text-slate-500', 'border-transparent');
+                    if(btn.classList.contains('nav-' + tabId)) {
+                        btn.classList.add('text-emerald-700', 'border-emerald-500');
+                    }
+                });
+                
+                if (window.MathJax) MathJax.typesetPromise();
+                setTimeout(() => window.dispatchEvent(new Event('resize')), 100);
+            },
+            initAllCharts() {
+                // Chart 1: CODA Latency vs Autoregressive
+                const ctxCoda = document.getElementById('codaLatencyChart').getContext('2d');
+                this.charts.coda = new Chart(ctxCoda, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Generación SOQL', 'Infilling de Apex', 'Validación Lógica'],
+                        datasets: [
+                            { label: 'LLM Autoregresivo (Estándar)', data: [4.5, 6.2, 3.8], backgroundColor: '#cbd5e1' },
+                            { label: 'CODA 1.7B (Diffusion Adaptation)', data: [1.2, 1.8, 0.9], backgroundColor: '#10b981' }
+                        ]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, scales: { y: { title: { display: true, text: 'Latencia (segundos)' } } } }
+                });
+
+                // Chart 3: Deployment
+                const ctxSF = document.getElementById('sfDeploymentChart').getContext('2d');
+                this.charts.sf = new Chart(ctxSF, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Agentforce (AUQ/HTC)', 'CODA (Auto-Code)', 'Data Cloud (RAG)', 'Web App'],
+                        datasets: [{ data: [40, 20, 25, 15], backgroundColor: ['#10b981', '#0f766e', '#059669', '#34d399'], borderWidth: 0 }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: {size: 10} } } } }
+                });
+            }
+        };
+        window.app = app;
+        window.onload = () => app.init();
+    </script>
+</body>
+</html>
