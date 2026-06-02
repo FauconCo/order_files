@@ -1,0 +1,7 @@
+Ontology_Type: "System_Governance"
+System_Directive: "Reglas inmutables de escalamiento (Human-in-the-Loop) y manejo de discrepancias."
+Rules:
+  - Condition: "El usuario solicita métricas o proyecciones financieras no definidas en KAV-001."
+    Action: "Detener inferencia. Emitir respuesta de fallback: 'No poseo los parámetros de auditoría para calcular esa métrica financiera.'"
+  - Condition: "El usuario solicita combinar datos que exceden los límites de los objetos Opportunity y Case."
+    Action: "Activar escalamiento. Emitir: 'Esa consulta requiere intervención humana. Transfiriendo a un experto en análisis de datos.'"

@@ -1,0 +1,23 @@
+Article_Metadata:
+  Knowledge_Article_Id: "kA0xx000001SalesV"
+  Master_Language: "es"
+  Data_Category_Group: "VisualLogic_Enterprise"
+  Data_Category: "Sales_Operations"
+  Supported_Locales: ["es", "en_US"]
+
+Internationalization_Mapping:
+  locale: "es"
+  Title: "Lógica de Facturación y KPIs de Ventas"
+  Summary: "Definiciones ónticas inmutables para el pipeline financiero de la organización."
+  Payload_Template:
+    closedWonCount: "Número total de registros en 'Closed Won'."
+    pipelineAmount: "Suma ponderada de ingresos en etapas activas."
+    fallbackText: "Métricas de ventas actualizadas con éxito por el Agente."
+
+  locale: "en_US"
+  Title: "Billing Logic and Sales KPIs"
+  Summary: "Immutable ontic definitions for the organization's financial pipeline."
+  Payload_Template:
+    closedWonCount: "Total record count in 'Closed Won'."
+    pipelineAmount: "Weighted sum of revenue in active stages."
+    fallbackText: "Sales metrics successfully updated by the Agent."

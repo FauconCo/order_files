@@ -1,0 +1,23 @@
+Article_Metadata:
+  Knowledge_Article_Id: "kA0xx000002SuppSLA"
+  Master_Language: "es"
+  Data_Category_Group: "VisualLogic_Enterprise"
+  Data_Category: "Support_Architecture"
+  Supported_Locales: ["es", "en_US"]
+
+Internationalization_Mapping:
+  locale: "es"
+  Title: "Matriz Operativa de Soporte y Acuerdos de Nivel de Servicio (SLA)"
+  Summary: "Reglas de clasificación estricta para el ciclo de vida del objeto Case."
+  Payload_Template:
+    criticalCasesCount: "Conteo de casos abiertos con Priority igual a High."
+    totalOpenCases: "Sumatoria absoluta de casos en estado activo."
+    fallbackText: "Dashboard de soporte re-renderizado por evento de plataforma."
+
+  locale: "en_US"
+  Title: "Support Operational Matrix and Service Level Agreements (SLA)"
+  Summary: "Strict classification rules for the Case object lifecycle."
+  Payload_Template:
+    criticalCasesCount: "Count of open cases with Priority equal to High."
+    totalOpenCases: "Absolute summation of active status cases."
+    fallbackText: "Support dashboard re-rendered by platform event."

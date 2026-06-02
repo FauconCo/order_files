@@ -1,0 +1,16 @@
+start_agent agent_router:
+  description: "Bienvenida al usuario y enrutamiento inteligente del Tribunal de Falsación"
+
+  reasoning:
+    instructions: ->
+      if @variables.confidence < 0.999:
+        run @actions.Escalate_To_Human
+        @utils.transition to @subagent.Escalation_Queue
+      else:
+        | Select the best tool to call based on conversation history and user's intent.
+
+  actions:
+    go_to_orders: @utils.transition to @subagent.Order_Management
+      description: "Handles order lookup and financial transactions."
+    go_to_escalation: @utils.transition to @subagent.Escalation_Queue
+      description: "Escalates immediately to a human agent."

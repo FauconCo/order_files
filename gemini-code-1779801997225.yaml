@@ -1,0 +1,16 @@
+Ontology_Type: "Sales_KPI_Definitions"
+System_Directive: "Utiliza EXCLUSIVAMENTE estas definiciones para explicar KPIs de ventas."
+Entities:
+  - KPI_Name: "Oportunidades Cerradas este Trimestre"
+    Salesforce_Object: "Opportunity"
+    Filter_Logic: 
+      StageName: "Closed Won"
+      CloseDate: "THIS_QUARTER"
+    Mathematical_Definition: "Sumatoria del campo 'Amount' de oportunidades ganadas en el periodo en curso."
+    Business_Value: "Refleja los ingresos reales y consolidados que afectan directamente el flujo de caja del trimestre."
+  
+  - KPI_Name: "Pipeline Activo"
+    Salesforce_Object: "Opportunity"
+    Filter_Logic:
+      StageName: "NOT IN ('Closed Won', 'Closed Lost')"
+    Mathematical_Definition: "Valor Esperado calculado como (Amount * Probability) para medir ingresos proyectados."

@@ -1,0 +1,33 @@
+openapi: 3.0.0
+info:
+  title: "Anclaje Epistemológico ALRO"
+  version: "4.0.0"
+paths:
+  /ingest/events:
+    post:
+      summary: "Ingesta de Vectores de Intención"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                eventId:
+                  type: string
+                  description: "Identificador único determinista"
+                timestamp:
+                  type: string
+                  format: date-time
+                  description: "ISO 8601 Estricto"
+                estado_cliente:
+                  type: object
+                  properties:
+                    riesgo_calculado:
+                      type: number
+                    fase_embudo:
+                      type: string
+              required:
+                - eventId
+                - timestamp
+                - estado_cliente

@@ -1,0 +1,11 @@
+inbound:
+  - name: "Validar Webhook de Salesforce"
+    expressions:
+      - "req.url.path == '/api/ejecutar-awu'"
+    actions:
+      - type: "verify-webhook"
+        config:
+          provider: "custom"
+          secret: "TU_SECRETO_HMAC_DE_SALESFORCE"
+          signature_header: "X-Salesforce-Signature"
+          algorithm: "sha256"

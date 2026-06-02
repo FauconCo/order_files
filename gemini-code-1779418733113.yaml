@@ -1,0 +1,33 @@
+Ontology: ALRO_Financial_Knowledge_Graph
+Namespaces:
+  core: "http://alro.supreme/core/v4#"
+  risk: "http://alro.supreme/risk#"
+  awu: "http://alro.supreme/awu#"
+
+Classes:
+  - core:FinancialEntity:
+      Subclasses: [core:RetailClient, core:CorporateClient]
+      Properties: [risk:hasRiskTier, core:hasCapitalAtRisk]
+  
+  - core:AgenticIntent:
+      Description: "Vector de intención inicializado por el usuario"
+      Properties: [core:originatesFrom, awu:requiresEquivalence]
+
+  - awu:AgenticWorkUnit:
+      Description: "Unidad atómica de trabajo ejecutada y verificada"
+      Properties: [awu:resolvesIntent, awu:hasROIMetric, awu:workslopPurged]
+
+Relationships:
+  - core:originatesFrom:
+      Domain: core:AgenticIntent
+      Range: core:FinancialEntity
+      Characteristics: [Functional, Immutable]
+      
+  - awu:resolvesIntent:
+      Domain: awu:AgenticWorkUnit
+      Range: core:AgenticIntent
+      Characteristics: [InverseFunctional]
+
+Rules_Engine (ToT Constraints):
+  - Rule_1: "Si (core:FinancialEntity risk:hasRiskTier 'HIGH') -> awu:AgenticWorkUnit DEBE tener awu:Functional_Eq_Score >= 0.98"
+  - Rule_2: "Si (awu:workslopPurged == TRUE) -> core:AgenticIntent Status = 'Unlearned'"

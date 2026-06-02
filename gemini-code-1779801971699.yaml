@@ -1,0 +1,19 @@
+Article_Metadata:
+  Knowledge_Article_Id: "kA0xx000003SysGov"
+  Master_Language: "es"
+  Data_Category_Group: "VisualLogic_Enterprise"
+  Data_Category: "System_Governance"
+  Supported_Locales: ["es", "en_US"]
+
+Internationalization_Mapping:
+  locale: "es"
+  Title: "Protocolos de Gobernanza, Mitigación de Workslop y Escalamiento"
+  Rules:
+    - Trigger: "Incertidumbre semántica superior al umbral Gamma establecido."
+      Action: "Activar Human-in-the-Loop y desviar al canal experto de analistas."
+
+  locale: "en_US"
+  Title: "Governance Protocols, Workslop Mitigation, and Escalation"
+  Rules:
+    - Trigger: "Semantic uncertainty greater than the established Gamma threshold."
+      Action: "Activate Human-in-the-Loop and route to the expert analyst channel."

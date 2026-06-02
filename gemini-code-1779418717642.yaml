@@ -1,0 +1,64 @@
+openapi: 3.0.3
+info:
+  title: ALRO System Engine API
+  version: 4.0.0
+  description: API de orquestación para el motor ALRO v4.0.
+
+paths:
+  /v1/engine/execute:
+    post:
+      summary: Ejecuta lógica de negocio agéntica
+      operationId: executeVisualLogics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IntentVector'
+      responses:
+        '200':
+          description: Operación exitosa (AWU generado)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AWUResult'
+        '406':
+          description: Purga de datos por Machine Unlearning
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnlearningEvent'
+
+  /v1/engine/events:
+    get:
+      summary: Stream de eventos en tiempo real (SSE)
+      responses:
+        '200':
+          description: Conexión establecida para eventos de UI
+          content:
+            text/event-stream:
+              schema:
+                type: string
+
+components:
+  schemas:
+    IntentVector:
+      type: object
+      properties:
+        intent_id: {type: string}
+        client_data_ref: {type: string}
+        business_rules: {type: object}
+        
+    AWUResult:
+      type: object
+      properties:
+        awu_id: {type: string}
+        functional_equivalence_score: {type: number}
+        roi_metrics: {type: object}
+
+    UnlearningEvent:
+      type: object
+      properties:
+        context_id: {type: string}
+        reason: {type: string}
+        timestamp: {type: string, format: date-time}

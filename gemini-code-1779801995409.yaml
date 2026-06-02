@@ -1,0 +1,17 @@
+Ontology_Type: "Support_SLA_Definitions"
+System_Directive: "Aplica estas reglas para clasificar la urgencia operativa de atención al cliente."
+Entities:
+  - KPI_Name: "Casos Críticos Abiertos"
+    Salesforce_Object: "Case"
+    Filter_Logic:
+      Status: "Open"
+      Priority: "High"
+    SLA_Threshold_Hours: 4
+    Business_Value: "Riesgo inminente de abandono del cliente (Churn). Requiere escalamiento inmediato a Nivel 2."
+
+  - KPI_Name: "Casos por Prioridad (Vista General)"
+    Salesforce_Object: "Case"
+    Filter_Logic:
+      Status: "Open"
+    Grouping_Key: "Priority"
+    Business_Value: "Distribución de carga de trabajo para balancear la capacidad del equipo de soporte."
