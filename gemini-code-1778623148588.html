@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALRO SUPREME | Cognición Financiera</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700;800&family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600&display=swap');
+
+        :root {
+            --emerald-primary: #10b981;
+            --glass-bg: rgba(255, 255, 255, 0.45);
+            --glass-border: rgba(255, 255, 255, 0.75);
+        }
+
+        body { font-family: 'Inter', sans-serif; background-color: #f0f4f8; color: #0f172a; overflow-x: hidden; }
+        .font-tech { font-family: 'Space Grotesk', sans-serif; }
+        .font-mono-code { font-family: 'JetBrains Mono', monospace; }
+
+        .neo-glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(28px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 12px 12px 24px #d1d9e6, -12px -12px 24px #ffffff;
+            border-radius: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .neo-glass:hover { transform: translateY(-3px); box-shadow: 15px 15px 30px #c5cddb, -15px -15px 30px #ffffff; }
+
+        .neo-inset {
+            background: #eef2f7;
+            box-shadow: inset 6px 6px 12px #d1d9e6, inset -6px -6px 12px #ffffff;
+            border-radius: 1rem;
+        }
+
+        .text-gradient { background: linear-gradient(135deg, #059669 0%, #14b8a6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .tab-content { display: none; opacity: 0; transform: translateY(15px); }
+        .tab-content.active { display: block; opacity: 1; transform: translateY(0); transition: all 0.5s ease; }
+
+        .orb { position: fixed; border-radius: 50%; z-index: -1; filter: blur(120px); opacity: 0.4; }
+        .orb-emerald { width: 500px; height: 500px; background: #10b981; top: -100px; right: -150px; }
+        .orb-teal { width: 400px; height: 400px; background: #0f766e; bottom: -100px; left: -100px; }
+
+        .badge-tech {
+            padding: 4px 12px; border-radius: 9999px; font-size: 0.65rem; font-weight: 800; text-transform: uppercase;
+            letter-spacing: 0.1em; background: rgba(16, 185, 129, 0.15); color: #047857; border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        .chart-container { position: relative; height: 250px; width: 100%; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="orb orb-emerald"></div>
+    <div class="orb orb-teal"></div>
+
+    <nav class="fixed top-0 w-full z-50 px-6 py-4">
+        <div class="max-w-7xl mx-auto neo-glass bg-white/60 px-8 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-700 rounded-lg shadow-lg flex items-center justify-center text-white font-tech font-bold text-xl">A</div>
+                <span class="font-tech font-extrabold text-2xl tracking-tight">ALRO <span class="text-emerald-600">v4.0</span></span>
+            </div>
+            <div class="hidden md:flex gap-6">
+                <button onclick="window.app.switchTab('vision')" class="nav-btn nav-vision font-tech font-bold text-xs uppercase tracking-widest text-emerald-700 border-b-2 border-emerald-500">Cognición Core</button>
+                <button onclick="window.app.switchTab('arquitectura')" class="nav-btn nav-arquitectura font-tech font-bold text-xs uppercase tracking-widest text-slate-500 border-b-2 border-transparent">Arquitectura Multi-Agent</button>
+                <button onclick="window.app.switchTab('math')" class="nav-btn nav-math font-tech font-bold text-xs uppercase tracking-widest text-slate-500 border-b-2 border-transparent">Física Teórica</button>
+                <button onclick="window.app.switchTab('banking')" class="nav-btn nav-banking font-tech font-bold text-xs uppercase tracking-widest text-slate-500 border-b-2 border-transparent">Banking E2E</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-32 pb-20 px-6 max-w-7xl mx-auto">
+
+        <section id="tab-vision" class="tab-content active">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+                <div>
+                    <div class="inline-block px-4 py-1 rounded-full bg-emerald-100 text-emerald-800 font-mono-code text-[10px] font-bold uppercase tracking-widest mb-4 border border-emerald-200 shadow-sm">
+                        Enterprise Deep Cognition
+                    </div>
+                    <h1 class="text-6xl md:text-7xl font-tech font-extrabold tracking-tighter leading-none mb-6">
+                        Incertidumbre <br><span class="text-gradient">Cuantificada</span>
+                    </h1>
+                    <p class="text-lg text-slate-600 mb-8 leading-relaxed">
+                        No solo predecimos el riesgo; <strong>medimos nuestra propia certeza</strong>. ALRO v4.0 integra el <em>Agentic Uncertainty Quantification (AUQ)</em> y la <em>Holistic Trajectory Calibration (HTC)</em> para auditar cada decisión de Agentforce, garantizando cero alucinaciones operativas.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 mb-8">
+                        <div class="neo-glass p-4 flex items-center gap-3">
+                            <i data-lucide="brain-circuit" class="text-emerald-600"></i>
+                            <div>
+                                <div class="text-xl font-tech font-bold">Dual-Process</div>
+                                <div class="text-[9px] font-bold text-slate-500 uppercase">Sistema Cognitivo 1 & 2</div>
+                            </div>
+                        </div>
+                        <div class="neo-glass p-4 flex items-center gap-3">
+                            <i data-lucide="database-zap" class="text-emerald-600"></i>
+                            <div>
+                                <div class="text-xl font-tech font-bold">Multimodal</div>
+                                <div class="text-[9px] font-bold text-slate-500 uppercase">UniDoc RAG Ingestion</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="neo-glass p-8 bg-white/30">
+                    <h3 class="font-tech font-bold text-lg mb-6 flex justify-between items-center">
+                        Calibración de Confianza Agéntica (HTC)
+                        <span class="badge-tech">Gráfica 1</span>
+                    </h3>
+                    <div class="chart-container">
+                        <canvas id="htcChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                <div class="neo-glass p-6 md:col-span-1">
+                    <h4 class="font-tech font-bold text-sm mb-4 flex items-center gap-2 uppercase text-emerald-800"><i data-lucide="layers" class="w-4 text-emerald-600"></i> Memoria LoCoBench</h4>
+                    <div class="chart-container" style="height: 180px;">
+                        <canvas id="memoryChart"></canvas>
+                    </div>
+                    <p class="text-[10px] text-slate-500 mt-4 text-center">Gestión jerárquica para historial vitalicio sin pérdida de contexto.</p>
+                </div>
+                <div class="neo-glass p-8 md:col-span-2">
+                    <h3 class="font-tech font-bold text-xl mb-6">El Salto Evolutivo (Research Integration)</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="neo-inset p-5">
+                            <h5 class="font-bold text-slate-800 text-xs mb-2 uppercase flex items-center gap-2"><i data-lucide="search" class="w-4"></i> Enterprise Deep Research</h5>
+                            <p class="text-[11px] text-slate-600 leading-relaxed">ALRO despliega sub-agentes especializados para buscar en la web, repositorios y PDFs financieros, construyendo un <em>Contextual Embedding</em> dinámico y profundo antes de ejecutar.</p>
+                        </div>
+                        <div class="neo-inset p-5 border-l-4 border-emerald-500 bg-emerald-50/40">
+                            <h5 class="font-bold text-emerald-800 text-xs mb-2 uppercase flex items-center gap-2"><i data-lucide="mouse-pointer-click" class="w-4"></i> Interfaz Legacy (GTA1)</h5>
+                            <p class="text-[11px] text-slate-600 leading-relaxed">Si el Core Bancario carece de APIs, ALRO utiliza agentes GUI entrenados con <em>Test-time Scaling</em> para operar directamente sobre la interfaz visual del banco.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tab-arquitectura" class="tab-content">
+            <div class="mb-12 text-center">
+                <h2 class="text-4xl font-tech font-extrabold text-slate-800">Orquestación Multi-Nivel</h2>
+                <p class="text-slate-500 max-w-2xl mx-auto">Pipeline End-to-End expandido con los 10 frameworks de Salesforce AI Research.</p>
+            </div>
+
+            <div class="space-y-6 relative max-w-5xl mx-auto">
+                <div class="absolute left-8 top-0 bottom-0 w-px bg-slate-300 -z-10 hidden md:block"></div>
+                
+                <div class="flex flex-col md:flex-row gap-8 items-center group">
+                    <div class="w-16 h-16 rounded-full neo-glass flex items-center justify-center font-tech font-bold text-emerald-700 shrink-0 shadow-md">01</div>
+                    <div class="neo-glass p-6 w-full border-l-4 border-slate-400 group-hover:border-emerald-500 transition-all">
+                        <h4 class="font-tech font-bold text-emerald-800 text-sm uppercase flex items-center gap-2"><i data-lucide="file-image" class="w-4"></i> Ingesta: UniDoc RAG & EDR</h4>
+                        <p class="text-xs mt-2 text-slate-600">Procesamiento multimodal de textos, tablas y gráficos financieros. Master Planning Agent (EDR) descompone el perfil de riesgo del cliente mediante búsquedas exhaustivas.</p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-8 items-center group">
+                    <div class="w-16 h-16 rounded-full neo-glass flex items-center justify-center font-tech font-bold text-emerald-700 shrink-0 shadow-md">02</div>
+                    <div class="neo-glass p-6 w-full border-l-4 border-slate-400 group-hover:border-emerald-500 transition-all">
+                        <h4 class="font-tech font-bold text-emerald-800 text-sm uppercase flex items-center gap-2"><i data-lucide="database" class="w-4"></i> Memoria: LoCoBench Hierarchical</h4>
+                        <p class="text-xs mt-2 text-slate-600">Uso de memoria jerárquica (Trabajo, Comprimida, Arquitectónica) para integrar perfiles de crédito vitalicios sin saturar la ventana de contexto del LLM (FINDAP adaptado).</p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-8 items-center group">
+                    <div class="w-16 h-16 rounded-full neo-glass flex items-center justify-center font-tech font-bold text-emerald-700 shrink-0 shadow-md">03</div>
+                    <div class="neo-glass p-6 w-full border-l-4 border-slate-400 group-hover:border-emerald-500 transition-all">
+                        <h4 class="font-tech font-bold text-emerald-800 text-sm uppercase flex items-center gap-2"><i data-lucide="scale" class="w-4"></i> Cognición: Moirai + AUQ + Tanh</h4>
+                        <p class="text-xs mt-2 text-slate-600">Predicción de mora en cuantil p90. El <em>Dual-Process Agentic UQ</em> verifica la confianza empírica (HTC) antes de que la función Tangente Hiperbólica acote la magnitud de la acción a [-1, 1].</p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-8 items-center group">
+                    <div class="w-16 h-16 rounded-full bg-emerald-600 text-white flex items-center justify-center font-tech font-bold shrink-0 shadow-lg shadow-emerald-200">04</div>
+                    <div class="neo-glass p-6 w-full bg-emerald-50/50 border-l-4 border-emerald-600">
+                        <h4 class="font-tech font-bold text-emerald-900 text-sm uppercase flex items-center gap-2"><i data-lucide="shield-check" class="w-4"></i> Ejecución: FARE + Agentforce / GTA1</h4>
+                        <p class="text-xs mt-2 text-slate-600">Auditoría final vía evaluador FARE. Si es aprobado, se aplica Privacidad Diferencial (Machine Unlearning) y Agentforce orquesta la tarea. Si no hay API, GTA1 ejecuta vía GUI.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tab-math" class="tab-content">
+            <div class="mb-10">
+                <h2 class="text-4xl font-tech font-extrabold text-slate-800 mb-2">Fundamentos Matemáticos V4.0</h2>
+                <p class="text-slate-600 text-sm">Física teórica y calibración algorítmica asegurando operaciones deterministas.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="neo-glass p-6">
+                    <h3 class="font-tech font-bold text-sm uppercase text-emerald-800 mb-2">1. Calibración Agéntica (HTC / AUQ)</h3>
+                    <div class="neo-inset p-4 mb-2 overflow-x-auto text-sm text-center">
+                        $$ECE = \sum_{m=1}^M \frac{|B_m|}{N} |acc(B_m) - conf(B_m)|$$
+                    </div>
+                    <p class="text-[10px] text-slate-600">Expected Calibration Error (ECE). Mide la diferencia entre la precisión real del agente y su confianza predicha, activando el Sistema 2 de reflexión (UAR) si detecta sobrerreacción.</p>
+                </div>
+                
+                <div class="neo-glass p-6">
+                    <h3 class="font-tech font-bold text-sm uppercase text-emerald-800 mb-2">2. Riesgo Asimétrico (Pérdida Cuantílica)</h3>
+                    <div class="neo-inset p-4 mb-2 overflow-x-auto text-sm text-center">
+                        $$L = \max(q(y-\hat{y}), (q-1)(y-\hat{y}))$$
+                    </div>
+                    <p class="text-[10px] text-slate-600">Proyección de volatilidad extrema en el cuantil p90. Fundamento base de Moirai 2.0 para aislar el peor 10% de los escenarios macroeconómicos.</p>
+                </div>
+
+                <div class="neo-glass p-6">
+                    <h3 class="font-tech font-bold text-sm uppercase text-emerald-800 mb-2">3. Freno de Magnitud (Tanh)</h3>
+                    <div class="neo-inset p-4 mb-2 overflow-x-auto text-sm text-center">
+                        $$\hat{y}_t = \tanh(w_{lin}^\top h_t + b_{lin})$$
+                    </div>
+                    <p class="text-[10px] text-slate-600">Normalizador no lineal. Si el pánico del mercado tiende a infinito, la respuesta algorítmica de Agentforce queda anclada físicamente en el límite absoluto de [-1, 1].</p>
+                </div>
+
+                <div class="neo-glass p-6">
+                    <h3 class="font-tech font-bold text-sm uppercase text-emerald-800 mb-2">4. Desaprendizaje Seguro (DP)</h3>
+                    <div class="neo-inset p-4 mb-2 overflow-x-auto text-sm text-center">
+                        $$\sigma \ge c_2 \frac{q\sqrt{T\log(1/\delta)}}{\epsilon}$$
+                    </div>
+                    <p class="text-[10px] text-slate-600">Inyección de ruido Laplaciano para obliterar la identidad de un usuario del modelo sin destruir el peso sináptico general, garantizando GDPR compliance en milisegundos.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="tab-banking" class="tab-content">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+                <div class="neo-glass p-8 col-span-1 lg:col-span-2">
+                    <h3 class="font-tech font-bold text-2xl mb-2 text-slate-800">Orquestación Web App para Santander</h3>
+                    <p class="text-xs text-slate-500 mb-8 uppercase tracking-widest font-bold">Costo Operativo Agentforce: $0.12 USD/Ejecución</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="neo-inset p-5 border-l-4 border-emerald-500">
+                            <h4 class="font-bold text-xs mb-1 text-emerald-800 uppercase">Prevención Mora (EDR + Moirai)</h4>
+                            <p class="text-[11px] text-slate-600">El agente analiza el perfil multimodal del cliente y el mercado, sugiriendo refinanciamiento antes del *default*.</p>
+                        </div>
+                        <div class="neo-inset p-5 border-l-4 border-teal-500">
+                            <h4 class="font-bold text-xs mb-1 text-teal-800 uppercase">Protección VIP (AUQ)</h4>
+                            <p class="text-[11px] text-slate-600">Genera tareas de contingencia en Salesforce solo si la calibración de certeza (HTC) aprueba la maniobra.</p>
+                        </div>
+                        <div class="neo-inset p-5 border-l-4 border-blue-500">
+                            <h4 class="font-bold text-xs mb-1 text-blue-800 uppercase">Resiliencia (Tanh + GTA1)</h4>
+                            <p class="text-[11px] text-slate-600">Modifica límites de crédito. Si el banco usa *legacy software*, el agente GUI simula clicks para actualizar la cuenta.</p>
+                        </div>
+                        <div class="neo-inset p-5 border-l-4 border-indigo-500">
+                            <h4 class="font-bold text-xs mb-1 text-indigo-800 uppercase">Scoring (LoCoBench Memory)</h4>
+                            <p class="text-[11px] text-slate-600">Evalúa años de historial de *Open Banking* mediante memoria jerárquica para habilitar microcréditos seguros.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="neo-glass p-6 col-span-1 flex flex-col justify-center bg-white/40">
+                    <h3 class="font-tech font-bold text-sm uppercase text-slate-500 mb-4 text-center">Viabilidad de Despliegue</h3>
+                    <div class="chart-container" style="height: 220px;">
+                        <canvas id="sfDeploymentChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="mt-8 border-t border-slate-300/50 bg-white/30 backdrop-blur-md py-6">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-[10px] font-mono-code text-slate-500 gap-2">
+            <div>ALRO SUPREME V4.0 | NAILEA (CEO MÄKELA)</div>
+            <div class="text-emerald-700 font-bold bg-emerald-100/50 px-3 py-1 rounded-full border border-emerald-200">SANTANDER HACKATHON 2026</div>
+        </div>
+    </footer>
+
+    <script>
+        const app = {
+            charts: {},
+            init() {
+                lucide.createIcons();
+                this.initAllCharts();
+            },
+            switchTab(tabId) {
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                document.getElementById(`tab-${tabId}`).classList.add('active');
+                
+                document.querySelectorAll('.nav-btn').forEach(btn => {
+                    btn.classList.remove('text-emerald-700', 'border-emerald-500');
+                    btn.classList.add('text-slate-500', 'border-transparent');
+                    if(btn.classList.contains('nav-' + tabId)) {
+                        btn.classList.add('text-emerald-700', 'border-emerald-500');
+                    }
+                });
+                
+                if (window.MathJax) MathJax.typesetPromise();
+                setTimeout(() => window.dispatchEvent(new Event('resize')), 100);
+            },
+            initAllCharts() {
+                // Chart 1: HTC Calibration (ECE)
+                const ctxHtc = document.getElementById('htcChart').getContext('2d');
+                this.charts.htc = new Chart(ctxHtc, {
+                    type: 'line',
+                    data: {
+                        labels: ['0.2', '0.4', '0.6', '0.8', '1.0'],
+                        datasets: [
+                            { label: 'Confianza Perfecta', data: [0.2, 0.4, 0.6, 0.8, 1.0], borderColor: '#cbd5e1', borderDash: [5,5], fill: false },
+                            { label: 'ALRO v4 (Calibrado HTC)', data: [0.22, 0.38, 0.59, 0.78, 0.98], borderColor: '#10b981', fill: true, backgroundColor: 'rgba(16, 185, 129, 0.1)', tension: 0.3 },
+                            { label: 'Agente Estándar (Sobreconfianza)', data: [0.4, 0.65, 0.85, 0.95, 0.99], borderColor: '#ef4444', tension: 0.3 }
+                        ]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, scales: { x: { title: { display: true, text: 'Confianza Predicha' } }, y: { title: { display: true, text: 'Precisión Real' } } } }
+                });
+
+                // Chart 2: LoCoBench Memory
+                const ctxMem = document.getElementById('memoryChart').getContext('2d');
+                this.charts.mem = new Chart(ctxMem, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Trabajo (Corto)', 'Comprimida', 'Arquitectónica (KYC)'],
+                        datasets: [{ label: 'Retención de Contexto (%)', data: [100, 85, 95], backgroundColor: ['#10b981', '#14b8a6', '#0f766e'] }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { min: 0, max: 100 } } }
+                });
+
+                // Chart 3: Deployment
+                const ctxSF = document.getElementById('sfDeploymentChart').getContext('2d');
+                this.charts.sf = new Chart(ctxSF, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Agentforce (AUQ/HTC)', 'Data Cloud (RAG Multimodal)', 'Web App (Zero-Install)'],
+                        datasets: [{ data: [50, 35, 15], backgroundColor: ['#10b981', '#059669', '#34d399'], borderWidth: 0 }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: {size: 10} } } } }
+                });
+            }
+        };
+        window.app = app;
+        window.onload = () => app.init();
+    </script>
+</body>
+</html>

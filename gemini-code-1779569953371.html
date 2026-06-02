@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arlo Advanced Financial Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* CONFIGURACIÓN ESTRUCTURAL Y PARAMÉTRICA */
+        :root {
+            --bg-main: #06090e;
+            --bg-card: rgba(13, 18, 27, 0.7);
+            --border-glass: rgba(255, 255, 255, 0.05);
+            --border-glow: rgba(0, 255, 127, 0.2);
+            
+            /* Paleta de Emisión de Luz (High Contrast) */
+            --emerald: #00FF7F;
+            --cyan: #00F0FF;
+            --text-pure: #ffffff;
+            --text-muted: #64748b;
+            --text-dark: #1e293b;
+            
+            /* Efectos Volumétricos Dark Mode */
+            --glass-shadow: 0 16px 40px 0 rgba(0, 0, 0, 0.6);
+            --neon-glow-cyan: 0 0 20px rgba(0, 240, 255, 0.2);
+            --neon-glow-emerald: 0 0 20px rgba(0, 255, 127, 0.2);
+        }
+
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+        }
+
+        body { 
+            background-color: #020406; 
+            color: var(--text-pure); 
+            font-family: 'Inter', sans-serif; 
+            padding: 40px 0;
+            display: grid;
+            gap: 50px;
+            place-items: center;
+        }
+
+        /* CONTENEDOR DE DIAPOSITIVA (1280x720 Fijo para Presentación) */
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: var(--bg-main);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            padding: 50px 60px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            box-shadow: 0 30px 70px rgba(0,0,0,0.8);
+        }
+
+        /* CAMPOS DE FUERZA VECTORIALES (Blobs de Fondo) */
+        .bg-topology {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0; overflow: hidden;
+            pointer-events: none;
+        }
+        .matrix-blob {
+            position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.08;
+        }
+        .blob-cyan { width: 500px; height: 500px; background: var(--cyan); top: -150px; right: -50px; }
+        .blob-emerald { width: 600px; height: 600px; background: var(--emerald); bottom: -200px; left: -100px; }
+
+        .slide-container > * { position: relative; z-index: 1; }
+
+        /* ARQUITECTURA TIPOGRÁFICA (Space Grotesk para Datos/Títulos) */
+        h1, h2, h3, .data-font { 
+            font-family: 'Space Grotesk', sans-serif; 
+            font-weight: 700;
+            letter-spacing: -0.03em;
+        }
+        
+        h1 { font-size: 76px; line-height: 0.9; }
+        .slide-title { font-size: 38px; margin-bottom: 35px; color: var(--text-pure); display: flex; align-items: center; gap: 15px; }
+        .slide-title::before { content: ''; width: 6px; height: 30px; background: var(--cyan); display: inline-block; border-radius: 3px; box-shadow: var(--neon-glow-cyan); }
+        p { font-size: 18px; line-height: 1.6; color: var(--text-muted); }
+
+        /* COMPONENTES DARK GLASSMORPHISM / NEUMORPHISM */
+        .dark-glass-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: var(--glass-shadow);
+            transition: border 0.3s ease;
+        }
+        .dark-glass-card:hover {
+            border-color: rgba(0, 240, 255, 0.2);
+        }
+
+        .content-area { flex-grow: 1; display: flex; align-items: center; justify-content: center; width: 100%; }
+
+        /* DIAPOSITIVA 1: PORTADA MAESTRA */
+        .brand-container { text-align: center; }
+        .brand-logo-panel {
+            display: inline-flex; align-items: center; gap: 15px;
+            background: rgba(255,255,255,0.02); padding: 15px 35px; border-radius: 50px;
+            border: 1px solid var(--border-glass); margin-bottom: 30px;
+        }
+        .logo-vector { font-size: 36px; color: var(--cyan); text-shadow: var(--neon-glow-cyan); }
+        .brand-title { font-size: 88px; background: linear-gradient(135deg, #fff 40%, var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        /* DIAPOSITIVA 2: GRID DE MÓDULOS FUTURISTAS */
+        .dashboard-mock-grid {
+            display: grid; grid-template-columns: 280px 1fr 340px; gap: 25px; width: 100%; height: 100%;
+        }
+        
+        /* Barra Lateral */
+        .sidebar-mock { display: flex; flex-direction: column; gap: 15px; }
+        .nav-item-mock {
+            padding: 16px 20px; border-radius: 12px; background: rgba(255,255,255,0.01);
+            border: 1px solid transparent; display: flex; align-items: center; gap: 15px; font-size: 15px; color: var(--text-muted);
+        }
+        .nav-item-mock.active {
+            background: rgba(0, 240, 255, 0.05); border-color: rgba(0, 240, 255, 0.2); color: var(--cyan); text-shadow: var(--neon-glow-cyan);
+        }
+
+        /* Panel Central de Transacciones */
+        .main-panel-mock { display: flex; flex-direction: column; gap: 20px; }
+        .crypto-row {
+            display: flex; align-items: center; justify-content: space-between; padding: 16px 20px;
+            background: rgba(255,255,255,0.02); border-radius: 14px; border-left: 4px solid var(--cyan);
+        }
+        .crypto-row.alt { border-left-color: var(--emerald); }
+
+        /* DIAPOSITIVA 3: ANÁLISIS DE FLUJO (SVG DINÁMICO) */
+        .chart-container-full { width: 100%; height: 420px; position: relative; }
+        .svg-chart-glow { width: 100%; height: 100%; overflow: visible; }
+        .path-line-cyan { fill: none; stroke: var(--cyan); stroke-width: 4; stroke-linecap: round; filter: drop-shadow(0px 0px 8px var(--cyan)); }
+        .path-line-emerald { fill: none; stroke: var(--emerald); stroke-width: 4; stroke-linecap: round; filter: drop-shadow(0px 0px 8px var(--emerald)); }
+        .area-cyan { fill: url(#glow-grad-cyan); opacity: 0.05; }
+
+        /* DIAPOSITIVA 4: MÉTRICAS DISTRIBUIDAS (DOUGHNUT + DATOS) */
+        .split-layout { display: grid; grid-template-columns: 450px 1fr; gap: 50px; width: 100%; align-items: center; }
+        .radial-mesh {
+            width: 340px; height: 340px; border-radius: 50%;
+            background: conic-gradient(var(--cyan) 0% 55%, var(--emerald) 55% 85%, rgba(255,255,255,0.05) 85% 100%);
+            display: flex; align-items: center; justify-content: center; box-shadow: inset 0 0 30px rgba(0,0,0,0.6);
+            position: relative;
+        }
+        .radial-mesh::before {
+            content: ''; position: absolute; inset: -10px; border: 1px dashed rgba(0, 240, 255, 0.2); border-radius: 50%; animation: spin 40s linear infinite;
+        }
+        .radial-core { width: 260px; height: 260px; background: #080c14; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid var(--border-glass); }
+
+        /* DIAPOSITIVA 5: TABLA DE OPERACIONES MULTI-AGENTE */
+        .tech-table { width: 100%; border-collapse: collapse; text-align: left; }
+        .tech-table th { padding: 18px 24px; color: var(--text-muted); font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid var(--border-glass); }
+        .tech-table td { padding: 22px 24px; border-bottom: 1px solid rgba(255,255,255,0.02); font-size: 15px; }
+        .tech-table tr:hover td { background: rgba(255,255,255,0.01); }
+        
+        /* Componentes de Estado */
+        .status-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 30px; font-size: 12px; font-weight: 600; }
+        .badge-cyan { background: rgba(0, 240, 255, 0.05); color: var(--cyan); border: 1px solid rgba(0, 240, 255, 0.2); box-shadow: var(--neon-glow-cyan); }
+        .badge-emerald { background: rgba(0, 255, 127, 0.05); color: var(--emerald); border: 1px solid rgba(0, 255, 127, 0.2); box-shadow: var(--neon-glow-emerald); }
+
+        /* ANIMACIONES DE COPILACIÓN */
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* ELEMENTOS MENORES */
+        .glow-bullet { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+        .bullet-cyan { background: var(--cyan); box-shadow: var(--neon-glow-cyan); }
+        .bullet-emerald { background: var(--emerald); box-shadow: var(--neon-glow-emerald); }
+
+    </style>
+</head>
+<body>
+
+<div class="slide-container" id="slide-root">
+    <div class="bg-topology">
+        <div class="matrix-blob blob-cyan"></div>
+        <div class="matrix-blob blob-emerald"></div>
+    </div>
+    <div class="content-area">
+        <div class="brand-container">
+            <div class="brand-logo-panel">
+                <i class="fa-solid fa-chart-network logo-vector"></i>
+                <span style="font-family: 'Space Grotesk'; font-size: 24px; color: #fff; letter-spacing: 2px;">ALRO SYSTEM</span>
+            </div>
+            <h1 class="brand-title">arlo</h1>
+            <p style="max-width: 650px; margin: 25px auto 0; font-size: 20px; font-weight: 300;">
+                Plataforma de visualización financiera cuantitativa en alta fidelidad. Interfaz optimizada para el procesamiento distribuido de activos de datos.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container">
+    <h2 class="slide-title">Consola de Control Cuantitativo</h2>
+    <div class="content-area">
+        <div class="dashboard-mock-grid">
+            
+            <div class="sidebar-mock">
+                <div class="nav-item-mock active"><i class="fa-solid fa-grid-2"></i> Dashboard</div>
+                <div class="nav-item-mock"><i class="fa-solid fa-analytics"></i> Transactions</div>
+                <div class="nav-item-mock"><i class="fa-solid fa-money-bill-transfer"></i> Remittances</div>
+                <div class="nav-item-mock"><i class="fa-solid fa-sliders"></i> Settings</div>
+                <div class="dark-glass-card" style="margin-top: auto; padding: 20px; text-align: center;">
+                    <span style="font-size: 12px; color: var(--text-muted); display: block; margin-bottom: 5px;">TIER NIVEL</span>
+                    <span class="data-font" style="color: var(--emerald); font-size: 14px;">Advanced User</span>
+                </div>
+            </div>
+
+            <div class="main-panel-mock">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div class="dark-glass-card">
+                        <span style="color: var(--text-muted); font-size: 14px;">January Income</span>
+                        <h3 class="data-font" style="font-size: 32px; margin-top: 10px;">$125,500.00</h3>
+                    </div>
+                    <div class="dark-glass-card">
+                        <span style="color: var(--text-muted); font-size: 14px;">Total Balance</span>
+                        <h3 class="data-font" style="font-size: 32px; color: var(--cyan); margin-top: 10px; text-shadow: var(--neon-glow-cyan);">$125,500.00</h3>
+                    </div>
+                </div>
+                
+                <div class="dark-glass-card" style="flex-grow: 1; display: flex; flex-direction: column; gap: 12px;">
+                    <span style="color: var(--text-muted); font-size: 14px; margin-bottom: 5px;">Historial de Transacciones Recientes</span>
+                    <div class="crypto-row">
+                        <span class="data-font"><i class="fa-brands fa-apple"></i> Apple Store - Tech</span>
+                        <span class="data-font" style="color: var(--cyan);">-$45.00</span>
+                    </div>
+                    <div class="crypto-row alt">
+                        <span class="data-font"><i class="fa-brands fa-apple"></i> Apple Store - Cloud</span>
+                        <span class="data-font" style="color: var(--emerald);">-$45.00</span>
+                    </div>
+                    <div class="crypto-row">
+                        <span class="data-font"><i class="fa-solid fa-bag-shopping"></i> Nike - Apparel</span>
+                        <span class="data-font" style="color: var(--cyan);">-$45.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-mock">
+                <div class="dark-glass-card" style="flex-grow: 1;">
+                    <span style="color: var(--text-muted); font-size: 14px; display: block; margin-bottom: 15px;">Spending Trend</span>
+                    <div style="height: 140px; margin-bottom: 20px;">
+                        <svg viewBox="0 0 200 100" style="width:100%; height:100%; overflow:visible;">
+                            <path d="M0,80 Q30,20 60,60 T120,40 T180,20" fill="none" stroke="var(--cyan)" stroke-width="3" filter="drop-shadow(0 0 4px var(--cyan))"/>
+                            <path d="M0,80 Q30,20 60,60 T120,40 T180,20 L180,100 L0,100 Z" fill="url(#glow-grad-cyan)" opacity="0.05"/>
+                        </svg>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-glass); padding-top: 15px;">
+                        <div>
+                            <span style="font-size: 12px; color: var(--text-muted);">Eficiencia Operativa</span>
+                            <span class="data-font" style="display:block; font-size: 20px; color: #fff; margin-top: 2px;">94.2%</span>
+                        </div>
+                        <i class="fa-solid fa-chart-line-up" style="color: var(--emerald); font-size: 24px;"></i>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="slide-container">
+    <h2 class="slide-title">Análisis de Flujos y Frecuencias</h2>
+    <div class="content-area">
+        <div class="chart-container-full dark-glass-card">
+            <svg class="svg-chart-glow" viewBox="0 0 1000 300">
+                <defs>
+                    <linearGradient id="glow-grad-cyan" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:var(--cyan); stop-opacity:0.2" />
+                        <stop offset="100%" style="stop-color:var(--cyan); stop-opacity:0" />
+                    </linearGradient>
+                </defs>
+                <line x1="0" y1="50" x2="1000" y2="50" stroke="rgba(255,255,255,0.02)" stroke-dasharray="5,5" />
+                <line x1="0" y1="150" x2="1000" y2="150" stroke="rgba(255,255,255,0.02)" stroke-dasharray="5,5" />
+                <line x1="0" y1="250" x2="1000" y2="250" stroke="rgba(255,255,255,0.02)" stroke-dasharray="5,5" />
+                
+                <path class="area-cyan" d="M0,220 L150,180 L300,240 L450,120 L600,140 L750,60 L900,90 L1000,40 L1000,300 L0,300 Z" />
+                <polyline class="path-line-cyan" points="0,220 150,180 300,240 450,120 600,140 750,60 900,90 1000,40" />
+                <polyline class="path-line-emerald" points="0,260 150,230 300,190 450,210 600,90 750,130 900,40 1000,10" stroke-dasharray="2,2" opacity="0.6" />
+                
+                <circle cx="750" cy="60" r="6" fill="#fff" filter="drop-shadow(0 0 8px var(--cyan))" />
+                <text x="750" y="30" class="data-font" fill="var(--cyan)" font-size="14" text-anchor="middle">SISTEMA COMPILADO Q4</text>
+            </svg>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container">
+    <h2 class="slide-title">Métricas de Control de Activos</h2>
+    <div class="content-area">
+        <div class="split-layout">
+            <div style="display: flex; justify-content: center;">
+                <div class="radial-mesh">
+                    <div class="radial-core">
+                        <span style="font-size: 14px; color: var(--text-muted); letter-spacing: 1px;">TOTAL DISPONIBLE</span>
+                        <span class="data-font" style="font-size: 42px; color: #fff; margin-top: 5px;">82.4%</span>
+                    </div>
+                </div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 20px;">
+                <div class="dark-glass-card" style="display: flex; align-items: center; justify-content: space-between;">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <span class="glow-bullet bullet-cyan"></span>
+                        <div>
+                            <h3 style="font-size: 18px; font-weight: 500;">Faucon Liquidity Index</h3>
+                            <p style="font-size: 14px;">Asignación de capital automatizado</p>
+                        </div>
+                    </div>
+                    <span class="data-font" style="font-size: 24px; color: var(--cyan);">55%</span>
+                </div>
+                <div class="dark-glass-card" style="display: flex; align-items: center; justify-content: space-between;">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <span class="glow-bullet bullet-emerald"></span>
+                        <div>
+                            <h3 style="font-size: 18px; font-weight: 500;">Mäkela Operational Capital</h3>
+                            <p style="font-size: 14px;">Recursos en procesamiento de nodos</p>
+                        </div>
+                    </div>
+                    <span class="data-font" style="font-size: 24px; color: var(--emerald);">30%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container">
+    <h2 class="slide-title">Monitoreo Distribución de Transacciones</h2>
+    <div class="content-area">
+        <div class="dark-glass-card" style="width: 100%; padding: 10px 0;">
+            <table class="tech-table">
+                <thead>
+                    <tr>
+                        <th>Identificador de Origen</th>
+                        <th>Tipo de Operación</th>
+                        <th>Métrica de Validación</th>
+                        <th>Estado de Red</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="data-font" style="color: #fff;">Inversiones ALRO S.A.</td>
+                        <td>Inferencia Probabilística</td>
+                        <td class="data-font" style="color: var(--cyan);">99.8% Confianza</td>
+                        <td><span class="status-badge badge-cyan"><i class="fa-solid fa-shield-check"></i> Verificado</span></td>
+                    </tr>
+                    <tr>
+                        <td class="data-font" style="color: #fff;">Faucon Tech Ecosystem</td>
+                        <td>Remesa Transfronteriza</td>
+                        <td class="data-font" style="color: var(--emerald);">98.5% Estabilidad</td>
+                        <td><span class="status-badge badge-emerald"><i class="fa-solid fa-circle-check"></i> Activo</span></td>
+                    </tr>
+                    <tr>
+                        <td class="data-font" style="color: #fff;">Mäkela Node Systems</td>
+                        <td>Liquidación de Margen</td>
+                        <td class="data-font" style="color: var(--text-muted);">En análisis...</td>
+                        <td><span class="status-badge" style="background: rgba(255,255,255,0.02); color: var(--text-muted); border: 1px solid rgba(255,255,255,0.05);">Pendiente</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

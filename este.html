@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALRO | Emerald Neoglassmorphism Executive</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700;800&family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600&display=swap');
+
+        :root {
+            --emerald-primary: #10b981;
+            --glass-bg: rgba(255, 255, 255, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.7);
+        }
+
+        body { font-family: 'Inter', sans-serif; background-color: #f0f4f8; color: #1e293b; overflow-x: hidden; }
+        .font-tech { font-family: 'Space Grotesk', sans-serif; }
+        .font-mono-code { font-family: 'JetBrains Mono', monospace; }
+
+        .neo-glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 10px 10px 20px #d1d9e6, -10px -10px 20px #ffffff;
+            border-radius: 1.5rem;
+            transition: all 0.4s ease;
+        }
+
+        .neo-inset {
+            background: #eef2f7;
+            box-shadow: inset 6px 6px 12px #d1d9e6, inset -6px -6px 12px #ffffff;
+            border-radius: 1rem;
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #10b981 0%, #0d9488 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tab-content { display: none; opacity: 0; transform: translateY(10px); }
+        .tab-content.active { display: block; opacity: 1; transform: translateY(0); transition: all 0.5s ease; }
+
+        .badge-tech {
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.65rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            background: rgba(16, 185, 129, 0.1);
+            color: #047857;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .orb { position: fixed; border-radius: 50%; z-index: -1; filter: blur(100px); opacity: 0.4; }
+        .orb-emerald { width: 400px; height: 400px; background: #10b981; top: -100px; right: -100px; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="orb orb-emerald"></div>
+
+    <nav class="fixed top-0 w-full z-50 px-6 py-4">
+        <div class="max-w-7xl mx-auto neo-glass bg-white/60 px-8 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-gradient-to-br from-emerald-400 to-teal-600 rounded-lg flex items-center justify-center text-white font-tech font-bold">A</div>
+                <span class="font-tech font-extrabold text-2xl">ALRO <span class="text-emerald-500">CORE</span></span>
+            </div>
+            <div class="hidden md:flex gap-4">
+                <button onclick="window.app.switchTab('pipeline')" class="nav-btn nav-pipeline font-tech font-bold text-xs uppercase tracking-widest text-emerald-600 border-b-2 border-emerald-500">Pipeline E2E</button>
+                <button onclick="window.app.switchTab('industrias')" class="nav-btn nav-industrias font-tech font-bold text-xs uppercase tracking-widest text-slate-500">Industrias</button>
+                <button onclick="window.app.switchTab('math')" class="nav-btn nav-math font-tech font-bold text-xs uppercase tracking-widest text-slate-500">Matemáticas</button>
+                <button onclick="window.app.switchTab('economics')" class="nav-btn nav-economics font-tech font-bold text-xs uppercase tracking-widest text-slate-500">Economics</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-32 pb-20 px-6 max-w-7xl mx-auto">
+
+        <!-- SECCIÓN 1: PIPELINE END-TO-END -->
+        <section id="tab-pipeline" class="tab-content active">
+            <div class="mb-10">
+                <h2 class="text-5xl font-tech font-extrabold mb-2">Pipeline <span class="text-gradient">End-to-End</span></h2>
+                <p class="text-slate-500">Arquitectura Agentiva: De datos brutos a ejecución comercial tangible.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-12">
+                <!-- Fase 1 -->
+                <div class="neo-glass p-5 relative overflow-hidden">
+                    <span class="absolute top-2 right-2 text-[10px] font-black text-slate-300">01</span>
+                    <i data-lucide="database" class="w-6 h-6 text-emerald-500 mb-3"></i>
+                    <h3 class="font-bold text-sm mb-2">Ingesta Semántica</h3>
+                    <p class="text-[10px] text-slate-500 leading-tight">Salesforce Data Cloud + Vector DB. Output: Contextual Embedding Vector.</p>
+                </div>
+                <!-- Fase 2 -->
+                <div class="neo-glass p-5 relative border-emerald-200 border">
+                    <span class="absolute top-2 right-2 text-[10px] font-black text-slate-300">02</span>
+                    <i data-lucide="trending-up" class="w-6 h-6 text-emerald-500 mb-3"></i>
+                    <h3 class="font-bold text-sm mb-2">Pronóstico Moirai</h3>
+                    <p class="text-[10px] text-slate-500 leading-tight">Inferencia de series temporales (p10, p50, p90). GPU Tesla T4 Ingress.</p>
+                </div>
+                <!-- Fase 3 -->
+                <div class="neo-glass p-5 relative">
+                    <span class="absolute top-2 right-2 text-[10px] font-black text-slate-300">03</span>
+                    <i data-lucide="shield-alert" class="w-6 h-6 text-emerald-500 mb-3"></i>
+                    <h3 class="font-bold text-sm mb-2">Decisión Tanh</h3>
+                    <p class="text-[10px] text-slate-500 leading-tight">Evaluación de Riesgo Asimétrico. Action Signal Normalizada [-1, 1].</p>
+                </div>
+                <!-- Fase 4 -->
+                <div class="neo-glass p-5 relative">
+                    <span class="absolute top-2 right-2 text-[10px] font-black text-slate-300">04</span>
+                    <i data-lucide="fingerprint" class="w-6 h-6 text-emerald-500 mb-3"></i>
+                    <h3 class="font-bold text-sm mb-2">Privacidad DP</h3>
+                    <p class="text-[10px] text-slate-500 leading-tight">Inyección de ruido (ε, δ). Machine Unlearning para GDPR/Compliance.</p>
+                </div>
+                <!-- Fase 5 -->
+                <div class="neo-glass p-5 relative bg-emerald-50/30">
+                    <span class="absolute top-2 right-2 text-[10px] font-black text-emerald-200">05</span>
+                    <i data-lucide="zap" class="w-6 h-6 text-emerald-600 mb-3"></i>
+                    <h3 class="font-bold text-sm mb-2">Agentforce Exec</h3>
+                    <h4 class="text-[10px] font-black text-emerald-700 uppercase">Output Final</h4>
+                    <p class="text-[10px] text-slate-500 leading-tight">Executed Business Action + Informe de Rentabilidad Neta.</p>
+                </div>
+            </div>
+
+            <div class="neo-glass p-8">
+                <h3 class="font-tech font-bold text-xl mb-6 flex items-center gap-2"><i data-lucide="layers" class="w-5"></i> Resumen de Validación (Heurística 2.2)</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead class="border-b border-slate-200">
+                            <tr>
+                                <th class="py-3 font-tech text-[10px] text-slate-400 uppercase">Fase</th>
+                                <th class="py-3 font-tech text-[10px] text-slate-400 uppercase">Acción Central</th>
+                                <th class="py-3 font-tech text-[10px] text-slate-400 uppercase">Mitigación de Error</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-slate-600 font-medium">
+                            <tr class="border-b border-slate-50">
+                                <td class="py-4 text-emerald-600">Ingesta</td>
+                                <td class="py-4">Normalización de datos</td>
+                                <td class="py-4 text-xs italic text-slate-400">Evita el sesgo de información fragmentada.</td>
+                            </tr>
+                            <tr class="border-b border-slate-50">
+                                <td class="py-4 text-emerald-600">Pronóstico</td>
+                                <td class="py-4">Estimación de cuantiles</td>
+                                <td class="py-4 text-xs italic text-slate-400">Protege contra la volatilidad extrema (cisnes negros).</td>
+                            </tr>
+                            <tr class="border-b border-slate-50">
+                                <td class="py-4 text-emerald-600">Decisión</td>
+                                <td class="py-4">Activación $\tanh$</td>
+                                <td class="py-4 text-xs italic text-slate-400">Previene "alucinaciones" operativas y órdenes irracionales.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2: ESCALABILIDAD INDUSTRIAL -->
+        <section id="tab-industrias" class="tab-content">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Logística -->
+                <div class="neo-glass p-8">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="p-3 bg-emerald-100 rounded-xl"><i data-lucide="truck" class="text-emerald-600"></i></div>
+                        <h3 class="font-tech font-bold text-2xl uppercase tracking-tighter">Supply Chain</h3>
+                    </div>
+                    <p class="text-sm text-slate-600 mb-6">Uso de **Pérdida Cuantílica p90** para predecir demanda y evitar quiebres de stock. La función $\tanh$ actúa como regulador de flujo de caja ante falsas tendencias.</p>
+                    <div class="neo-inset p-4 text-[11px] font-mono-code text-emerald-700">VALOR: Reducción Costo Almacenamiento vs Oportunidad.</div>
+                </div>
+                <!-- HealthTech -->
+                <div class="neo-glass p-8 border-l-4 border-emerald-400">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="p-3 bg-teal-100 rounded-xl"><i data-lucide="dna" class="text-teal-600"></i></div>
+                        <h3 class="font-tech font-bold text-2xl uppercase tracking-tighter">HealthTech</h3>
+                    </div>
+                    <p class="text-sm text-slate-600 mb-6">Gestión de datos genómicos con **Privacidad Diferencial $(\epsilon, \delta)$**. Cumplimiento inmediato de "Derecho al Olvido" sin reentrenar modelos.</p>
+                    <div class="neo-inset p-4 text-[11px] font-mono-code text-teal-700">COMPLIANCE: Machine Unlearning para datos sensibles.</div>
+                </div>
+                <!-- PropTech -->
+                <div class="neo-glass p-8">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="p-3 bg-blue-100 rounded-xl"><i data-lucide="home" class="text-blue-600"></i></div>
+                        <h3 class="font-tech font-bold text-2xl uppercase tracking-tighter">PropTech</h3>
+                    </div>
+                    <p class="text-sm text-slate-600 mb-6">Smart Pricing dinámico para Real Estate de lujo. Optimización de rentabilidad evaluando **Retorno Neto** tras comisiones y mantenimiento.</p>
+                </div>
+                <!-- Energy -->
+                <div class="neo-glass p-8">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="p-3 bg-yellow-100 rounded-xl"><i data-lucide="battery-charging" class="text-yellow-600"></i></div>
+                        <h3 class="font-tech font-bold text-2xl uppercase tracking-tighter">EnergyTech</h3>
+                    </div>
+                    <p class="text-sm text-slate-600 mb-6">Smart Grids: Predicción de carga asimétrica. La **Convicción Acotada** evita apagones por sobre-optimización económica agresiva.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: MATEMÁTICAS ALRO -->
+        <section id="tab-math" class="tab-content">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="neo-glass p-8">
+                    <h3 class="font-tech font-bold text-2xl mb-6">Core Engine: <span class="text-emerald-500">Equations</span></h3>
+                    <div class="space-y-8">
+                        <div class="neo-inset p-6">
+                            <p class="text-[10px] font-black text-slate-400 uppercase mb-2">1. Riesgo Asimétrico (Pérdida Cuantílica)</p>
+                            <div class="text-sm overflow-x-auto">
+                                $$L=\frac{1}{H|Q|}\sum_{t=1}^H\sum_{q\in Q}[q\max(y-\hat{y},0)+(1-q)\max(\hat{y}-y,0)]$$
+                            </div>
+                            <p class="text-[10px] text-slate-500 mt-4 leading-relaxed italic">Permite a ALRO ser "pesimista" u "optimista" según el riesgo de solvencia detectado.</p>
+                        </div>
+                        <div class="neo-inset p-6 border-l-4 border-emerald-500">
+                            <p class="text-[10px] font-black text-slate-400 uppercase mb-2">2. Convicción Acotada ($\tanh$)</p>
+                            <div class="text-lg">
+                                $$\hat{y}_t=\tanh(w_{lin}^\top h_t+b_{lin})$$
+                            </div>
+                            <p class="text-[10px] text-slate-500 mt-4 leading-relaxed">Normaliza la acción en $[-1, 1]$, eliminando el riesgo de "flash crashes" por órdenes desproporcionadas.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="neo-glass p-8">
+                    <h3 class="font-tech font-bold text-2xl mb-6">Simulación de <span class="text-emerald-500">Inferencia</span></h3>
+                    <div class="chart-container" style="height: 400px;">
+                        <canvas id="mathSimChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 4: ECONOMICS -->
+        <section id="tab-economics" class="tab-content">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="neo-glass p-8 bg-white/50">
+                    <h3 class="font-tech font-bold text-2xl mb-6">Fórmula de Rentabilidad Neta</h3>
+                    <div class="neo-inset p-8 text-center mb-6">
+                        <div class="text-xl font-mono-code text-emerald-700">
+                            $$R_{t+1}^{net}=R_{t+1}^{port}-\frac{1}{K}\sum_{k=1}^K c|\hat{y}_{t+1}-\hat{y}_{t}|$$
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-4">
+                            <div class="badge-tech mt-1">Fricción</div>
+                            <p class="text-xs text-slate-600">Considera costos transaccionales, comisiones de Salesforce Agentforce ($0.12/acción) y slippage de mercado.</p>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="badge-tech mt-1">Optimización</div>
+                            <p class="text-xs text-slate-600">Si el costo de ejecución supera el beneficio esperado, la orden se cancela automáticamente.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="neo-glass p-8">
+                    <h3 class="font-tech font-bold text-xl mb-6">Proyección ROI Trimestral</h3>
+                    <div class="chart-container" style="height: 300px;">
+                        <canvas id="ecoRoiChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        const app = {
+            init() {
+                lucide.createIcons();
+                this.initCharts();
+            },
+            switchTab(tabId) {
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                document.getElementById(`tab-${tabId}`).classList.add('active');
+                document.querySelectorAll('.nav-btn').forEach(btn => {
+                    btn.classList.remove('text-emerald-600', 'border-emerald-500');
+                    btn.classList.add('text-slate-500');
+                    if(btn.classList.contains('nav-' + tabId)) {
+                        btn.classList.add('text-emerald-600', 'border-emerald-500');
+                    }
+                });
+                setTimeout(() => window.dispatchEvent(new Event('resize')), 100);
+            },
+            initCharts() {
+                const ctxMath = document.getElementById('mathSimChart').getContext('2d');
+                new Chart(ctxMath, {
+                    type: 'line',
+                    data: {
+                        labels: ['10:00','10:05','10:10','10:15','10:20'],
+                        datasets: [
+                            { label: 'p90 (Estrés)', data: [85, 92, 88, 95, 99], borderColor: '#10b981', fill: false, tension: 0.4 },
+                            { label: 'Realidad', data: [70, 75, 72, 80, 82], borderColor: '#94a3b8', borderDash: [5,5], fill: false }
+                        ]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+
+                const ctxEco = document.getElementById('ecoRoiChart').getContext('2d');
+                new Chart(ctxEco, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+                        datasets: [{ label: 'Retorno Neto (%)', data: [12, 28, 45, 68], backgroundColor: '#10b981' }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+        };
+        window.app = app;
+        window.onload = () => app.init();
+    </script>
+</body>
+</html>

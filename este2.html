@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALRO | Emerald Neoglassmorphism Executive</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700;800&family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600&display=swap');
+
+        :root {
+            --emerald-primary: #10b981;
+            --opal-white: #f8fafc;
+            --glass-bg: rgba(255, 255, 255, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.7);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+            color: #1e293b;
+            scroll-behavior: smooth;
+        }
+
+        .font-tech { font-family: 'Space Grotesk', sans-serif; }
+        .font-mono-code { font-family: 'JetBrains Mono', monospace; }
+
+        .neo-glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 10px 10px 20px #d1d9e6, -10px -10px 20px #ffffff;
+            border-radius: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .neo-glass:hover {
+            transform: translateY(-5px);
+            box-shadow: 15px 15px 30px #c5cddb, -15px -15px 30px #ffffff;
+        }
+
+        .neo-glass-active {
+            background: rgba(255, 255, 255, 0.8) !important;
+            border: 2px solid var(--emerald-primary) !important;
+            box-shadow: inset 5px 5px 10px #d1d9e6, inset -5px -5px 10px #ffffff !important;
+        }
+
+        .neo-inset {
+            background: #eef2f7;
+            box-shadow: inset 6px 6px 12px #d1d9e6, inset -6px -6px 12px #ffffff;
+            border-radius: 1rem;
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #10b981 0%, #0d9488 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tab-content { display: none; opacity: 0; transform: translateY(10px); }
+        .tab-content.active { display: block; opacity: 1; transform: translateY(0); transition: all 0.5s ease; }
+
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            z-index: -1;
+            filter: blur(100px);
+            opacity: 0.4;
+        }
+        .orb-emerald { width: 400px; height: 400px; background: #10b981; top: -100px; right: -100px; }
+        .orb-teal { width: 300px; height: 300px; background: #14b8a6; bottom: -50px; left: -50px; }
+
+        .badge-tech {
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            background: rgba(16, 185, 129, 0.1);
+            color: #047857;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .chart-container { position: relative; height: 300px; width: 100%; }
+        
+        .map-line {
+            background: linear-gradient(90deg, transparent, #10b981, transparent);
+            height: 2px;
+            width: 100%;
+            opacity: 0.3;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="orb orb-emerald"></div>
+    <div class="orb orb-teal"></div>
+
+    <nav class="fixed top-0 w-full z-50 px-6 py-4">
+        <div class="max-w-7xl mx-auto neo-glass bg-white/60 px-8 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-gradient-to-br from-emerald-400 to-teal-600 rounded-lg shadow-lg flex items-center justify-center text-white font-tech font-bold text-xl">A</div>
+                <span class="font-tech font-extrabold text-2xl tracking-tight">ALRO <span class="text-emerald-500">BANKING</span></span>
+            </div>
+            <div class="hidden md:flex gap-6">
+                <button onclick="window.app.switchTab('vision')" class="nav-btn nav-vision font-tech font-bold text-sm uppercase tracking-widest text-emerald-600 border-b-2 border-emerald-500">Visión</button>
+                <button onclick="window.app.switchTab('arquitectura')" class="nav-btn nav-arquitectura font-tech font-bold text-sm uppercase tracking-widest text-slate-500 border-b-2 border-transparent">Arquitectura</button>
+                <button onclick="window.app.switchTab('journey')" class="nav-btn nav-journey font-tech font-bold text-sm uppercase tracking-widest text-slate-500 border-b-2 border-transparent">Journey</button>
+                <button onclick="window.app.switchTab('math')" class="nav-btn nav-math font-tech font-bold text-sm uppercase tracking-widest text-slate-500 border-b-2 border-transparent">Motores</button>
+                <button onclick="window.app.switchTab('economics')" class="nav-btn nav-economics font-tech font-bold text-sm uppercase tracking-widest text-slate-500 border-b-2 border-transparent">Business</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-32 pb-20 px-6 max-w-7xl mx-auto">
+
+        <!-- PESTAÑA 1: VISIÓN DE VENTA -->
+        <section id="tab-vision" class="tab-content active">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+                <div>
+                    <h1 class="text-6xl md:text-7xl font-tech font-extrabold tracking-tighter leading-none mb-6">
+                        Prevención de Mora <br><span class="text-gradient">Inteligente</span>
+                    </h1>
+                    <p class="text-xl text-slate-600 mb-8 leading-relaxed">
+                        ALRO es una Web App integrada a Salesforce que ahorra miles de dólares diarios a instituciones financieras al predecir la fragilidad del cliente y orquestar planes de pago proactivos.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 mb-8">
+                        <div class="neo-glass p-4 flex items-center gap-3">
+                            <i data-lucide="trending-down" class="text-emerald-500"></i>
+                            <div>
+                                <div class="text-2xl font-tech font-bold">-35%</div>
+                                <div class="text-[10px] font-bold text-slate-400 uppercase">Cartera Vencida</div>
+                            </div>
+                        </div>
+                        <div class="neo-glass p-4 flex items-center gap-3">
+                            <i data-lucide="monitor-smartphone" class="text-emerald-500"></i>
+                            <div>
+                                <div class="text-2xl font-tech font-bold">Web</div>
+                                <div class="text-[10px] font-bold text-slate-400 uppercase">Zero-Install App</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="neo-glass p-8 bg-white/20">
+                    <h3 class="font-tech font-bold text-xl mb-6 flex justify-between items-center">
+                        Ahorro Diario por Prevención
+                        <span class="badge-tech">Live Projection</span>
+                    </h3>
+                    <div class="chart-container">
+                        <canvas id="roiChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gráfica 2: Distribución de Carga -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                <div class="neo-glass p-6 md:col-span-1">
+                    <h4 class="font-tech font-bold text-lg mb-4 flex items-center gap-2"><i data-lucide="pie-chart" class="w-5 text-emerald-500"></i> Optimización de Ejecutivos</h4>
+                    <div class="chart-container" style="height: 200px;">
+                        <canvas id="workloadChart"></canvas>
+                    </div>
+                </div>
+                <div class="neo-glass p-8 md:col-span-2">
+                    <h3 class="font-tech font-bold text-xl mb-6">El Diferenciador Bancario</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="neo-inset p-4">
+                            <h5 class="font-bold text-emerald-700 text-sm mb-2 uppercase">Banca Tradicional</h5>
+                            <p class="text-xs text-slate-500 leading-relaxed italic">Atención reactiva. Se contacta al cliente cuando ya cayó en mora. Análisis fragmentado y ejecutivos saturados.</p>
+                        </div>
+                        <div class="neo-inset p-4 border-l-4 border-emerald-500 bg-emerald-50/50">
+                            <h5 class="font-bold text-emerald-700 text-sm mb-2 uppercase">Integración ALRO + Salesforce</h5>
+                            <p class="text-xs text-slate-600 leading-relaxed font-semibold">Atención proactiva. La Web App alerta al ejecutivo de Salesforce ANTES del impago, sugiriendo planes de reestructuración automáticos.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PESTAÑA 2: ARQUITECTURA DETALLADA -->
+        <section id="tab-arquitectura" class="tab-content">
+            <div class="mb-12 text-center">
+                <h2 class="text-4xl font-tech font-extrabold">Ecosistema Convergente</h2>
+                <p class="text-slate-500">Integración de silos bancarios en una Web App conectada a Salesforce.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+                <!-- Fase 1 -->
+                <div class="neo-glass p-6">
+                    <div class="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center mb-4"><i data-lucide="database" class="text-emerald-600"></i></div>
+                    <span class="badge-tech mb-4 block w-fit">Fase 1: Ingesta</span>
+                    <h3 class="font-tech font-bold text-xl mb-2">Core Bancario & SF</h3>
+                    <p class="text-xs text-slate-600 mb-4 leading-relaxed">Conexión vía API a Salesforce Data Cloud. Captura historiales crediticios y fluctuaciones de mercado sin fricción.</p>
+                </div>
+                <!-- Fase 2 -->
+                <div class="neo-glass p-6 border-emerald-400 border-2">
+                    <div class="w-12 h-12 bg-emerald-500 rounded-xl flex items-center justify-center mb-4"><i data-lucide="cpu" class="text-white"></i></div>
+                    <span class="badge-tech mb-4 block w-fit bg-emerald-500 text-white">Fase 2: Motor de Riesgo</span>
+                    <h3 class="font-tech font-bold text-xl mb-2">Moirai & Tanh</h3>
+                    <p class="text-xs text-slate-600 mb-4 leading-relaxed">Detecta la vulnerabilidad del cliente. El freno Tanh evita falsos positivos masivos de riesgo crediticio.</p>
+                </div>
+                <!-- Fase 3 -->
+                <div class="neo-glass p-6">
+                    <div class="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center mb-4"><i data-lucide="send" class="text-emerald-600"></i></div>
+                    <span class="badge-tech mb-4 block w-fit">Fase 3: Web App & Agentforce</span>
+                    <h3 class="font-tech font-bold text-xl mb-2">Orquestación</h3>
+                    <p class="text-xs text-slate-600 mb-4 leading-relaxed">La Web App notifica al ejecutivo bancario con tareas urgentes generadas por Agentforce para retener al cliente.</p>
+                </div>
+            </div>
+            
+            <div class="mt-12 neo-glass p-12 bg-white/40">
+                <h3 class="font-tech font-bold text-center text-2xl mb-12">Topología de Integración</h3>
+                <div class="flex flex-col md:flex-row justify-between items-center gap-8 relative">
+                    <div class="flex flex-col items-center gap-4 z-10">
+                        <div class="w-32 h-32 neo-glass flex items-center justify-center text-center font-tech font-bold p-4 bg-emerald-50">Sistemas<br>Bancarios</div>
+                    </div>
+                    <div class="flex-1 map-line hidden md:block"></div>
+                    <div class="flex flex-col items-center gap-4 z-10">
+                        <div class="w-48 h-48 neo-glass border-emerald-500 border-4 flex items-center justify-center text-center font-tech font-black text-xl shadow-2xl bg-white">ALRO CORE<br><span class="text-xs font-light text-slate-500">Salesforce Cloud</span></div>
+                    </div>
+                    <div class="flex-1 map-line hidden md:block"></div>
+                    <div class="flex flex-col items-center gap-4 z-10">
+                        <div class="w-32 h-32 neo-glass flex items-center justify-center text-center font-tech font-bold p-4 bg-teal-50">Web App<br>Front-End</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PESTAÑA 3: DATA JOURNEY -->
+        <section id="tab-journey" class="tab-content">
+            <div class="mb-12 text-center">
+                <h2 class="text-4xl font-tech font-extrabold">El Viaje de Protección VIP</h2>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Low Fidelity -->
+                <div class="p-8 border-2 border-dashed border-slate-300 rounded-3xl">
+                    <h3 class="font-mono-code font-bold mb-6 text-slate-400 flex items-center gap-2"><i data-lucide="terminal" class="w-4"></i> BACKEND_RISK.LOG</h3>
+                    <div class="space-y-6">
+                        <div class="h-12 w-full bg-slate-200 rounded flex items-center px-4 font-mono-code text-xs">[ INPUT: CLIENT_ID_77X_MARKET_DIP ]</div>
+                        <div class="h-32 w-full border border-slate-300 rounded flex items-center justify-center font-mono-code text-slate-400 text-center">
+                            AGENTFORCE_TRIGGER<br>Generate_Urgent_Task(Exec: "Maria")
+                        </div>
+                        <div class="h-12 w-3/4 bg-slate-200 rounded flex items-center px-4 font-mono-code text-xs">[ OUTPUT: RESTRUCTURING_PLAN_SENT ]</div>
+                    </div>
+                </div>
+                <!-- High Fidelity UI -->
+                <div class="neo-glass p-8 bg-white/80 border-emerald-200">
+                    <h3 class="font-tech font-bold text-xl uppercase tracking-tighter mb-6">ALRO Web Interface (Ejecutivo)</h3>
+                    <div class="neo-inset p-6 mb-6">
+                        <div class="flex justify-between items-end mb-6">
+                            <div>
+                                <span class="text-[10px] font-black text-slate-400 uppercase">Alerta de Fragilidad Cliente</span>
+                                <div class="text-3xl font-tech font-extrabold text-red-500">Riesgo Mora 89%</div>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-[10px] font-black text-slate-400 uppercase">Plan Sugerido</span>
+                                <div class="text-lg font-tech font-bold text-emerald-600">Reestructuración</div>
+                            </div>
+                        </div>
+                        <div class="bg-white/60 rounded-xl p-4 border border-white/80 shadow-sm">
+                            <p class="text-slate-700 text-sm font-medium">El agente ALRO sugiere congelar la tasa de interés y ofrecer un plan de 12 meses. Ahorro proyectado de cartera vencida: <strong class="text-emerald-600 font-tech text-base">$14,500 USD</strong>.</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <button class="py-4 neo-inset font-tech font-bold text-slate-500">REVISAR MANUAL</button>
+                        <button class="py-4 bg-emerald-600 text-white rounded-xl font-tech font-bold shadow-lg">ENVIAR PLAN AL CLIENTE</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PESTAÑA 4: MOTORES -->
+        <section id="tab-math" class="tab-content">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="neo-glass p-8">
+                        <h2 class="text-3xl font-tech font-bold mb-4">Ciencia <span class="text-emerald-500">Determinista</span></h2>
+                        <p class="text-slate-600 text-sm mb-6 leading-relaxed">
+                            A diferencia de los LLMs comunes, nuestros algoritmos garantizan acciones precisas y seguras para los estándares bancarios.
+                        </p>
+                        <div id="math-display" class="math-box mb-6 min-h-[100px] flex items-center justify-center neo-inset p-4"></div>
+                        <div class="space-y-3" id="math-buttons"></div>
+                    </div>
+                </div>
+                <div class="lg:col-span-7 neo-glass p-8 flex flex-col">
+                    <h3 class="font-tech font-bold text-xl mb-6">Simulación de Inferencia (Moirai)</h3>
+                    <div class="chart-container flex-grow"><canvas id="mainMathChart"></canvas></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PESTAÑA 5: ECONOMICS & CASOS DE USO -->
+        <section id="tab-economics" class="tab-content">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+                <!-- Gráfica 7: Costo vs Ahorro -->
+                <div class="neo-glass p-8">
+                    <h3 class="font-tech font-bold text-xl mb-2">Ahorro Diario Proyectado</h3>
+                    <p class="text-xs text-slate-500 mb-6 uppercase font-bold tracking-widest">Prevención de NPL (Non-Performing Loans)</p>
+                    <div class="chart-container">
+                        <canvas id="costSavingsChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Gráfica 8: Despliegue Salesforce -->
+                <div class="neo-glass p-8">
+                    <h3 class="font-tech font-bold text-xl mb-2">Arquitectura Ligera</h3>
+                    <p class="text-xs text-slate-500 mb-6 uppercase font-bold tracking-widest">Esfuerzo de Integración</p>
+                    <div class="chart-container">
+                        <canvas id="sfDeploymentChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-8 text-center">
+                <h2 class="text-3xl font-tech font-extrabold">Agentes Especializados para Bancos</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Caso 1 -->
+                <div class="neo-glass p-6 border-t-4 border-emerald-500">
+                    <div class="p-2 bg-emerald-100 rounded-lg w-fit mb-4"><i data-lucide="user-check" class="text-emerald-600 w-5 h-5"></i></div>
+                    <h4 class="font-tech font-bold text-sm mb-2">1. Prevención de Mora</h4>
+                    <p class="text-[11px] text-slate-600 leading-relaxed mb-4">Detecta vulnerabilidad por cambios del mercado. Avisa automáticamente al ejecutivo en Salesforce y sugiere planes de pago.</p>
+                </div>
+                <!-- Caso 2 -->
+                <div class="neo-glass p-6">
+                    <div class="p-2 bg-blue-100 rounded-lg w-fit mb-4"><i data-lucide="star" class="text-blue-600 w-5 h-5"></i></div>
+                    <h4 class="font-tech font-bold text-sm mb-2">2. Protección VIP</h4>
+                    <p class="text-[11px] text-slate-600 leading-relaxed mb-4">Agente de riesgo dinámico. Si el mercado se vuelve frágil, crea tareas de urgencia para asegurar las cuentas más importantes.</p>
+                </div>
+                <!-- Caso 3 -->
+                <div class="neo-glass p-6">
+                    <div class="p-2 bg-purple-100 rounded-lg w-fit mb-4"><i data-lucide="sliders" class="text-purple-600 w-5 h-5"></i></div>
+                    <h4 class="font-tech font-bold text-sm mb-2">3. Resiliencia de Líneas</h4>
+                    <p class="text-[11px] text-slate-600 leading-relaxed mb-4">Agente que detecta fragilidad global y mueve proactivamente los límites de crédito en los sistemas para proteger al banco.</p>
+                </div>
+                <!-- Caso 4 -->
+                <div class="neo-glass p-6">
+                    <div class="p-2 bg-yellow-100 rounded-lg w-fit mb-4"><i data-lucide="wallet" class="text-yellow-600 w-5 h-5"></i></div>
+                    <h4 class="font-tech font-bold text-sm mb-2">4. Scoring Open Banking</h4>
+                    <p class="text-[11px] text-slate-600 leading-relaxed mb-4">Análisis de datos alternativos para ofrecer créditos a personas en la economía informal pero con alta capacidad de pago demostrable.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="mt-20 border-t border-slate-300/50 bg-white/40 backdrop-blur-md py-8">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center text-xs font-mono-code text-slate-500">
+            <div>ALRO SYSTEM CORE | RENDERED FOR NAILEA</div>
+            <div>SANTANDER HACKATHON 2026</div>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            const dataStore = {
+                math: [
+                    { id: 'q', t: 'Pérdida Cuantílica', eq: '$$L = \\max(q(y-\\hat{y}), (q-1)(y-\\hat{y}))$$', d: 'Mide asimetría. En riesgo bancario, subestimar una mora es peor que sobreestimarla.', labels: ['T1','T2','T3','T4'], ds: [{ label: 'Normal', data: [10,12,8,14], borderColor: '#64748b' }, { label: 'Riesgo p90', data: [11,14,10,16], borderColor: '#10b981' }] },
+                    { id: 't', t: 'Activación Tanh', eq: '$$\\hat{y} = \\tanh(Wx + b)$$', d: 'Freno matemático. Evita que la IA modifique límites de crédito de forma irracional.', labels: ['S1','S2','S3','S4'], ds: [{ label: 'Señal Controlada', data: [-0.9, -0.2, 0.6, 0.95], borderColor: '#0f766e', fill: true, backgroundColor: 'rgba(16,185,129,0.1)' }] }
+                ]
+            };
+
+            const app = {
+                charts: {},
+                
+                init() {
+                    lucide.createIcons();
+                    this.initROI();
+                    this.initWorkload();
+                    this.initJourney();
+                    this.initEconomics();
+                    this.renderMathButtons();
+                    this.renderMath('q');
+                },
+
+                switchTab(tabId) {
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    document.getElementById(`tab-${tabId}`).classList.add('active');
+                    
+                    document.querySelectorAll('.nav-btn').forEach(btn => {
+                        btn.classList.remove('text-emerald-600', 'border-emerald-500');
+                        btn.classList.add('text-slate-500', 'border-transparent');
+                        if(btn.classList.contains('nav-' + tabId)) {
+                            btn.classList.add('text-emerald-600', 'border-emerald-500');
+                        }
+                    });
+                    setTimeout(() => window.dispatchEvent(new Event('resize')), 100);
+                },
+
+                initROI() {
+                    const ctx = document.getElementById('roiChart').getContext('2d');
+                    this.charts.roi = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'],
+                            datasets: [
+                                { label: 'Pérdida Tradicional (Mora)', data: [15000, 18000, 12000, 20000, 16000], backgroundColor: '#94a3b8' },
+                                { label: 'Ahorro Retenido ALRO', data: [12000, 15000, 10000, 18000, 14000], backgroundColor: '#10b981' }
+                            ]
+                        },
+                        options: { responsive: true, maintainAspectRatio: false }
+                    });
+                },
+
+                initWorkload() {
+                    const ctx = document.getElementById('workloadChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['Reestructuración Proactiva', 'Análisis de Riesgo IA', 'Cobranza Reactiva'],
+                            datasets: [{ data: [70, 25, 5], backgroundColor: ['#10b981', '#14b8a6', '#94a3b8'], borderWidth: 0 }]
+                        },
+                        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+                    });
+                },
+
+                initJourney() {
+                    const ctx = document.getElementById('journeyChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'],
+                            datasets: [{ label: 'Riesgo de Mora', data: [10, 20, 85, 90], borderColor: '#ef4444', tension: 0.4 }]
+                        },
+                        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+                    });
+                },
+
+                initEconomics() {
+                    const ctxCost = document.getElementById('costSavingsChart').getContext('2d');
+                    new Chart(ctxCost, {
+                        type: 'line',
+                        data: {
+                            labels: ['Mes 1', 'Mes 2', 'Mes 3', 'Mes 4'],
+                            datasets: [
+                                { label: 'Ahorro Diario Promedio ($)', data: [2000, 5000, 9000, 14000], borderColor: '#10b981', fill: true, backgroundColor: 'rgba(16, 185, 129, 0.2)' }
+                            ]
+                        },
+                        options: { responsive: true, maintainAspectRatio: false }
+                    });
+
+                    const ctxSF = document.getElementById('sfDeploymentChart').getContext('2d');
+                    new Chart(ctxSF, {
+                        type: 'polarArea',
+                        data: {
+                            labels: ['Web App (Ligera)', 'Agentforce Core', 'Data Cloud', 'Moirai Inference'],
+                            datasets: [{
+                                data: [10, 40, 30, 20],
+                                backgroundColor: ['#34d399', '#10b981', '#059669', '#14b8a6']
+                            }]
+                        },
+                        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
+                    });
+                },
+
+                renderMathButtons() {
+                    const container = document.getElementById('math-buttons');
+                    dataStore.math.forEach(item => {
+                        const btn = document.createElement('button');
+                        btn.className = "w-full text-left p-3 neo-glass font-tech font-bold hover:neo-glass-active transition-all text-xs mb-3";
+                        btn.innerHTML = `<div class="flex justify-between items-center">${item.t} <i data-lucide="chevron-right" class="w-3"></i></div>`;
+                        btn.onclick = () => {
+                            this.renderMath(item.id);
+                            lucide.createIcons();
+                        };
+                        container.appendChild(btn);
+                    });
+                },
+
+                renderMath(id) {
+                    const data = dataStore.math.find(m => m.id === id);
+                    const display = document.getElementById('math-display');
+                    display.innerHTML = `<div class="text-center">${data.eq}</div>`;
+                    if(window.MathJax) MathJax.typesetPromise([display]);
+
+                    if(this.charts.math) this.charts.math.destroy();
+                    const ctx = document.getElementById('mainMathChart').getContext('2d');
+                    this.charts.math = new Chart(ctx, {
+                        type: data.type,
+                        data: {
+                            labels: data.labels,
+                            datasets: [{ label: data.t, data: data.ds[1].data, borderColor: '#10b981', fill: true, backgroundColor: 'rgba(16,185,129,0.1)' }]
+                        },
+                        options: { responsive: true, maintainAspectRatio: false }
+                    });
+                }
+            };
+
+            window.app = app;
+            window.onload = () => app.init();
+        })();
+    </script>
+</body>
+</html>

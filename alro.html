@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALRO: Agentic Liquidity & Risk Orchestrator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- Chosen Palette: Warm Neutrals & Deep Teal -->
+    <!-- Application Structure Plan: Dashboard interactivo estructurado en pestañas temáticas para desglosar la complejidad de ALRO. Se prioriza la legibilidad y la interacción directa con los conceptos matemáticos para transformar teoría abstracta en comprensión operativa. -->
+    <!-- Visualization & Content Choices: Chart.js para visualización de datos, Tailwind para estructura y JS vanilla para gestión de estado y navegación. Confirmado: NO SVG ni Mermaid. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .math-display {
+            font-size: 1.1rem;
+            overflow-x: auto;
+            padding: 1rem;
+            background-color: #f8fafc;
+            border-radius: 0.5rem;
+            border: 1px solid #e2e8f0;
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800 font-sans antialiased">
+
+    <header class="bg-teal-900 text-stone-50 py-12 px-6 shadow-md">
+        <div class="max-w-6xl mx-auto">
+            <div class="inline-block px-3 py-1 bg-teal-700 text-teal-100 text-xs font-bold uppercase tracking-wider rounded-full mb-4">Arquitectura Maestra</div>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">ALRO</h1>
+            <h2 class="text-xl md:text-2xl font-light text-teal-100 mb-6">Agentic Liquidity & Risk Orchestrator</h2>
+            <p class="text-lg text-teal-50 max-w-3xl leading-relaxed">
+                Ecosistema multi-agente definido por software que anticipa, orquesta y mitiga anomalías financieras mediante inferencia probabilística y desaprendizaje automático.
+            </p>
+        </div>
+    </header>
+
+    <nav class="bg-white border-b border-stone-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-6xl mx-auto px-6 flex flex-wrap gap-2 md:gap-8 py-4">
+            <button onclick="app.switchTab('fundamentos')" id="btn-fundamentos" class="nav-btn font-semibold text-teal-700 border-b-2 border-teal-700 pb-1 transition-colors">Fundamentos Matemáticos</button>
+            <button onclick="app.switchTab('pipeline')" id="btn-pipeline" class="nav-btn font-semibold text-stone-500 hover:text-teal-600 pb-1 transition-colors">Pipeline Operativo</button>
+            <button onclick="app.switchTab('canvas')" id="btn-canvas" class="nav-btn font-semibold text-stone-500 hover:text-teal-600 pb-1 transition-colors">System Design Canvas</button>
+            <button onclick="app.switchTab('sectores')" id="btn-sectores" class="nav-btn font-semibold text-stone-500 hover:text-teal-600 pb-1 transition-colors">Extrapolación Comercial</button>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-6 py-12">
+        <section id="tab-fundamentos" class="tab-content active">
+            <div class="mb-8">
+                <h3 class="text-3xl font-bold text-stone-800 mb-4">Fundamentos Matemáticos</h3>
+                <p class="text-stone-600 text-lg leading-relaxed">
+                    Visualice cómo la arquitectura transforma ecuaciones en decisiones financieras autónomas.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-1 flex flex-col gap-3">
+                    <button onclick="app.simulateMath('quant')" id="btn-math-quant" class="math-btn bg-white border border-stone-200 text-stone-700 p-4 rounded-xl text-left hover:bg-stone-50 transition-colors shadow-sm">
+                        <div class="font-bold text-lg mb-1">1. Pérdida Cuantílica</div>
+                        <div class="text-sm text-stone-500">Riesgo Asimétrico</div>
+                    </button>
+                    <button onclick="app.simulateMath('tanh')" id="btn-math-tanh" class="math-btn bg-white border border-stone-200 text-stone-700 p-4 rounded-xl text-left hover:bg-stone-50 transition-colors shadow-sm">
+                        <div class="font-bold text-lg mb-1">2. Activación Tanh</div>
+                        <div class="text-sm text-stone-500">Convicción Acotada</div>
+                    </button>
+                    <button onclick="app.simulateMath('dp')" id="btn-math-dp" class="math-btn bg-white border border-stone-200 text-stone-700 p-4 rounded-xl text-left hover:bg-stone-50 transition-colors shadow-sm">
+                        <div class="font-bold text-lg mb-1">3. Privacidad Diferencial</div>
+                        <div class="text-sm text-stone-500">Cumplimiento ε-DP</div>
+                    </button>
+                    <button onclick="app.simulateMath('net')" id="btn-math-net" class="math-btn bg-white border border-stone-200 text-stone-700 p-4 rounded-xl text-left hover:bg-stone-50 transition-colors shadow-sm">
+                        <div class="font-bold text-lg mb-1">4. Retorno Neto</div>
+                        <div class="text-sm text-stone-500">Fricción Transaccional</div>
+                    </button>
+                </div>
+
+                <div class="lg:col-span-2 bg-white p-6 rounded-2xl shadow-sm border border-stone-200">
+                    <div id="math-content-area" class="mb-6"></div>
+                    <div class="chart-container">
+                        <canvas id="mathCanvas"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tab-pipeline" class="tab-content">
+            <div class="mb-8">
+                <h3 class="text-3xl font-bold text-stone-800 mb-4">Pipeline Operativo</h3>
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+                    <div class="md:col-span-5 space-y-4" id="pipeline-buttons">
+                        <!-- Botones generados por JS -->
+                    </div>
+                    <div class="md:col-span-7 bg-white p-8 rounded-2xl shadow-lg border border-stone-100 min-h-[300px]" id="phase-details-container">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tab-canvas" class="tab-content">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="canvas-grid">
+                <!-- Tarjetas generadas por JS -->
+            </div>
+        </section>
+
+        <section id="tab-sectores" class="tab-content">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div id="sector-list" class="space-y-4"></div>
+                <div class="bg-white p-6 rounded-2xl shadow-lg border border-stone-200">
+                    <div id="sector-info" class="mb-6"></div>
+                    <div class="chart-container">
+                        <canvas id="radarCanvas"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const app = {
+            state: {
+                currentTab: 'fundamentos',
+                currentMath: 'quant',
+                currentPhase: 1,
+                currentSector: 'supply'
+            },
+            charts: {
+                math: null,
+                radar: null
+            },
+            data: {
+                math: {
+                    quant: {
+                        title: "Pérdida Cuantílica",
+                        equation: "$$L = \\sum [ q\\max(y - \\hat{y}, 0) + (1-q)\\max(\\hat{y} - y, 0) ]$$",
+                        desc: "Penaliza asimétricamente los errores. En liquidez, subestimar una caída es más crítico que sobreestimar un alza.",
+                        chartType: 'line',
+                        datasets: [
+                            { label: 'Real', data: [10, 12, 11, 15, 9, 8, 10], borderColor: '#1f2937' },
+                            { label: 'p90 (Riesgo)', data: [11, 14, 13, 17, 12, 11, 13], borderColor: '#0f766e', borderDash: [5, 5] }
+                        ]
+                    },
+                    tanh: {
+                        title: "Activación Tanh",
+                        equation: "$$\\hat{y} = \\tanh(Wx + b)$$ ",
+                        desc: "Acota decisiones al rango [-1, 1]. Previene sobre-reacción algorítmica ante picos anómalos.",
+                        chartType: 'line',
+                        datasets: [
+                            { label: 'Activación', data: [-0.99, -0.96, -0.76, 0, 0.76, 0.96, 0.99], borderColor: '#0f766e' }
+                        ]
+                    },
+                    dp: {
+                        title: "Privacidad Diferencial",
+                        equation: "$$P(M(D) \\in S) \\le e^\\epsilon P(M(D') \\in S) + \\delta$$",
+                        desc: "Inyecta ruido matemático para garantizar el anonimato y el derecho al olvido sin destruir el modelo.",
+                        chartType: 'scatter',
+                        datasets: [
+                            { label: 'Original', data: [{x:1, y:2}, {x:2, y:3}, {x:3, y:1}], backgroundColor: '#ef4444' },
+                            { label: 'DP-Noisy', data: [{x:1.1, y:1.9}, {x:2.2, y:2.8}, {x:2.9, y:1.2}], backgroundColor: '#0f766e' }
+                        ]
+                    },
+                    net: {
+                        title: "Retorno Neto",
+                        equation: "$$R_{net} = R_{bruto} - Costos$$",
+                        desc: "Filtro de viabilidad económica. Detiene ejecuciones donde la fricción supera el beneficio esperado.",
+                        chartType: 'bar',
+                        datasets: [
+                            { label: 'Bruto', data: [5, 2, 4], backgroundColor: '#cbd5e1' },
+                            { label: 'Neto', data: [4.5, -0.5, 3.2], backgroundColor: '#0f766e' }
+                        ]
+                    }
+                },
+                phases: [
+                    { id: 1, title: "Ingesta Semántica", out: "Contextual Embedding" },
+                    { id: 2, title: "Pronóstico Probabilístico", out: "Distributional Forecast" },
+                    { id: 3, title: "Evaluación de Riesgo", out: "Action Signal" },
+                    { id: 4, title: "Capa de Seguridad", out: "Anonymized Weights" },
+                    { id: 5, title: "Ejecución Final", out: "Executed Transaction" }
+                ],
+                sectors: {
+                    supply: { title: "Supply Chain", stats: [90, 60, 85, 95], desc: "Optimización de stock mediante p90." },
+                    health: { title: "HealthTech", stats: [70, 100, 95, 75], desc: "Privacidad diferencial en datos clínicos." },
+                    energy: { title: "EnergyTech", stats: [95, 85, 100, 80], desc: "Trading de energía con límites Tanh." }
+                }
+            },
+
+            init() {
+                // Iniciar componentes
+                this.renderRadarChart();
+                this.simulateMath('quant');
+                this.selectPhase(1);
+                this.updateSector('supply');
+                this.renderPipeline();
+                this.renderCanvas();
+            },
+
+            switchTab(tabId) {
+                document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+                document.querySelectorAll('.nav-btn').forEach(el => {
+                    el.classList.remove('text-teal-700', 'border-b-2', 'border-teal-700');
+                    el.classList.add('text-stone-500');
+                });
+                document.getElementById(`tab-${tabId}`).classList.add('active');
+                document.getElementById(`btn-${tabId}`).classList.add('text-teal-700', 'border-b-2', 'border-teal-700');
+            },
+
+            simulateMath(id) {
+                const data = this.data.math[id];
+                const content = document.getElementById('math-content-area');
+                content.innerHTML = `<h4 class="text-xl font-bold mb-2">${data.title}</h4><div class="math-display mb-4">${data.equation}</div><p>${data.desc}</p>`;
+                if(window.MathJax) MathJax.typesetPromise([content]);
+
+                if(this.charts.math) this.charts.math.destroy();
+                const ctx = document.getElementById('mathCanvas').getContext('2d');
+                this.charts.math = new Chart(ctx, {
+                    type: data.chartType,
+                    data: { labels: ['P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'P7'], datasets: data.datasets },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            },
+
+            renderPipeline() {
+                const container = document.getElementById('pipeline-buttons');
+                this.data.phases.forEach(p => {
+                    const btn = document.createElement('button');
+                    btn.className = "w-full p-4 bg-white border border-stone-200 rounded-xl text-left hover:border-teal-500 transition-all";
+                    btn.innerHTML = `<span class="font-bold text-teal-800">0${p.id}</span> ${p.title}`;
+                    btn.onclick = () => this.selectPhase(p.id);
+                    container.appendChild(btn);
+                });
+            },
+
+            selectPhase(id) {
+                const phase = this.data.phases.find(p => p.id === id);
+                document.getElementById('phase-details-container').innerHTML = `
+                    <h4 class="text-2xl font-bold mb-4 text-teal-900">${phase.title}</h4>
+                    <div class="p-4 bg-teal-50 border border-teal-100 rounded-lg">
+                        <span class="text-xs font-bold text-teal-600 uppercase">Resultado Clave</span>
+                        <p class="text-lg font-semibold">${phase.out}</p>
+                    </div>
+                `;
+            },
+
+            renderCanvas() {
+                const grid = document.getElementById('canvas-grid');
+                const modules = ["Entrada/Contexto", "Riesgo Cuantílico", "Control Tanh", "Seguridad DP", "Opt. Neta", "Agentes"];
+                modules.forEach((m, i) => {
+                    grid.innerHTML += `
+                        <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm">
+                            <div class="w-8 h-8 bg-teal-800 text-white rounded-full flex items-center justify-center mb-4">${i+1}</div>
+                            <h5 class="font-bold">${m}</h5>
+                        </div>
+                    `;
+                });
+            },
+
+            updateSector(id) {
+                const sector = this.data.sectors[id];
+                document.getElementById('sector-info').innerHTML = `<h4 class="text-xl font-bold">${sector.title}</h4><p>${sector.desc}</p>`;
+                if(this.charts.radar) {
+                    this.charts.radar.data.datasets[0].data = sector.stats;
+                    this.charts.radar.update();
+                }
+                
+                const list = document.getElementById('sector-list');
+                list.innerHTML = '';
+                Object.keys(this.data.sectors).forEach(k => {
+                    const s = this.data.sectors[k];
+                    const btn = document.createElement('button');
+                    btn.className = `w-full p-4 rounded-xl text-left border ${k === id ? 'bg-teal-50 border-teal-600' : 'bg-white border-stone-200'}`;
+                    btn.innerText = s.title;
+                    btn.onclick = () => this.updateSector(k);
+                    list.appendChild(btn);
+                });
+            },
+
+            renderRadarChart() {
+                const ctx = document.getElementById('radarCanvas').getContext('2d');
+                this.charts.radar = new Chart(ctx, {
+                    type: 'radar',
+                    data: {
+                        labels: ['Escalabilidad', 'Privacidad', 'Riesgo', 'Eficiencia'],
+                        datasets: [{ data: [0,0,0,0], backgroundColor: 'rgba(15, 118, 110, 0.2)', borderColor: '#0f766e' }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+                });
+            }
+        };
+
+        window.onload = () => app.init();
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALRO: Agentic Liquidity & Risk Orchestrator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- Chosen Palette: Warm Neutrals & Deep Teal -->
+    <!-- Application Structure Plan: Dashboard interactivo estructurado en pestañas temáticas para desglosar la complejidad de ALRO. Se prioriza la legibilidad y la interacción directa con los conceptos matemáticos para transformar teoría abstracta en comprensión operativa. -->
+    <!-- Visualization & Content Choices: Chart.js para visualización de datos, Tailwind para estructura y JS vanilla para gestión de estado y navegación. Confirmado: NO SVG ni Mermaid. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .math-display {
+            font-size: 1.1rem;
+            overflow-x: auto;
+            padding: 1rem;
+            background-color: #f8fafc;
+            border-radius: 0.5rem;
+            border: 1px solid #e2e8f0;
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800 font-sans antialiased">
+
+    <header class="bg-teal-900 text-stone-50 py-12 px-6 shadow-md">
+        <div class="max-w-6xl mx-auto">
+            <div class="inline-block px-3 py-1 bg-teal-700 text-teal-100 text-xs font-bold uppercase tracking-wider rounded-full mb-4">Arquitectura Maestra</div>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">ALRO</h1>
+            <h2 class="text-xl md:text-2xl font-light text-teal-100 mb-6">Agentic Liquidity & Risk Orchestrator</h2>
+            <p class="text-lg text-teal-50 max-w-3xl leading-relaxed">
+                Ecosistema multi-agente definido por software que anticipa, orquesta y mitiga anomalías financieras mediante inferencia probabilística y desaprendizaje automático.
+            </p>
+        </div>
+    </header>
+
+    <nav class="bg-white border-b border-stone-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-6xl mx-auto px-6 flex flex-wrap gap-2 md:gap-8 py-4">
+            <button onclick="app.switchTab('fundamentos')" id="btn-fundamentos" class="nav-btn font-semibold text-teal-700 border-b-2 border-teal-700 pb-1 transition-colors">Fundamentos Matemáticos</button>
+            <button onclick="app.switchTab('pipeline')" id="btn-pipeline" class="nav-btn font-semibold text-stone-500 hover:text-teal-600 pb-1 transition-colors">Pipeline Operativo</button>
+            <button onclick="app.switchTab('canvas')" id="btn-canvas" class="nav-btn font-semibold text-stone-500 hover:text-teal-600 pb-1 transition-colors">System Design Canvas</button>
+            <button onclick="app.switchTab('sectores')" id="btn-sectores" class="nav-btn font-semibold text-stone-500 hover:text-teal-600 pb-1 transition-colors">Extrapolación Comercial</button>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-6 py-12">
+        <section id="tab-fundamentos" class="tab-content active">
+            <div class="mb-8">
+                <h3 class="text-3xl font-bold text-stone-800 mb-4">Fundamentos Matemáticos</h3>
+                <p class="text-stone-600 text-lg leading-relaxed">
+                    Visualice cómo la arquitectura transforma ecuaciones en decisiones financieras autónomas.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-1 flex flex-col gap-3">
+                    <button onclick="app.simulateMath('quant')" id="btn-math-quant" class="math-btn bg-white border border-stone-200 text-stone-700 p-4 rounded-xl text-left hover:bg-stone-50 transition-colors shadow-sm">
+                        <div class="font-bold text-lg mb-1">1. Pérdida Cuantílica</div>
+                        <div class="text-sm text-stone-500">Riesgo Asimétrico</div>
+                    </button>
+                    <button onclick="app.simulateMath('tanh')" id="btn-math-tanh" class="math-btn bg-white border border-stone-200 text-stone-700 p-4 rounded-xl text-left hover:bg-stone-50 transition-colors shadow-sm">
+                        <div class="font-bold text-lg mb-1">2. Activación Tanh</div>
+                        <div class="text-sm text-stone-500">Convicción Acotada</div>
+                    </button>
+                    <button onclick="app.simulateMath('dp')" id="btn-math-dp" class="math-btn bg-white border border-stone-200 text-stone-700 p-4 rounded-xl text-left hover:bg-stone-50 transition-colors shadow-sm">
+                        <div class="font-bold text-lg mb-1">3. Privacidad Diferencial</div>
+                        <div class="text-sm text-stone-500">Cumplimiento ε-DP</div>
+                    </button>
+                    <button onclick="app.simulateMath('net')" id="btn-math-net" class="math-btn bg-white border border-stone-200 text-stone-700 p-4 rounded-xl text-left hover:bg-stone-50 transition-colors shadow-sm">
+                        <div class="font-bold text-lg mb-1">4. Retorno Neto</div>
+                        <div class="text-sm text-stone-500">Fricción Transaccional</div>
+                    </button>
+                </div>
+
+                <div class="lg:col-span-2 bg-white p-6 rounded-2xl shadow-sm border border-stone-200">
+                    <div id="math-content-area" class="mb-6"></div>
+                    <div class="chart-container">
+                        <canvas id="mathCanvas"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tab-pipeline" class="tab-content">
+            <div class="mb-8">
+                <h3 class="text-3xl font-bold text-stone-800 mb-4">Pipeline Operativo</h3>
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+                    <div class="md:col-span-5 space-y-4" id="pipeline-buttons">
+                        <!-- Botones generados por JS -->
+                    </div>
+                    <div class="md:col-span-7 bg-white p-8 rounded-2xl shadow-lg border border-stone-100 min-h-[300px]" id="phase-details-container">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tab-canvas" class="tab-content">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="canvas-grid">
+                <!-- Tarjetas generadas por JS -->
+            </div>
+        </section>
+
+        <section id="tab-sectores" class="tab-content">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div id="sector-list" class="space-y-4"></div>
+                <div class="bg-white p-6 rounded-2xl shadow-lg border border-stone-200">
+                    <div id="sector-info" class="mb-6"></div>
+                    <div class="chart-container">
+                        <canvas id="radarCanvas"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const app = {
+            state: {
+                currentTab: 'fundamentos',
+                currentMath: 'quant',
+                currentPhase: 1,
+                currentSector: 'supply'
+            },
+            charts: {
+                math: null,
+                radar: null
+            },
+            data: {
+                math: {
+                    quant: {
+                        title: "Pérdida Cuantílica",
+                        equation: "$$L = \\sum [ q\\max(y - \\hat{y}, 0) + (1-q)\\max(\\hat{y} - y, 0) ]$$",
+                        desc: "Penaliza asimétricamente los errores. En liquidez, subestimar una caída es más crítico que sobreestimar un alza.",
+                        chartType: 'line',
+                        datasets: [
+                            { label: 'Real', data: [10, 12, 11, 15, 9, 8, 10], borderColor: '#1f2937' },
+                            { label: 'p90 (Riesgo)', data: [11, 14, 13, 17, 12, 11, 13], borderColor: '#0f766e', borderDash: [5, 5] }
+                        ]
+                    },
+                    tanh: {
+                        title: "Activación Tanh",
+                        equation: "$$\\hat{y} = \\tanh(Wx + b)$$ ",
+                        desc: "Acota decisiones al rango [-1, 1]. Previene sobre-reacción algorítmica ante picos anómalos.",
+                        chartType: 'line',
+                        datasets: [
+                            { label: 'Activación', data: [-0.99, -0.96, -0.76, 0, 0.76, 0.96, 0.99], borderColor: '#0f766e' }
+                        ]
+                    },
+                    dp: {
+                        title: "Privacidad Diferencial",
+                        equation: "$$P(M(D) \\in S) \\le e^\\epsilon P(M(D') \\in S) + \\delta$$",
+                        desc: "Inyecta ruido matemático para garantizar el anonimato y el derecho al olvido sin destruir el modelo.",
+                        chartType: 'scatter',
+                        datasets: [
+                            { label: 'Original', data: [{x:1, y:2}, {x:2, y:3}, {x:3, y:1}], backgroundColor: '#ef4444' },
+                            { label: 'DP-Noisy', data: [{x:1.1, y:1.9}, {x:2.2, y:2.8}, {x:2.9, y:1.2}], backgroundColor: '#0f766e' }
+                        ]
+                    },
+                    net: {
+                        title: "Retorno Neto",
+                        equation: "$$R_{net} = R_{bruto} - Costos$$",
+                        desc: "Filtro de viabilidad económica. Detiene ejecuciones donde la fricción supera el beneficio esperado.",
+                        chartType: 'bar',
+                        datasets: [
+                            { label: 'Bruto', data: [5, 2, 4], backgroundColor: '#cbd5e1' },
+                            { label: 'Neto', data: [4.5, -0.5, 3.2], backgroundColor: '#0f766e' }
+                        ]
+                    }
+                },
+                phases: [
+                    { id: 1, title: "Ingesta Semántica", out: "Contextual Embedding" },
+                    { id: 2, title: "Pronóstico Probabilístico", out: "Distributional Forecast" },
+                    { id: 3, title: "Evaluación de Riesgo", out: "Action Signal" },
+                    { id: 4, title: "Capa de Seguridad", out: "Anonymized Weights" },
+                    { id: 5, title: "Ejecución Final", out: "Executed Transaction" }
+                ],
+                sectors: {
+                    supply: { title: "Supply Chain", stats: [90, 60, 85, 95], desc: "Optimización de stock mediante p90." },
+                    health: { title: "HealthTech", stats: [70, 100, 95, 75], desc: "Privacidad diferencial en datos clínicos." },
+                    energy: { title: "EnergyTech", stats: [95, 85, 100, 80], desc: "Trading de energía con límites Tanh." }
+                }
+            },
+
+            init() {
+                // Iniciar componentes
+                this.renderRadarChart();
+                this.simulateMath('quant');
+                this.selectPhase(1);
+                this.updateSector('supply');
+                this.renderPipeline();
+                this.renderCanvas();
+            },
+
+            switchTab(tabId) {
+                document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+                document.querySelectorAll('.nav-btn').forEach(el => {
+                    el.classList.remove('text-teal-700', 'border-b-2', 'border-teal-700');
+                    el.classList.add('text-stone-500');
+                });
+                document.getElementById(`tab-${tabId}`).classList.add('active');
+                document.getElementById(`btn-${tabId}`).classList.add('text-teal-700', 'border-b-2', 'border-teal-700');
+            },
+
+            simulateMath(id) {
+                const data = this.data.math[id];
+                const content = document.getElementById('math-content-area');
+                content.innerHTML = `<h4 class="text-xl font-bold mb-2">${data.title}</h4><div class="math-display mb-4">${data.equation}</div><p>${data.desc}</p>`;
+                if(window.MathJax) MathJax.typesetPromise([content]);
+
+                if(this.charts.math) this.charts.math.destroy();
+                const ctx = document.getElementById('mathCanvas').getContext('2d');
+                this.charts.math = new Chart(ctx, {
+                    type: data.chartType,
+                    data: { labels: ['P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'P7'], datasets: data.datasets },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            },
+
+            renderPipeline() {
+                const container = document.getElementById('pipeline-buttons');
+                this.data.phases.forEach(p => {
+                    const btn = document.createElement('button');
+                    btn.className = "w-full p-4 bg-white border border-stone-200 rounded-xl text-left hover:border-teal-500 transition-all";
+                    btn.innerHTML = `<span class="font-bold text-teal-800">0${p.id}</span> ${p.title}`;
+                    btn.onclick = () => this.selectPhase(p.id);
+                    container.appendChild(btn);
+                });
+            },
+
+            selectPhase(id) {
+                const phase = this.data.phases.find(p => p.id === id);
+                document.getElementById('phase-details-container').innerHTML = `
+                    <h4 class="text-2xl font-bold mb-4 text-teal-900">${phase.title}</h4>
+                    <div class="p-4 bg-teal-50 border border-teal-100 rounded-lg">
+                        <span class="text-xs font-bold text-teal-600 uppercase">Resultado Clave</span>
+                        <p cl
