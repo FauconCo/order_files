@@ -1,0 +1,14 @@
+{
+  "transport" : {
+    "kind" : "streamableHttp",
+    "path" : "https://api.githubcopilot.com/mcp/"
+  },
+  "provider" : {
+    "organization" : "GitHub",
+    "url" : "https://github.com/github/github-mcp-server"
+  },
+  "tools" : [ ],
+  "resources" : [ ],
+  "resourceTemplates" : [ ],
+  "prompts" : [ ]
+}

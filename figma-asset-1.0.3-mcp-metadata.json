@@ -1,0 +1,14 @@
+{
+  "transport" : {
+    "kind" : "streamableHttp",
+    "path" : "https://mcp.figma.com/mcp"
+  },
+  "provider" : {
+    "organization" : "Figma",
+    "url" : "https://github.com/figma/mcp-server-guide"
+  },
+  "tools" : [ ],
+  "resources" : [ ],
+  "resourceTemplates" : [ ],
+  "prompts" : [ ]
+}

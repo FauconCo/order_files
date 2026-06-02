@@ -1,0 +1,4873 @@
+{
+  "tools": [
+    {
+      "description": "Apply the selected policy to the target asset instance using the provided configuration data.",
+      "inputSchema": {
+        "$defs": {
+          "PolicyConfigurationData": {
+            "additionalProperties": true,
+            "description": "Open-shape configuration object passed to API Manager when applying a policy.\n\nThe exact key set is policy-template-specific (e.g. rate-limiting uses\n``rateLimits``; OAuth2 uses ``tokenUrl``). ``extra='allow'`` preserves\ntemplate-defined keys; clients can still receive a structured JSON schema\nin the tool spec instead of an unconstrained ``dict``.",
+            "properties": {},
+            "title": "PolicyConfigurationData",
+            "type": "object"
+          },
+          "PolicyPointcutData": {
+            "additionalProperties": true,
+            "description": "Open-shape pointcut filter that scopes a policy to subset of requests.\n\nShape is defined by the resource-level policy template. ``extra='allow'``\nkeeps the envelope typed without pinning template-specific keys.",
+            "properties": {},
+            "title": "PolicyPointcutData",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "api_instance_id": {
+            "title": "Api Instance Id",
+            "type": "string"
+          },
+          "asset_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Asset Id"
+          },
+          "asset_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Asset Version"
+          },
+          "configuration_data": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/PolicyConfigurationData"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "disabled": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Disabled"
+          },
+          "environment_id": {
+            "title": "Environment Id",
+            "type": "string"
+          },
+          "group_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Group Id"
+          },
+          "order": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Order"
+          },
+          "organization_id": {
+            "title": "Organization Id",
+            "type": "string"
+          },
+          "pointcut_data": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/PolicyPointcutData"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "policy_template_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Policy Template Id"
+          }
+        },
+        "required": [
+          "organization_id",
+          "environment_id",
+          "api_instance_id"
+        ],
+        "title": "apply_policy_to_instanceArguments",
+        "type": "object"
+      },
+      "meta": {
+        "ui": {
+          "resourceUri": "ui://asset-instance/policy-form.html"
+        },
+        "ui/resourceUri": "ui://asset-instance/policy-form.html"
+      },
+      "name": "apply_policy_to_instance",
+      "title": "Apply Policy To Asset Instance"
+    },
+    {
+      "annotations": {
+        "idempotentHint": true,
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Preview APIs matched by a guardrail scope filter.",
+      "inputSchema": {
+        "properties": {
+          "organization_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Organization Id"
+          },
+          "scope_filter": {
+            "title": "Scope Filter",
+            "type": "string"
+          }
+        },
+        "required": [
+          "scope_filter"
+        ],
+        "title": "check_guardrail_scope_targetsArguments",
+        "type": "object"
+      },
+      "name": "check_guardrail_scope_targets",
+      "title": "Check Guardrail Scope Targets"
+    },
+    {
+      "description": "Convert the selected policy application payload to JSON-LD and print it in backend logs.",
+      "inputSchema": {
+        "$defs": {
+          "PolicyConfigurationData": {
+            "additionalProperties": true,
+            "description": "Open-shape configuration object passed to API Manager when applying a policy.\n\nThe exact key set is policy-template-specific (e.g. rate-limiting uses\n``rateLimits``; OAuth2 uses ``tokenUrl``). ``extra='allow'`` preserves\ntemplate-defined keys; clients can still receive a structured JSON schema\nin the tool spec instead of an unconstrained ``dict``.",
+            "properties": {},
+            "title": "PolicyConfigurationData",
+            "type": "object"
+          },
+          "PolicyPointcutData": {
+            "additionalProperties": true,
+            "description": "Open-shape pointcut filter that scopes a policy to subset of requests.\n\nShape is defined by the resource-level policy template. ``extra='allow'``\nkeeps the envelope typed without pinning template-specific keys.",
+            "properties": {},
+            "title": "PolicyPointcutData",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "api_instance_id": {
+            "title": "Api Instance Id",
+            "type": "string"
+          },
+          "asset_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Asset Id"
+          },
+          "asset_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Asset Version"
+          },
+          "configuration_data": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/PolicyConfigurationData"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "disabled": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Disabled"
+          },
+          "environment_id": {
+            "title": "Environment Id",
+            "type": "string"
+          },
+          "group_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Group Id"
+          },
+          "order": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Order"
+          },
+          "organization_id": {
+            "title": "Organization Id",
+            "type": "string"
+          },
+          "pointcut_data": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/PolicyPointcutData"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "policy_template_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Policy Template Id"
+          }
+        },
+        "required": [
+          "organization_id",
+          "environment_id",
+          "api_instance_id"
+        ],
+        "title": "check_policy_conformanceArguments",
+        "type": "object"
+      },
+      "meta": {
+        "ui": {
+          "resourceUri": "ui://asset-instance/policy-form.html"
+        },
+        "ui/resourceUri": "ui://asset-instance/policy-form.html"
+      },
+      "name": "check_policy_conformance",
+      "title": "Check Policy Conformance"
+    },
+    {
+      "annotations": {
+        "idempotentHint": false,
+        "openWorldHint": true,
+        "readOnlyHint": false
+      },
+      "description": "Create a new automated-policy governance strategy from wizard inputs.",
+      "inputSchema": {
+        "properties": {
+          "allow_duplicated": {
+            "default": false,
+            "title": "Allow Duplicated",
+            "type": "boolean"
+          },
+          "automated_policy_configuration": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Automated Policy Configuration"
+          },
+          "automated_policy_endpoint_type_groups": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Automated Policy Endpoint Type Groups"
+          },
+          "automated_policy_endpoint_type_mode": {
+            "default": "all",
+            "title": "Automated Policy Endpoint Type Mode",
+            "type": "string"
+          },
+          "automated_policy_environment_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Automated Policy Environment Id"
+          },
+          "automated_policy_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Automated Policy Id"
+          },
+          "automated_policy_runtime": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Automated Policy Runtime"
+          },
+          "automated_policy_runtime_range_from": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Automated Policy Runtime Range From"
+          },
+          "automated_policy_runtime_range_to": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Automated Policy Runtime Range To"
+          },
+          "description": {
+            "default": "",
+            "title": "Description",
+            "type": "string"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Name"
+          },
+          "organization_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Organization Id"
+          },
+          "scope_filter": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Scope Filter"
+          }
+        },
+        "title": "create_automated_policy_strategyArguments",
+        "type": "object"
+      },
+      "meta": {
+        "ui": {
+          "resourceUri": "ui://governance/automated-policy-creation.html"
+        },
+        "ui/resourceUri": "ui://governance/automated-policy-creation.html"
+      },
+      "name": "create_automated_policy_strategy",
+      "title": "Create Automated Policy Strategy"
+    },
+    {
+      "annotations": {
+        "idempotentHint": false,
+        "openWorldHint": true,
+        "readOnlyHint": false
+      },
+      "description": "Create a new guardrail strategy from wizard inputs.",
+      "inputSchema": {
+        "properties": {
+          "description": {
+            "default": "",
+            "title": "Description",
+            "type": "string"
+          },
+          "governance_target_type": {
+            "default": "service-assets",
+            "title": "Governance Target Type",
+            "type": "string"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Name"
+          },
+          "organization_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Organization Id"
+          },
+          "position": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Position"
+          },
+          "rules": {
+            "anyOf": [
+              {
+                "items": {
+                  "additionalProperties": true,
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Rules"
+          },
+          "rulesets": {
+            "anyOf": [
+              {
+                "items": {
+                  "additionalProperties": true,
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Rulesets"
+          },
+          "schedule_config": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Schedule Config"
+          },
+          "scope_condition_mode": {
+            "default": "all-services",
+            "title": "Scope Condition Mode",
+            "type": "string"
+          },
+          "scope_conditions": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Scope Conditions"
+          },
+          "scope_filter": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Scope Filter"
+          },
+          "strategy_status": {
+            "default": "active",
+            "title": "Strategy Status",
+            "type": "string"
+          },
+          "strategy_type": {
+            "default": "guardrails",
+            "title": "Strategy Type",
+            "type": "string"
+          }
+        },
+        "title": "create_guardrailArguments",
+        "type": "object"
+      },
+      "meta": {
+        "ui": {
+          "resourceUri": "ui://governance/guardrail-creation.html"
+        },
+        "ui/resourceUri": "ui://governance/guardrail-creation.html"
+      },
+      "name": "create_guardrail",
+      "title": "Create Guardrail"
+    },
+    {
+      "annotations": {
+        "idempotentHint": false,
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Launch the managed Omni Gateway creation wizard for the active MuleSoft provider. When fully configured, creates the gateway in Anypoint Platform.",
+      "inputSchema": {
+        "$defs": {
+          "FlexGatewayConfiguration": {
+            "additionalProperties": true,
+            "description": "Top-level configuration block in the Omni Gateway create payload.",
+            "properties": {
+              "ingress": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/FlexGatewayIngress"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null
+              },
+              "logging": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/FlexGatewayLogging"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null
+              },
+              "properties": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/FlexGatewayProperties"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null
+              }
+            },
+            "title": "FlexGatewayConfiguration",
+            "type": "object"
+          },
+          "FlexGatewayCreatePayload": {
+            "additionalProperties": true,
+            "description": "Payload forwarded to Anypoint ``POST /gateways`` when provisioning an Omni Gateway.\n\nMirrors the payload built by the wizard UI (``app.js:createPayload``).\n``extra='allow'`` preserves forward compatibility with new Anypoint\nfields while keeping the tool's input schema structured for clients.",
+            "properties": {
+              "configuration": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/FlexGatewayConfiguration"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null
+              },
+              "name": {
+                "description": "Human-readable gateway name (required).",
+                "title": "Name",
+                "type": "string"
+              },
+              "releaseChannel": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Releasechannel"
+              },
+              "runtimeVersion": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Runtimeversion"
+              },
+              "size": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Size"
+              },
+              "targetId": {
+                "description": "Deployment target ID (private space or cluster).",
+                "title": "Targetid",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "targetId"
+            ],
+            "title": "FlexGatewayCreatePayload",
+            "type": "object"
+          },
+          "FlexGatewayIngress": {
+            "additionalProperties": true,
+            "description": "Ingress block of a managed Omni Gateway create payload.",
+            "properties": {
+              "forwardSslSession": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Forwardsslsession"
+              },
+              "internalUrl": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Internalurl"
+              },
+              "lastMileSecurity": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Lastmilesecurity"
+              },
+              "publicUrl": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Publicurl"
+              }
+            },
+            "title": "FlexGatewayIngress",
+            "type": "object"
+          },
+          "FlexGatewayLogging": {
+            "additionalProperties": true,
+            "description": "Logging configuration block for a managed Omni Gateway.",
+            "properties": {
+              "forwardLogs": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Forwardlogs"
+              },
+              "level": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Level"
+              }
+            },
+            "title": "FlexGatewayLogging",
+            "type": "object"
+          },
+          "FlexGatewayProperties": {
+            "additionalProperties": true,
+            "description": "Runtime property toggles for a managed Omni Gateway.",
+            "properties": {
+              "connectionIdleTimeout": {
+                "anyOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Connectionidletimeout"
+              },
+              "upstreamResponseTimeout": {
+                "anyOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Upstreamresponsetimeout"
+              }
+            },
+            "title": "FlexGatewayProperties",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "environment_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Environment Id"
+          },
+          "environment_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Environment Name"
+          },
+          "environment_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Environment Type"
+          },
+          "governance_override_warnings": {
+            "default": false,
+            "title": "Governance Override Warnings",
+            "type": "boolean"
+          },
+          "organization_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Organization Id"
+          },
+          "payload": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/FlexGatewayCreatePayload"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "provider_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Provider Id"
+          },
+          "target_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Target Type"
+          }
+        },
+        "title": "create_flex_gatewayArguments",
+        "type": "object"
+      },
+      "meta": {
+        "ui": {
+          "resourceUri": "ui://flex-gateway/wizard.html"
+        },
+        "ui/resourceUri": "ui://flex-gateway/wizard.html"
+      },
+      "name": "create_omni_gateway",
+      "title": "Create Omni Gateway"
+    },
+    {
+      "annotations": {
+        "idempotentHint": false,
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Launch the scanner creation wizard to configure and create a new agent scanner. The wizard will guide you through provider selection, authentication, and configuration. On success, returns the created scanner details including scannerId. Pass organization_id when calling this tool. Call WITHOUT name/provider to display the interactive wizard.",
+      "inputSchema": {
+        "$defs": {
+          "ScannerAuthFields": {
+            "additionalProperties": true,
+            "description": "Provider-specific auth fields (e.g. ``apiKey``, ``clientSecret``).\n\nKeys are defined by the selected scanner provider and auth method;\n``extra='allow'`` keeps the envelope typed while accepting new keys as\nproviders evolve.",
+            "properties": {},
+            "title": "ScannerAuthFields",
+            "type": "object"
+          },
+          "ScannerFilter": {
+            "description": "Scanner discovery filter row (``{field, operator, values}``).",
+            "properties": {
+              "field": {
+                "title": "Field",
+                "type": "string"
+              },
+              "operator": {
+                "default": "includes",
+                "title": "Operator",
+                "type": "string"
+              },
+              "values": {
+                "items": {
+                  "type": "string"
+                },
+                "title": "Values",
+                "type": "array"
+              }
+            },
+            "required": [
+              "field"
+            ],
+            "title": "ScannerFilter",
+            "type": "object"
+          },
+          "ScannerNotifications": {
+            "additionalProperties": true,
+            "description": "Notification sink configured for a scanner.\n\n``type`` is ``\"email\"`` or ``\"webhook\"`` (frontend uses both); ``value``\nis a comma-separated email list or a webhook URL.",
+            "properties": {
+              "type": {
+                "default": "email",
+                "title": "Type",
+                "type": "string"
+              },
+              "value": {
+                "default": "",
+                "title": "Value",
+                "type": "string"
+              }
+            },
+            "title": "ScannerNotifications",
+            "type": "object"
+          },
+          "ScannerSchedule": {
+            "additionalProperties": true,
+            "description": "Scanner run schedule built by the wizard UI (``app.js``).\n\nMatches the legacy Anypoint scanner schedule JSON: ``{interval, unit,\nat, on, syncReview}``. All values are strings because the upstream API\npersists them as strings.",
+            "properties": {
+              "at": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "At"
+              },
+              "interval": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Interval"
+              },
+              "on": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "On"
+              },
+              "syncReview": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Syncreview"
+              },
+              "unit": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Unit"
+              }
+            },
+            "title": "ScannerSchedule",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "auth_fields": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/ScannerAuthFields"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "auth_fields_alias": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/ScannerAuthFields"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "auth_method": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Auth Method"
+          },
+          "auth_method_alias": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Auth Method Alias"
+          },
+          "description": {
+            "default": "",
+            "title": "Description",
+            "type": "string"
+          },
+          "filters": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/$defs/ScannerFilter"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Filters"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Name"
+          },
+          "notifications": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/ScannerNotifications"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "organization_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Organization Id"
+          },
+          "owner_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Owner Id"
+          },
+          "provider": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Provider"
+          },
+          "schedule": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/ScannerSchedule"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          }
+        },
+        "title": "create_scannerArguments",
+        "type": "object"
+      },
+      "meta": {
+        "ui": {
+          "resourceUri": "ui://scanner/wizard-v2.html"
+        },
+        "ui/resourceUri": "ui://scanner/wizard-v2.html"
+      },
+      "name": "create_scanner",
+      "title": "Create Agent Scanner"
+    },
+    {
+      "annotations": {
+        "idempotentHint": false,
+        "openWorldHint": true,
+        "readOnlyHint": false
+      },
+      "description": "Delete one automated-policy governance strategy by strategy ID.",
+      "inputSchema": {
+        "properties": {
+          "organization_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Organization Id"
+          },
+          "strategy_id": {
+            "title": "Strategy Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "strategy_id"
+        ],
+        "title": "delete_automated_policy_strategyArguments",
+        "type": "object"
+      },
+      "meta": {
+        "ui": {
+          "resourceUri": "ui://governance/automated-policy-creation.html"
+        },
+        "ui/resourceUri": "ui://governance/automated-policy-creation.html"
+      },
+      "name": "delete_automated_policy_strategy",
+      "title": "Delete Automated Policy Strategy"
+    },
+    {
+      "annotations": {
+        "idempotentHint": false,
+        "openWorldHint": true,
+        "readOnlyHint": false
+      },
+      "description": "Delete one governance strategy by strategy id.",
+      "inputSchema": {
+        "properties": {
+          "organization_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Organization Id"
+          },
+          "strategy_id": {
+            "title": "Strategy Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "strategy_id"
+        ],
+        "title": "delete_governance_strategyArguments",
+        "type": "object"
+      },
+      "meta": {
+        "ui": {
+          "resourceUri": "ui://governance-strategies/list.html"
+        },
+        "ui/resourceUri": "ui://governance-strategies/list.html"
+      },
+      "name": "delete_governance_strategy",
+      "title": "Delete Governance Strategy"
+    },
+    {
+      "annotations": {
+        "idempotentHint": true,
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Fetch one policy template by templateId for configuration details.",
+      "inputSchema": {
+        "properties": {
+          "organization_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Organization Id"
+          },
+          "template_id": {
+            "title": "Template Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "template_id"
+        ],
+        "title": "fetch_automated_policy_templateArguments",
+        "type": "object"
+      },
+      "meta": {
+        "ui": {
+          "resourceUri": "ui://governance/automated-policy-creation.html"
+        },
+        "ui/resourceUri": "ui://governance/automated-policy-creation.html"
+      },
+      "name": "fetch_automated_policy_template",
+      "title": "Fetch Automated Policy Template"
+    },
+    {
+      "annotations": {
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Use this tool to get token usage and response time timeseries for a single MCP server instance. Returns time-bucketed data points with totalTokens, tokenDelta, and avgResponseTimeMs per bucket. Supports time_range values: 1h, 6h, 24h, 7d, 30d. Example: fetch_cost_instance_timeseries(organization_id=<org_id>, instance_id=<instance_id>, time_range='7d'). For org-wide overview, use fetch_cost_overview instead.",
+      "inputSchema": {
+        "properties": {
+          "instance_id": {
+            "title": "Instance Id",
+            "type": "string"
+          },
+          "organization_id": {
+            "title": "Organization Id",
+            "type": "string"
+          },
+          "time_range": {
+            "default": "24h",
+            "title": "Time Range",
+            "type": "string"
+          }
+        },
+        "required": [
+          "organization_id",
+          "instance_id"
+        ],
+        "title": "fetch_cost_instance_timeseriesArguments",
+        "type": "object"
+      },
+      "name": "fetch_cost_instance_timeseries",
+      "title": "Fetch Cost Instance Timeseries"
+    },
+    {
+      "annotations": {
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Use this tool to get per-instance token usage with optimization coverage. Each instance includes totalTokens, tokenDelta (tokens saved), avgResponseTimeMs, toolsListTokens, toolsCallTokens, environmentId, organizationId, appliedPolicies, appliedCostPolicyIds, unappliedCostPolicyIds, and optimizationCoverage (0-1). Response also includes a policyTemplates lookup (templateId -> name, description). Use filter_unoptimized=true to find instances with unapplied cost policies. Supports time_range values: 1h, 6h, 24h, 7d, 30d. Use top_n to limit results (default 10, max 50). Use sort_by to change ordering (totalTokens, tokenDelta, avgResponseTimeMs, totalCalls, tokensPerCall). To optimize a specific instance, use the unappliedCostPolicyIds list with prepare_policy_creation(asset_id=<assetId>, policy_name_hint=<policy_id>). Example: fetch_cost_instances(organization_id=<org_id>, time_range='30d', filter_unoptimized=true).",
+      "inputSchema": {
+        "properties": {
+          "filter_unoptimized": {
+            "default": false,
+            "title": "Filter Unoptimized",
+            "type": "boolean"
+          },
+          "organization_id": {
+            "title": "Organization Id",
+            "type": "string"
+          },
+          "sort_by": {
+            "default": "totalTokens",
+            "title": "Sort By",
+            "type": "string"
+          },
+          "time_range": {
+            "default": "30d",
+            "title": "Time Range",
+            "type": "string"
+          },
+          "top_n": {
+            "default": 10,
+            "title": "Top N",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "organization_id"
+        ],
+        "title": "fetch_cost_instancesArguments",
+        "type": "object"
+      },
+      "name": "fetch_cost_instances",
+      "title": "Fetch Cost Instances"
+    },
+    {
+      "annotations": {
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Use this tool to get a ranked list of MCP server instances that should be optimized, mirroring the 'Recommended Optimizations' card on the Cost Management page. Filters to active instances (usage in window) that have at least one unapplied cost policy, projects token savings from Exchange tool metadata using the same rate analyzers as the UI, and returns the top N by projected savings. Each recommendation includes instanceId, instanceName, serverName, assetId, environment, totalTokens, projectedTokensSaved, projectedSavingsPercent, unappliedCostPolicyIds, and perPolicyProjections (policyId, policyName, rate 0-1, tokensSaved). Supports time_range values: 1h, 6h, 24h, 7d, 30d. top_n defaults to 3, max 10. Answers questions like 'what should I optimize next?', 'biggest token savings opportunities?', 'where is the most waste?'. Follow up with prepare_policy_creation(asset_id=<assetId>, policy_name_hint=<policyId>) to apply a policy. Example: fetch_cost_optimization_recommendations(organization_id=<org_id>, time_range='30d', top_n=3).",
+      "inputSchema": {
+        "properties": {
+          "organization_id": {
+            "title": "Organization Id",
+            "type": "string"
+          },
+          "savings_pool_size": {
+            "default": 10,
+            "title": "Savings Pool Size",
+            "type": "integer"
+          },
+          "time_range": {
+            "default": "30d",
+            "title": "Time Range",
+            "type": "string"
+          },
+          "top_n": {
+            "default": 3,
+            "title": "Top N",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "organization_id"
+        ],
+        "title": "fetch_cost_optimization_recommendationsArguments",
+        "type": "object"
+      },
+      "name": "fetch_cost_optimization_recommendations",
+      "title": "Fetch Cost Optimization Recommendations"
+    },
+    {
+      "annotations": {
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Use this tool to get org-wide token usage KPIs for MCP servers: total tokens, saved tokens (from optimization policies), and total tool calls. Optionally includes token usage timeseries. Supports time_range values: 1h, 6h, 24h, 7d, 30d. Use include_timeseries=true for chart data (increases response size). Example: fetch_cost_overview(organization_id=<org_id>, time_range='30d'). For per-instance breakdown, use fetch_cost_instances instead.",
+      "inputSchema": {
+        "properties": {
+          "include_timeseries": {
+            "default": false,
+            "title": "Include Timeseries",
+            "type": "boolean"
+          },
+          "organization_id": {
+            "title": "Organization Id",
+            "type": "string"
+          },
+          "time_range": {
+            "default": "30d",
+            "title": "Time Range",
+            "type": "string"
+          }
+        },
+        "required": [
+          "organization_id"
+        ],
+        "title": "fetch_cost_overviewArguments",
+        "type": "object"
+      },
+      "name": "fetch_cost_overview",
+      "title": "Fetch Cost Overview"
+    },
+    {
+      "annotations": {
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Use this tool to get detailed governance conformance data for a single service. Returns the service summary, per-ruleset details with violation/warning counts, rule-level messages, and instance-level policy conformance when available. Use this after fetch_governance_services to drill into one service, or when the user asks about a specific service's governance status. Example: fetch_governance_service_report(organization_id=<organization_id>, service_id=<service_id>). Example: fetch_governance_service_report(organization_id=<organization_id>, service_id=<service_id>, api_version=<version>, include_rule_messages=true).",
+      "inputSchema": {
+        "properties": {
+          "api_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Api Version"
+          },
+          "include_rule_messages": {
+            "default": true,
+            "title": "Include Rule Messages",
+            "type": "boolean"
+          },
+          "organization_id": {
+            "title": "Organization Id",
+            "type": "string"
+          },
+          "service_id": {
+            "title": "Service Id",
+            "type": "string"
+          },
+          "version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Version"
+          }
+        },
+        "required": [
+          "organization_id",
+          "service_id"
+        ],
+        "title": "fetch_governance_service_reportArguments",
+        "type": "object"
+      },
+      "name": "fetch_governance_service_report",
+      "title": "Fetch Governance Service Report"
+    },
+    {
+      "annotations": {
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Use this tool to search, filter, and count governance conformance across services. Returns lightweight rows with conformance status, concern-area breakdowns, error/warning/info counts, and violated rulesets for each matched service. Supports filtering by conformance status, concern area, ruleset, provider, service type, severity thresholds, and text query. Returns aggregate totals alongside paged results. Canonical conformance values: compliant, non-compliant, pending. Concern area IDs include: security-privacy, consumption-economic-governance, structural-conformity-lifecycle. Canonical provider values: mulesoft, kong, apigee, aws, azure. Example: fetch_governance_services(organization_id=<organization_id>, conformance_status_in=[<status>]). Example: fetch_governance_services(organization_id=<organization_id>, provider_in=[<provider>], limit=<n>). For detailed drill-down into one service, use fetch_governance_service_report instead. IMPORTANT: The totals object already contains aggregate counts for all matched services (statusTotals, concernTotals, providerTotals, messageTotals). providerTotals breaks down services per provider with compliant/non-compliant/pending counts. Do NOT paginate through all pages to count services yourself \u2014 use the totals. Synthesize your answer from the first page of results plus the totals. Only call again with different filters if the first result set doesn't match the user's question.",
+      "inputSchema": {
+        "properties": {
+          "concern_area_ids": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Concern Area Ids"
+          },
+          "conformance_status_in": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Conformance Status In"
+          },
+          "include_rule_messages": {
+            "default": false,
+            "title": "Include Rule Messages",
+            "type": "boolean"
+          },
+          "include_rulesets": {
+            "default": true,
+            "title": "Include Rulesets",
+            "type": "boolean"
+          },
+          "limit": {
+            "default": 20,
+            "title": "Limit",
+            "type": "integer"
+          },
+          "min_errors": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Min Errors"
+          },
+          "min_infos": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Min Infos"
+          },
+          "min_warnings": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Min Warnings"
+          },
+          "offset": {
+            "default": 0,
+            "title": "Offset",
+            "type": "integer"
+          },
+          "organization_id": {
+            "title": "Organization Id",
+            "type": "string"
+          },
+          "provider_in": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Provider In"
+          },
+          "q": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Q"
+          },
+          "ruleset_ids_in": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Ruleset Ids In"
+          },
+          "service_ids": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Service Ids"
+          },
+          "service_type_in": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Service Type In"
+          }
+        },
+        "required": [
+          "organization_id"
+        ],
+        "title": "fetch_governance_servicesArguments",
+        "type": "object"
+      },
+      "name": "fetch_governance_services",
+      "title": "Fetch Governance Services"
+    },
+    {
+      "annotations": {
+        "idempotentHint": true,
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Fetch a guardrail ruleset payload by sourceRulesetKey.",
+      "inputSchema": {
+        "properties": {
+          "organization_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Organization Id"
+          },
+          "source_ruleset_key": {
+            "title": "Source Ruleset Key",
+            "type": "string"
+          }
+        },
+        "required": [
+          "source_ruleset_key"
+        ],
+        "title": "fetch_guardrail_rulesetArguments",
+        "type": "object"
+      },
+      "name": "fetch_guardrail_ruleset",
+      "title": "Fetch Guardrail Ruleset"
+    },
+    {
+      "annotations": {
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Use this tool to rank services or instances contributing to a specific performance metric (availability, reliability, avgLatency, requestVolume, errorRate, policyViolations). Powers the Performance view's drill-down drawer and answers questions like \"which services are driving errors?\" or \"rank instances by latency\". Filter by entity_type (apis/agents/mcp-servers/llms), service_id (narrow to one service's instances), instance_id (single instance), environments list, or providers list. Free-text `search` matches service/instance/environment names. Returns MetricContributorRow[] plus pagination metadata (totalRows, offset, pageSize). Example: fetch_monitoring_drill_down(metric='errorRate', time_range='24h'). Example: fetch_monitoring_drill_down(metric='avgLatency', entity_type='apis', sort_dir='desc').",
+      "inputSchema": {
+        "properties": {
+          "entity_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Entity Type"
+          },
+          "environment": {
+            "default": "sandbox",
+            "title": "Environment",
+            "type": "string"
+          },
+          "environments": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Environments"
+          },
+          "instance_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Instance Id"
+          },
+          "limit": {
+            "default": 25,
+            "title": "Limit",
+            "type": "integer"
+          },
+          "metric": {
+            "enum": [
+              "availability",
+              "reliability",
+              "avgLatency",
+              "requestVolume",
+              "errorRate",
+              "policyViolations"
+            ],
+            "title": "Metric",
+            "type": "string"
+          },
+          "offset": {
+            "default": 0,
+            "title": "Offset",
+            "type": "integer"
+          },
+          "organization_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Organization Id"
+          },
+          "providers": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Providers"
+          },
+          "search": {
+            "default": "",
+            "title": "Search",
+            "type": "string"
+          },
+          "service_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Service Id"
+          },
+          "sort_dir": {
+            "default": "desc",
+            "title": "Sort Dir",
+            "type": "string"
+          },
+          "sort_field": {
+            "default": "value",
+            "title": "Sort Field",
+            "type": "string"
+          },
+          "time_range": {
+            "default": "7d",
+            "title": "Time Range",
+            "type": "string"
+          }
+        },
+        "required": [
+          "metric"
+        ],
+        "title": "fetch_monitoring_drill_downArguments",
+        "type": "object"
+      },
+      "name": "fetch_monitoring_drill_down",
+      "title": "Fetch Monitoring Drill-Down"
+    },
+    {
+      "annotations": {
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Use this tool to get monitoring data for a single API instance: time-series charts (requests, error rate, latency, policy violations), top endpoints by traffic, and top clients by traffic. Requires organization_id, asset_id, and ideally instance_id. If instance_id is omitted, the first available instance is selected. Supports time_range values: 1h, 6h, 24h, 7d, 30d. Supports environment values: production, sandbox, development. Only MuleSoft-managed instances have monitoring data. Example: fetch_monitoring_instance(organization_id=<organization_id>, asset_id=<asset_id>, instance_id=<instance_id>, time_range=<time_range>, environment=<environment>). Example: fetch_monitoring_instance(organization_id=<organization_id>, asset_id=<asset_id>). For org-wide health overview, use fetch_monitoring_overview instead.",
+      "inputSchema": {
+        "properties": {
+          "api_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Api Version"
+          },
+          "asset_id": {
+            "title": "Asset Id",
+            "type": "string"
+          },
+          "asset_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Asset Version"
+          },
+          "environment": {
+            "default": "sandbox",
+            "title": "Environment",
+            "type": "string"
+          },
+          "instance_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Instance Id"
+          },
+          "organization_id": {
+            "title": "Organization Id",
+            "type": "string"
+          },
+          "time_range": {
+            "default": "7d",
+            "title": "Time Range",
+            "type": "string"
+          }
+        },
+        "required": [
+          "organization_id",
+          "asset_id"
+        ],
+        "title": "fetch_monitoring_instanceArguments",
+        "type": "object"
+      },
+      "name": "fetch_monitoring_instance",
+      "title": "Fetch Monitoring Instance"
+    },
+    {
+      "annotations": {
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Use this tool to get an org-wide monitoring health snapshot: total requests, error rate, average latency, availability, reliability, and compact trend charts. Returns KPI summary plus time-series data for request volume, error rate, average latency, and error volume over the selected time range and environment. Supports time_range values: 1h, 6h, 24h, 7d, 30d. Supports environment values: production, sandbox, development. Supports provider filter: currently only 'mulesoft' returns monitoring data. Other providers (kong, apigee, aws, azure) will return empty results. Canonical provider values: mulesoft, kong, apigee, aws, azure. Example: fetch_monitoring_overview(organization_id=<organization_id>, time_range=<time_range>, environment=<environment>). Example: fetch_monitoring_overview(organization_id=<organization_id>, time_range=<time_range>, environment=<environment>, provider=<provider>). For instance-level monitoring drill-down, use fetch_monitoring_instance instead.",
+      "inputSchema": {
+        "properties": {
+          "environment": {
+            "default": "sandbox",
+            "title": "Environment",
+            "type": "string"
+          },
+          "include_charts": {
+            "default": true,
+            "title": "Include Charts",
+            "type": "boolean"
+          },
+          "organization_id": {
+            "title": "Organization Id",
+            "type": "string"
+          },
+          "provider": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Provider"
+          },
+          "time_range": {
+            "default": "7d",
+            "title": "Time Range",
+            "type": "string"
+          }
+        },
+        "required": [
+          "organization_id"
+        ],
+        "title": "fetch_monitoring_overviewArguments",
+        "type": "object"
+      },
+      "name": "fetch_monitoring_overview",
+      "title": "Fetch Monitoring Overview"
+    },
+    {
+      "annotations": {
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Use this tool when you need aggregate counts/buckets for summaries, dashboards, or filter panels, not full service-row hydration. Prefer this tool over fetch_services when the user asks 'how many', 'breakdown by type/status/provider', or other distribution insights. Fetches facet aggregates for exactly one required business_group_id. Supports either text query (q) OR typed filtering/aggregates; when q is provided, do not send filters or aggregates. Canonical typed values are api classifiers (rest-api, http-api, graphql, soap-api, grpc-api, evented-api) plus agent and mcp, and common aliases are normalized before filtering. Canonical provider values: mulesoft, kong, apigee, aws, azure. Example (typed facets): fetch_service_facets(business_group_id=<business_group_id>, asset_types=[<asset_type>, ...], aggregates={'totalHits': True, 'byType': True, 'byProvider': True}). Example (query facets): fetch_service_facets(business_group_id=<business_group_id>, q=<search_query>). Do not send aggregates as shorthand strings like 'type,provider'. Returns structured payload with aggregates, total, and query context metadata. If the user then asks for specific assets, follow with fetch_services.",
+      "inputSchema": {
+        "$defs": {
+          "AssetSearchAggregatesRequest": {
+            "description": "Flags controlling which aggregate facets to include in search results.",
+            "properties": {
+              "activeVersionAssetCount": {
+                "default": false,
+                "title": "Activeversionassetcount",
+                "type": "boolean"
+              },
+              "byApiCategory": {
+                "default": false,
+                "title": "Byapicategory",
+                "type": "boolean"
+              },
+              "byProvider": {
+                "default": false,
+                "title": "Byprovider",
+                "type": "boolean"
+              },
+              "byStatus": {
+                "default": false,
+                "title": "Bystatus",
+                "type": "boolean"
+              },
+              "byType": {
+                "default": false,
+                "title": "Bytype",
+                "type": "boolean"
+              },
+              "totalHits": {
+                "default": false,
+                "title": "Totalhits",
+                "type": "boolean"
+              },
+              "uniqueAssets": {
+                "default": false,
+                "title": "Uniqueassets",
+                "type": "boolean"
+              }
+            },
+            "title": "AssetSearchAggregatesRequest",
+            "type": "object"
+          },
+          "AssetSearchFilters": {
+            "description": "Optional filters to narrow an Exchange asset search.",
+            "properties": {
+              "apiCategoryIn": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Apicategoryin"
+              },
+              "complianceStatusIn": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Compliancestatusin"
+              },
+              "environmentTypeIn": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Environmenttypein"
+              },
+              "hasActiveInstance": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Hasactiveinstance"
+              },
+              "hasActiveVersion": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Hasactiveversion"
+              },
+              "hasInstances": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Hasinstances"
+              },
+              "providerIn": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Providerin"
+              },
+              "providerTupleIn": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Providertuplein"
+              },
+              "statusIn": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Statusin"
+              }
+            },
+            "title": "AssetSearchFilters",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "aggregates": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/AssetSearchAggregatesRequest"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Aggregates"
+          },
+          "asset_types": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Asset Types"
+          },
+          "business_group_id": {
+            "title": "Business Group Id",
+            "type": "string"
+          },
+          "filters": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/AssetSearchFilters"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Filters"
+          },
+          "q": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Q"
+          },
+          "size": {
+            "default": 20,
+            "title": "Size",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "business_group_id"
+        ],
+        "title": "fetch_service_facetsArguments",
+        "type": "object"
+      },
+      "name": "fetch_service_facets",
+      "title": "Fetch Service Facets"
+    },
+    {
+      "annotations": {
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Use this tool when you need concrete service rows (for example asset IDs/names, detail selection, or navigation affordances). Prefer this tool over fetch_service_facets when the user asks 'which assets' or requests item-level results. Fetches lightweight services for exactly one required business_group_id. Supports either text query (q) OR typed filtering/aggregates; when q is provided, do not send filters or aggregates. Canonical typed values are api classifiers (rest-api, http-api, graphql, soap-api, grpc-api, evented-api) plus agent and mcp. The tool normalizes common aliases/plurals (for example api/apis, rest, openapi, asyncapi, agents, mcp-servers) to canonical values before filtering. Returns structured payload with services, assets (alias), total, and optional aggregates. Service rows include a provider field. Canonical provider values: mulesoft, kong, apigee, aws, azure. If you only need counts/buckets (no row hydration), use fetch_service_facets instead. Example (typed rows): fetch_services(business_group_id=<business_group_id>, asset_types=[<asset_type>, ...], size=<n>). Example (text search): fetch_services(business_group_id=<business_group_id>, q=<search_query>, size=<n>). Service rows include affordances and links for downstream navigation/actions. IMPORTANT: Do NOT paginate through all results by calling this tool multiple times with different offsets. Use the first page of results to synthesize your answer. Only call again with different filters if the first result set is clearly irrelevant to the user's question.",
+      "inputSchema": {
+        "$defs": {
+          "AssetSearchAggregatesRequest": {
+            "description": "Flags controlling which aggregate facets to include in search results.",
+            "properties": {
+              "activeVersionAssetCount": {
+                "default": false,
+                "title": "Activeversionassetcount",
+                "type": "boolean"
+              },
+              "byApiCategory": {
+                "default": false,
+                "title": "Byapicategory",
+                "type": "boolean"
+              },
+              "byProvider": {
+                "default": false,
+                "title": "Byprovider",
+                "type": "boolean"
+              },
+              "byStatus": {
+                "default": false,
+                "title": "Bystatus",
+                "type": "boolean"
+              },
+              "byType": {
+                "default": false,
+                "title": "Bytype",
+                "type": "boolean"
+              },
+              "totalHits": {
+                "default": false,
+                "title": "Totalhits",
+                "type": "boolean"
+              },
+              "uniqueAssets": {
+                "default": false,
+                "title": "Uniqueassets",
+                "type": "boolean"
+              }
+            },
+            "title": "AssetSearchAggregatesRequest",
+            "type": "object"
+          },
+          "AssetSearchFilters": {
+            "description": "Optional filters to narrow an Exchange asset search.",
+            "properties": {
+              "apiCategoryIn": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Apicategoryin"
+              },
+              "complianceStatusIn": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Compliancestatusin"
+              },
+              "environmentTypeIn": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Environmenttypein"
+              },
+              "hasActiveInstance": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Hasactiveinstance"
+              },
+              "hasActiveVersion": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Hasactiveversion"
+              },
+              "hasInstances": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Hasinstances"
+              },
+              "providerIn": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Providerin"
+              },
+              "providerTupleIn": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Providertuplein"
+              },
+              "statusIn": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Statusin"
+              }
+            },
+            "title": "AssetSearchFilters",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "aggregates": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/AssetSearchAggregatesRequest"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Aggregates"
+          },
+          "asset_types": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Asset Types"
+          },
+          "business_group_id": {
+            "title": "Business Group Id",
+            "type": "string"
+          },
+          "filters": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/AssetSearchFilters"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Filters"
+          },
+          "include_affordances": {
+            "default": true,
+            "title": "Include Affordances",
+            "type": "boolean"
+          },
+          "q": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Q"
+          },
+          "size": {
+            "default": 20,
+            "title": "Size",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "business_group_id"
+        ],
+        "title": "fetch_servicesArguments",
+        "type": "object"
+      },
+      "name": "fetch_services",
+      "title": "Fetch Services"
+    },
+    {
+      "annotations": {
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Get full metadata for a business group by its ID.",
+      "inputSchema": {
+        "properties": {
+          "group_id": {
+            "title": "Group Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "group_id"
+        ],
+        "title": "get_business_groupArguments",
+        "type": "object"
+      },
+      "meta": {
+        "ui": {
+          "resourceUri": "ui://business-groups/app.html"
+        },
+        "ui/resourceUri": "ui://business-groups/app.html"
+      },
+      "name": "get_business_group",
+      "title": "Get Business Group"
+    },
+    {
+      "annotations": {
+        "idempotentHint": true,
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Read the deployed state of a catalog-managed MCP server. Returns current systems, tools, and upstream IDs needed for editing.",
+      "inputSchema": {
+        "properties": {
+          "asset_id": {
+            "title": "Asset Id",
+            "type": "string"
+          },
+          "environment_id": {
+            "title": "Environment Id",
+            "type": "string"
+          },
+          "organization_id": {
+            "title": "Organization Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "organization_id",
+          "environment_id",
+          "asset_id"
+        ],
+        "title": "get_mcp_server_stateArguments",
+        "type": "object"
+      },
+      "name": "get_mcp_server_state",
+      "title": "Get MCP Server State"
+    },
+    {
+      "annotations": {
+        "idempotentHint": true,
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Get ingress domains and app unique id for a managed Omni Gateway target.",
+      "inputSchema": {
+        "properties": {
+          "environment_id": {
+            "title": "Environment Id",
+            "type": "string"
+          },
+          "organization_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Organization Id"
+          },
+          "provider_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Provider Id"
+          },
+          "target_id": {
+            "title": "Target Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "environment_id",
+          "target_id"
+        ],
+        "title": "get_flex_gateway_target_domainsArguments",
+        "type": "object"
+      },
+      "name": "get_omni_gateway_target_domains",
+      "title": "Get Omni Gateway Target Domains"
+    },
+    {
+      "annotations": {
+        "idempotentHint": true,
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Get current managed Omni Gateway size entitlement usage.",
+      "inputSchema": {
+        "properties": {
+          "organization_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Organization Id"
+          },
+          "provider_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Provider Id"
+          }
+        },
+        "title": "get_flex_gateway_usage_reportArguments",
+        "type": "object"
+      },
+      "name": "get_omni_gateway_usage_report",
+      "title": "Get Omni Gateway Usage Report"
+    },
+    {
+      "annotations": {
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Load one policy template detail, including configuration schema, to dynamically render the creation form. Use this immediately after the user selects a policy in prepare_policy_creation.",
+      "inputSchema": {
+        "properties": {
+          "api_instance_id": {
+            "title": "Api Instance Id",
+            "type": "string"
+          },
+          "asset_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Asset Id"
+          },
+          "asset_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Asset Version"
+          },
+          "direction": {
+            "default": "inbound",
+            "enum": [
+              "inbound",
+              "outbound"
+            ],
+            "title": "Direction",
+            "type": "string"
+          },
+          "environment_id": {
+            "title": "Environment Id",
+            "type": "string"
+          },
+          "group_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Group Id"
+          },
+          "organization_id": {
+            "title": "Organization Id",
+            "type": "string"
+          },
+          "template_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Template Id"
+          }
+        },
+        "required": [
+          "organization_id",
+          "environment_id",
+          "api_instance_id"
+        ],
+        "title": "get_policy_template_formArguments",
+        "type": "object"
+      },
+      "meta": {
+        "ui": {
+          "resourceUri": "ui://asset-instance/policy-form.html"
+        },
+        "ui/resourceUri": "ui://asset-instance/policy-form.html"
+      },
+      "name": "get_policy_template_form",
+      "title": "Get Policy Template Form"
+    },
+    {
+      "annotations": {
+        "idempotentHint": true,
+        "openWorldHint": false,
+        "readOnlyHint": true
+      },
+      "description": "Poll the status of a provisioning or update job. Returns status (running/complete/failed), progress step, completed steps, result (MCP URL on success), and can_resume flag.",
+      "inputSchema": {
+        "properties": {
+          "job_id": {
+            "title": "Job Id",
+            "type": "string"
+          },
+          "organization_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Organization Id"
+          }
+        },
+        "required": [
+          "job_id"
+        ],
+        "title": "get_provision_statusArguments",
+        "type": "object"
+      },
+      "name": "get_provision_status",
+      "title": "Get Provision Status"
+    },
+    {
+      "annotations": {
+        "idempotentHint": true,
+        "openWorldHint": false,
+        "readOnlyHint": true
+      },
+      "description": "Return the catalog of SaaS systems available for MCP server provisioning. Each item includes tools, auth type, credential fields, and upstream config.",
+      "inputSchema": {
+        "properties": {
+          "organization_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Organization Id"
+          }
+        },
+        "title": "get_trusted_mcp_catalogArguments",
+        "type": "object"
+      },
+      "meta": {
+        "ui": {
+          "resourceUri": "ui://mcp-server-provisioning/app.html"
+        },
+        "ui/resourceUri": "ui://mcp-server-provisioning/app.html"
+      },
+      "name": "get_trusted_mcp_catalog",
+      "title": "Get Trusted MCP Catalog"
+    },
+    {
+      "annotations": {
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "List agents registered in the MuleSoft Platform for a given organization. Presents an interactive UI for browsing, filtering, and selecting agents.",
+      "inputSchema": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Name"
+          },
+          "organization_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Organization Id"
+          },
+          "provider": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Provider"
+          }
+        },
+        "title": "list_agentsArguments",
+        "type": "object"
+      },
+      "meta": {
+        "ui": {
+          "resourceUri": "ui://agent-catalog/app.html"
+        },
+        "ui/resourceUri": "ui://agent-catalog/app.html"
+      },
+      "name": "list_agents",
+      "title": "List Agents"
+    },
+    {
+      "annotations": {
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "List APIs from the MuleSoft Platform catalog for a given organization. Presents an interactive UI for browsing, filtering, and selecting APIs.",
+      "inputSchema": {
+        "properties": {
+          "api_category": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Api Category"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Name"
+          },
+          "organization_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Organization Id"
+          },
+          "provider": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Provider"
+          }
+        },
+        "title": "list_apisArguments",
+        "type": "object"
+      },
+      "meta": {
+        "ui": {
+          "resourceUri": "ui://api-catalog/app.html"
+        },
+        "ui/resourceUri": "ui://api-catalog/app.html"
+      },
+      "name": "list_apis",
+      "title": "List APIs"
+    },
+    {
+      "annotations": {
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "List available business groups, optionally filtering by name.",
+      "inputSchema": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Name"
+          }
+        },
+        "title": "list_business_groupsArguments",
+        "type": "object"
+      },
+      "meta": {
+        "ui": {
+          "resourceUri": "ui://business-groups/app.html"
+        },
+        "ui/resourceUri": "ui://business-groups/app.html"
+      },
+      "name": "list_business_groups",
+      "title": "List Business Groups"
+    },
+    {
+      "annotations": {
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "List governance strategies for an organization. Shows the same searchable and filterable table style as the main web app.",
+      "inputSchema": {
+        "properties": {
+          "organization_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Organization Id"
+          },
+          "strategy_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Strategy Type"
+          }
+        },
+        "title": "list_governance_strategiesArguments",
+        "type": "object"
+      },
+      "meta": {
+        "ui": {
+          "resourceUri": "ui://governance-strategies/list.html"
+        },
+        "ui/resourceUri": "ui://governance-strategies/list.html"
+      },
+      "name": "list_governance_strategies",
+      "title": "List Governance Strategies"
+    },
+    {
+      "annotations": {
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "List LLM models registered in the MuleSoft Platform for a given organization. Presents an interactive UI for browsing, filtering, and selecting LLMs.",
+      "inputSchema": {
+        "properties": {
+          "category": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Category"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Name"
+          },
+          "organization_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Organization Id"
+          },
+          "provider": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Provider"
+          }
+        },
+        "title": "list_llmsArguments",
+        "type": "object"
+      },
+      "meta": {
+        "ui": {
+          "resourceUri": "ui://llm-catalog/app.html"
+        },
+        "ui/resourceUri": "ui://llm-catalog/app.html"
+      },
+      "name": "list_llms",
+      "title": "List LLMs"
+    },
+    {
+      "annotations": {
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "List MCP servers registered in the MuleSoft Platform for a given organization. Presents an interactive UI for browsing, filtering, and selecting MCP servers.",
+      "inputSchema": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Name"
+          },
+          "organization_id": {
+            "title": "Organization Id",
+            "type": "string"
+          },
+          "protocol": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Protocol"
+          }
+        },
+        "required": [
+          "organization_id"
+        ],
+        "title": "list_mcp_serversArguments",
+        "type": "object"
+      },
+      "meta": {
+        "ui": {
+          "resourceUri": "ui://mcp-server-catalog/app.html"
+        },
+        "ui/resourceUri": "ui://mcp-server-catalog/app.html"
+      },
+      "name": "list_mcp_servers",
+      "title": "List MCP Servers"
+    },
+    {
+      "annotations": {
+        "idempotentHint": true,
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "List Anypoint environments available for managed Omni Gateway creation.",
+      "inputSchema": {
+        "properties": {
+          "organization_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Organization Id"
+          },
+          "provider_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Provider Id"
+          }
+        },
+        "title": "list_flex_gateway_environmentsArguments",
+        "type": "object"
+      },
+      "name": "list_omni_gateway_environments",
+      "title": "List Omni Gateway Environments"
+    },
+    {
+      "annotations": {
+        "idempotentHint": true,
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "List managed Omni Gateway deployment targets for an environment.",
+      "inputSchema": {
+        "properties": {
+          "environment_id": {
+            "title": "Environment Id",
+            "type": "string"
+          },
+          "organization_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Organization Id"
+          },
+          "provider_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Provider Id"
+          }
+        },
+        "required": [
+          "environment_id"
+        ],
+        "title": "list_flex_gateway_targetsArguments",
+        "type": "object"
+      },
+      "name": "list_omni_gateway_targets",
+      "title": "List Omni Gateway Targets"
+    },
+    {
+      "annotations": {
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "List gateways for the active provider. Currently returns Omni Gateways when the active provider is MuleSoft.",
+      "inputSchema": {
+        "properties": {
+          "organization_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Organization Id"
+          },
+          "provider_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Provider Id"
+          }
+        },
+        "title": "list_provider_gatewaysArguments",
+        "type": "object"
+      },
+      "meta": {
+        "ui": {
+          "resourceUri": "ui://provider-gateways/app.html"
+        },
+        "ui/resourceUri": "ui://provider-gateways/app.html"
+      },
+      "name": "list_provider_gateways",
+      "title": "List Provider Gateways"
+    },
+    {
+      "annotations": {
+        "idempotentHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Get the list of available scanner providers (Google Vertex, Microsoft Copilot, etc.)",
+      "inputSchema": {
+        "properties": {},
+        "title": "list_scanner_providersArguments",
+        "type": "object"
+      },
+      "name": "list_scanner_providers",
+      "title": "List Scanner Providers"
+    },
+    {
+      "annotations": {
+        "idempotentHint": true,
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Authenticate with MuleSoft Platform. MUST be called before any other tool. Call WITHOUT arguments to display the interactive login panel where the user enters their credentials. Do NOT ask the user for username/password in the chat.",
+      "inputSchema": {
+        "properties": {
+          "password": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Password"
+          },
+          "username": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Username"
+          }
+        },
+        "title": "loginArguments",
+        "type": "object"
+      },
+      "meta": {
+        "ui": {
+          "resourceUri": "ui://auth/login-v2.html"
+        },
+        "ui/resourceUri": "ui://auth/login-v2.html"
+      },
+      "name": "login",
+      "title": "Login to MuleSoft Platform"
+    },
+    {
+      "annotations": {
+        "idempotentHint": true,
+        "readOnlyHint": false
+      },
+      "description": "Clear the stored authentication token.",
+      "inputSchema": {
+        "properties": {},
+        "title": "logoutArguments",
+        "type": "object"
+      },
+      "name": "logout",
+      "title": "Logout from MuleSoft Platform"
+    },
+    {
+      "annotations": {
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Open the automated-policy creation wizard with scope options and policy templates.",
+      "inputSchema": {
+        "properties": {
+          "organization_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Organization Id"
+          }
+        },
+        "title": "prepare_automated_policy_creationArguments",
+        "type": "object"
+      },
+      "meta": {
+        "ui": {
+          "resourceUri": "ui://governance/automated-policy-creation.html"
+        },
+        "ui/resourceUri": "ui://governance/automated-policy-creation.html"
+      },
+      "name": "prepare_automated_policy_creation",
+      "title": "Prepare Automated Policy Creation"
+    },
+    {
+      "annotations": {
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Open the guardrail creation wizard with scope options and guardrail rule catalog data, using the same scope, selection, and naming flow as the web app.",
+      "inputSchema": {
+        "properties": {
+          "organization_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Organization Id"
+          }
+        },
+        "title": "prepare_guardrail_creationArguments",
+        "type": "object"
+      },
+      "meta": {
+        "ui": {
+          "resourceUri": "ui://governance/guardrail-creation.html"
+        },
+        "ui/resourceUri": "ui://governance/guardrail-creation.html"
+      },
+      "name": "prepare_guardrail_creation",
+      "title": "Prepare Guardrail Creation"
+    },
+    {
+      "annotations": {
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Load policy options for one asset instance. Returns only policies that are not already applied. Accepts api_instance_id (numeric) or asset_id (Exchange asset ID) \u2014 when asset_id is provided the numeric instance ID is resolved automatically. Pass policy_name_hint to filter the list to policies matching a name \u2014 use this when the user names a specific policy. After the user selects a policy from the selector UI, call get_policy_template_form with the same organization_id, environment_id, api_instance_id, plus the selected template_id/asset_id/group_id/asset_version/direction to open the policy form UI.",
+      "inputSchema": {
+        "properties": {
+          "api_instance_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Api Instance Id"
+          },
+          "asset_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Asset Id"
+          },
+          "environment_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Environment Id"
+          },
+          "organization_id": {
+            "title": "Organization Id",
+            "type": "string"
+          },
+          "policy_name_hint": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Policy Name Hint"
+          }
+        },
+        "required": [
+          "organization_id"
+        ],
+        "title": "prepare_policy_creationArguments",
+        "type": "object"
+      },
+      "meta": {
+        "ui": {
+          "resourceUri": "ui://asset-instance/policy-selector.html"
+        },
+        "ui/resourceUri": "ui://asset-instance/policy-selector.html"
+      },
+      "name": "prepare_policy_creation",
+      "title": "Prepare Policy Creation"
+    },
+    {
+      "annotations": {
+        "idempotentHint": false,
+        "openWorldHint": true,
+        "readOnlyHint": false
+      },
+      "description": "Provision a composite MCP server on Omni Gateway from selected catalog systems. Returns a job_id \u2014 poll with get_provision_status until complete or failed. Requires organization_id, environment_id, server_name, target_id, target_name, base_path, and a servers array with system selections and credentials.",
+      "inputSchema": {
+        "properties": {
+          "base_path": {
+            "title": "Base Path",
+            "type": "string"
+          },
+          "environment_id": {
+            "title": "Environment Id",
+            "type": "string"
+          },
+          "organization_id": {
+            "title": "Organization Id",
+            "type": "string"
+          },
+          "server_name": {
+            "title": "Server Name",
+            "type": "string"
+          },
+          "servers": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Servers",
+            "type": "array"
+          },
+          "target_id": {
+            "title": "Target Id",
+            "type": "string"
+          },
+          "target_name": {
+            "title": "Target Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "organization_id",
+          "environment_id",
+          "server_name",
+          "target_id",
+          "target_name",
+          "base_path",
+          "servers"
+        ],
+        "title": "provision_mcp_serverArguments",
+        "type": "object"
+      },
+      "name": "provision_mcp_server",
+      "title": "Provision MCP Server"
+    },
+    {
+      "annotations": {
+        "idempotentHint": false,
+        "openWorldHint": true,
+        "readOnlyHint": false
+      },
+      "description": "Resume a failed provisioning or update job from its last checkpoint. Only works on jobs with status 'failed' that have completed steps.",
+      "inputSchema": {
+        "properties": {
+          "job_id": {
+            "title": "Job Id",
+            "type": "string"
+          },
+          "organization_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Organization Id"
+          }
+        },
+        "required": [
+          "job_id"
+        ],
+        "title": "resume_provision_jobArguments",
+        "type": "object"
+      },
+      "name": "resume_provision_job",
+      "title": "Resume Provision Job"
+    },
+    {
+      "annotations": {
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Search portfolio assets using natural language semantic search. Use this when the user asks for assets related to a concept or use case, not just keyword matching. Examples: 'Find services for payment processing', 'Search for customer authentication services'. Returns asset names, descriptions, relevance scores, and types.",
+      "inputSchema": {
+        "properties": {
+          "asset_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Asset Type"
+          },
+          "organization_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Organization Id"
+          },
+          "query": {
+            "title": "Query",
+            "type": "string"
+          },
+          "rows": {
+            "default": 10,
+            "title": "Rows",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "title": "search_assets_semanticArguments",
+        "type": "object"
+      },
+      "name": "search_assets_semantic",
+      "title": "Semantic Search Portfolio Assets"
+    },
+    {
+      "annotations": {
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Compatibility alias for global content search. Searches across agents, MCP servers, and APIs in one business group. You must pass exactly one business_group_id.",
+      "inputSchema": {
+        "properties": {
+          "business_group_id": {
+            "title": "Business Group Id",
+            "type": "string"
+          },
+          "query": {
+            "title": "Query",
+            "type": "string"
+          },
+          "size": {
+            "default": 20,
+            "title": "Size",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "query",
+          "business_group_id"
+        ],
+        "title": "search_global_assetsArguments",
+        "type": "object"
+      },
+      "meta": {
+        "ui": {
+          "resourceUri": "ui://global-search/app.html"
+        },
+        "ui/resourceUri": "ui://global-search/app.html"
+      },
+      "name": "search_global_assets",
+      "title": "Search Global Assets"
+    },
+    {
+      "annotations": {
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "UI tool for embedded agents to search content across agents, MCP servers, and APIs in the MuleSoft Platform. Returns ranked results and an embeddable command-palette UI. You must pass exactly one business_group_id (Anypoint business group ID) for each search request.",
+      "inputSchema": {
+        "properties": {
+          "business_group_id": {
+            "title": "Business Group Id",
+            "type": "string"
+          },
+          "query": {
+            "title": "Query",
+            "type": "string"
+          },
+          "size": {
+            "default": 20,
+            "title": "Size",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "query",
+          "business_group_id"
+        ],
+        "title": "search_global_assetsArguments",
+        "type": "object"
+      },
+      "meta": {
+        "ui": {
+          "resourceUri": "ui://global-search/app.html"
+        },
+        "ui/resourceUri": "ui://global-search/app.html"
+      },
+      "name": "search_global_content",
+      "title": "Search Global Content"
+    },
+    {
+      "description": "\ud83d\udd0d PRIMARY DISCOVERY TOOL - ALWAYS USE THIS FIRST when user wants to FIND/SEARCH/DISCOVER assets by what they DO or their capabilities.\n\nUSE THIS TOOL WHEN USER ASKS:\n- 'find [type] that can [action]' \u2192 e.g., 'find agents that can automate invoices', 'find APIs that handle payments'\n- 'search for [capability] [type]' \u2192 e.g., 'search for customer support agents', 'search for fraud detection APIs'\n- '[type] for [use case]' \u2192 e.g., 'agents for employee wellbeing', 'LLMs for code generation'\n- 'what [type] are available for [use case]' \u2192 e.g., 'what MCP servers are available for data transformation'\n- 'which [type] can [capability]' \u2192 e.g., 'which agents can automate approval', 'which LLMs generate SQL'\n- '[type] that [action]' \u2192 e.g., 'agents that automate workflows', 'APIs that detect fraud'\n\nEXAMPLES REQUIRING THIS TOOL:\n\u2713 'find payment APIs' \u2190 semantic match by purpose\n\u2713 'search for customer support agents' \u2190 capability-based discovery\n\u2713 'agents for employee wellbeing' \u2190 use case discovery\n\u2713 'LLMs that can generate SQL queries' \u2190 capability matching\n\u2713 'APIs for fraud detection' \u2190 functional discovery\n\u2713 'what MCP servers handle data transformation' \u2190 capability query\n\u2713 'agents that automate invoice approval' \u2190 workflow discovery\n\nDO NOT USE fetch_services FOR DISCOVERY:\n\u274c fetch_services only lists ALL assets without semantic/capability matching\n\u274c fetch_services cannot find assets by what they DO\n\u2705 Use THIS tool (search_portfolio_services) for discovery by capability/use case\n\u2705 Only use fetch_services AFTER this tool, if you need additional metadata\n\nDO NOT USE THIS TOOL FOR:\n\u2717 Performance metrics (use fetch_monitoring_*)\n\u2717 Cost analysis (use fetch_cost_*)\n\u2717 Governance/policy data (use fetch_governance_*)\n\u2717 Listing all deployed instances (use fetch_services)\n\u2717 Documentation/how-to guides (use search_repository_knowledge)\n\nReturns: Semantically matched assets with names, descriptions, versions, and relevance scores.",
+      "inputSchema": {
+        "properties": {
+          "asset_type": {
+            "default": "",
+            "title": "Asset Type",
+            "type": "string"
+          },
+          "max_results": {
+            "default": 10,
+            "title": "Max Results",
+            "type": "integer"
+          },
+          "query": {
+            "title": "Query",
+            "type": "string"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "title": "search_portfolio_servicesArguments",
+        "type": "object"
+      },
+      "name": "search_portfolio_services"
+    },
+    {
+      "annotations": {
+        "openWorldHint": false,
+        "readOnlyHint": true
+      },
+      "description": "Use this tool for repository-grounded conceptual questions. It searches a curated static corpus (policy/governance/security docs and rulesets) and returns cited snippets. Prefer this tool for prompts like 'what policies can I use to secure access to my APIs' or 'where is X documented'. Returns structured matches with sourcePath, snippet, lexical/semantic scores, and metadata. This tool is read-only and does not modify repository files. Use top_k to bound result size and source_path_prefixes for targeted lookup.",
+      "inputSchema": {
+        "properties": {
+          "lexical_top_n": {
+            "default": 25,
+            "title": "Lexical Top N",
+            "type": "integer"
+          },
+          "query": {
+            "title": "Query",
+            "type": "string"
+          },
+          "source_path_prefixes": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Source Path Prefixes"
+          },
+          "top_k": {
+            "default": 5,
+            "title": "Top K",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "title": "search_repository_knowledgeArguments",
+        "type": "object"
+      },
+      "name": "search_repository_knowledge",
+      "title": "Search Repository Knowledge"
+    },
+    {
+      "annotations": {
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Get the current active business group context and optionally set a new active business group by passing business_group_id. Use this for app-level context updates without launching the business group selector UI.",
+      "inputSchema": {
+        "properties": {
+          "business_group_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Business Group Id"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Name"
+          }
+        },
+        "title": "select_active_business_groupArguments",
+        "type": "object"
+      },
+      "name": "select_active_business_group",
+      "title": "Select Active Business Group"
+    },
+    {
+      "annotations": {
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Browse the available Anypoint environments for the active MuleSoft provider and set one as the active environment context.",
+      "inputSchema": {
+        "properties": {
+          "environment_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Environment Id"
+          },
+          "organization_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Organization Id"
+          },
+          "provider_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Provider Id"
+          }
+        },
+        "title": "select_active_environmentArguments",
+        "type": "object"
+      },
+      "meta": {
+        "ui": {
+          "resourceUri": "ui://environment-selector/app.html"
+        },
+        "ui/resourceUri": "ui://environment-selector/app.html"
+      },
+      "name": "select_active_environment",
+      "title": "Select Active Environment"
+    },
+    {
+      "annotations": {
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Browse the available providers and set one as the active provider context for follow-on provider tools.",
+      "inputSchema": {
+        "properties": {
+          "provider_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Provider Id"
+          }
+        },
+        "title": "select_active_providerArguments",
+        "type": "object"
+      },
+      "meta": {
+        "ui": {
+          "resourceUri": "ui://provider-selector/app.html"
+        },
+        "ui/resourceUri": "ui://provider-selector/app.html"
+      },
+      "name": "select_active_provider",
+      "title": "Select Active Provider"
+    },
+    {
+      "annotations": {
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Show an interactive version selector for an API and notify the host when the user picks a version.",
+      "inputSchema": {
+        "properties": {
+          "asset_id": {
+            "title": "Asset Id",
+            "type": "string"
+          },
+          "organization_id": {
+            "title": "Organization Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "organization_id",
+          "asset_id"
+        ],
+        "title": "select_api_versionArguments",
+        "type": "object"
+      },
+      "meta": {
+        "ui": {
+          "resourceUri": "ui://api-version/selector.html"
+        },
+        "ui/resourceUri": "ui://api-version/selector.html"
+      },
+      "name": "select_api_version",
+      "title": "Select API Version"
+    },
+    {
+      "annotations": {
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Load observability dashboards data for embedded MCP app rendering.",
+      "inputSchema": {
+        "properties": {
+          "environment": {
+            "default": "sandbox",
+            "title": "Environment",
+            "type": "string"
+          },
+          "provider": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Provider"
+          },
+          "time_range": {
+            "default": "7d",
+            "title": "Time Range",
+            "type": "string"
+          }
+        },
+        "title": "show_observability_performanceArguments",
+        "type": "object"
+      },
+      "meta": {
+        "ui": {
+          "resourceUri": "ui://observability/performance.html"
+        },
+        "ui/resourceUri": "ui://observability/performance.html"
+      },
+      "name": "show_observability_performance",
+      "title": "Show Observability Dashboards"
+    },
+    {
+      "annotations": {
+        "idempotentHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Test connection to a scanner provider before creating the scanner",
+      "inputSchema": {
+        "$defs": {
+          "ScannerAuthFields": {
+            "additionalProperties": true,
+            "description": "Provider-specific auth fields (e.g. ``apiKey``, ``clientSecret``).\n\nKeys are defined by the selected scanner provider and auth method;\n``extra='allow'`` keeps the envelope typed while accepting new keys as\nproviders evolve.",
+            "properties": {},
+            "title": "ScannerAuthFields",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "auth_fields": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/ScannerAuthFields"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "auth_method": {
+            "default": "api-key",
+            "title": "Auth Method",
+            "type": "string"
+          },
+          "provider": {
+            "title": "Provider",
+            "type": "string"
+          }
+        },
+        "required": [
+          "provider"
+        ],
+        "title": "test_scanner_connectionArguments",
+        "type": "object"
+      },
+      "name": "test_scanner_connection",
+      "title": "Test Scanner Connection"
+    },
+    {
+      "annotations": {
+        "idempotentHint": false,
+        "openWorldHint": true,
+        "readOnlyHint": false
+      },
+      "description": "Update an existing catalog-managed MCP server. Diffs new configuration against deployed state and applies incremental changes. Returns a job_id for status polling. Requires state from get_mcp_server_state.",
+      "inputSchema": {
+        "properties": {
+          "api_id": {
+            "title": "Api Id",
+            "type": "integer"
+          },
+          "asset_id": {
+            "title": "Asset Id",
+            "type": "string"
+          },
+          "current_upstream_ids": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Current Upstream Ids"
+          },
+          "deployed_systems": {
+            "anyOf": [
+              {
+                "items": {
+                  "additionalProperties": true,
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Deployed Systems"
+          },
+          "environment_id": {
+            "title": "Environment Id",
+            "type": "string"
+          },
+          "organization_id": {
+            "title": "Organization Id",
+            "type": "string"
+          },
+          "server_name": {
+            "title": "Server Name",
+            "type": "string"
+          },
+          "servers": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Servers",
+            "type": "array"
+          },
+          "target_id": {
+            "title": "Target Id",
+            "type": "string"
+          },
+          "target_name": {
+            "title": "Target Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "organization_id",
+          "environment_id",
+          "asset_id",
+          "api_id",
+          "server_name",
+          "target_id",
+          "target_name",
+          "servers"
+        ],
+        "title": "update_mcp_serverArguments",
+        "type": "object"
+      },
+      "name": "update_mcp_server",
+      "title": "Update MCP Server"
+    },
+    {
+      "annotations": {
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Show read-only details for one agent, including versions, instances, and metadata.",
+      "inputSchema": {
+        "properties": {
+          "asset_id": {
+            "title": "Asset Id",
+            "type": "string"
+          },
+          "asset_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Asset Version"
+          },
+          "organization_id": {
+            "title": "Organization Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "organization_id",
+          "asset_id"
+        ],
+        "title": "view_agent_detailsArguments",
+        "type": "object"
+      },
+      "meta": {
+        "ui": {
+          "resourceUri": "ui://agent/details.html"
+        },
+        "ui/resourceUri": "ui://agent/details.html"
+      },
+      "name": "view_agent_details",
+      "title": "View Agent Details"
+    },
+    {
+      "annotations": {
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Show details for one API instance with a web-aligned header. Accepts either an instance object or identifiers to resolve it.",
+      "inputSchema": {
+        "properties": {
+          "api_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Api Version"
+          },
+          "asset_id": {
+            "title": "Asset Id",
+            "type": "string"
+          },
+          "asset_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Asset Version"
+          },
+          "instance": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Instance"
+          },
+          "instance_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Instance Id"
+          },
+          "organization_id": {
+            "title": "Organization Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "organization_id",
+          "asset_id"
+        ],
+        "title": "view_api_instance_detailsArguments",
+        "type": "object"
+      },
+      "meta": {
+        "ui": {
+          "resourceUri": "ui://api-instance/details.html"
+        },
+        "ui/resourceUri": "ui://api-instance/details.html"
+      },
+      "name": "view_api_instance_details",
+      "title": "View API Instance Details"
+    },
+    {
+      "annotations": {
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Show instance monitoring charts, traffic, and clients for one API instance.",
+      "inputSchema": {
+        "properties": {
+          "api_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Api Version"
+          },
+          "asset_id": {
+            "title": "Asset Id",
+            "type": "string"
+          },
+          "asset_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Asset Version"
+          },
+          "instance": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Instance"
+          },
+          "instance_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Instance Id"
+          },
+          "organization_id": {
+            "title": "Organization Id",
+            "type": "string"
+          },
+          "time_range": {
+            "default": "7d",
+            "title": "Time Range",
+            "type": "string"
+          }
+        },
+        "required": [
+          "organization_id",
+          "asset_id"
+        ],
+        "title": "view_api_instance_monitoringArguments",
+        "type": "object"
+      },
+      "meta": {
+        "ui": {
+          "resourceUri": "ui://api-instance/monitoring.html"
+        },
+        "ui/resourceUri": "ui://api-instance/monitoring.html"
+      },
+      "name": "view_api_instance_monitoring",
+      "title": "View API Instance Monitoring"
+    },
+    {
+      "annotations": {
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Show the applied policies for one API instance with the same grouping UI as the web app.",
+      "inputSchema": {
+        "properties": {
+          "api_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Api Version"
+          },
+          "asset_id": {
+            "title": "Asset Id",
+            "type": "string"
+          },
+          "asset_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Asset Version"
+          },
+          "instance": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Instance"
+          },
+          "instance_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Instance Id"
+          },
+          "organization_id": {
+            "title": "Organization Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "organization_id",
+          "asset_id"
+        ],
+        "title": "view_api_instance_policiesArguments",
+        "type": "object"
+      },
+      "meta": {
+        "ui": {
+          "resourceUri": "ui://api-instance/policies.html"
+        },
+        "ui/resourceUri": "ui://api-instance/policies.html"
+      },
+      "name": "view_api_instance_policies",
+      "title": "View API Instance Policies"
+    },
+    {
+      "annotations": {
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Show read-only details for one API version, including instances, metadata, and lifecycle fields.",
+      "inputSchema": {
+        "properties": {
+          "api_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Api Version"
+          },
+          "asset_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Asset Id"
+          },
+          "asset_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Asset Version"
+          },
+          "organization_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Organization Id"
+          },
+          "version": {
+            "additionalProperties": true,
+            "title": "Version",
+            "type": "object"
+          }
+        },
+        "required": [
+          "version"
+        ],
+        "title": "view_api_version_detailsArguments",
+        "type": "object"
+      },
+      "meta": {
+        "ui": {
+          "resourceUri": "ui://api-version/details.html"
+        },
+        "ui/resourceUri": "ui://api-version/details.html"
+      },
+      "name": "view_api_version_details",
+      "title": "View API Version Details"
+    },
+    {
+      "annotations": {
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Show governance ruleset report summary and findings for one API version.",
+      "inputSchema": {
+        "properties": {
+          "api_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Api Name"
+          },
+          "api_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Api Version"
+          },
+          "asset_id": {
+            "title": "Asset Id",
+            "type": "string"
+          },
+          "group_id": {
+            "title": "Group Id",
+            "type": "string"
+          },
+          "organization_id": {
+            "title": "Organization Id",
+            "type": "string"
+          },
+          "version": {
+            "title": "Version",
+            "type": "string"
+          }
+        },
+        "required": [
+          "organization_id",
+          "group_id",
+          "asset_id",
+          "version"
+        ],
+        "title": "view_api_version_governance_reportArguments",
+        "type": "object"
+      },
+      "meta": {
+        "ui": {
+          "resourceUri": "ui://api-version/governance-report.html"
+        },
+        "ui/resourceUri": "ui://api-version/governance-report.html"
+      },
+      "name": "view_api_version_governance_report",
+      "title": "View API Version Governance Report"
+    },
+    {
+      "annotations": {
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Show available instances for one API version and allow selecting instances to send back to the host.",
+      "inputSchema": {
+        "properties": {
+          "api_version": {
+            "title": "Api Version",
+            "type": "string"
+          },
+          "asset_id": {
+            "title": "Asset Id",
+            "type": "string"
+          },
+          "asset_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Asset Version"
+          },
+          "organization_id": {
+            "title": "Organization Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "organization_id",
+          "asset_id",
+          "api_version"
+        ],
+        "title": "view_api_version_instancesArguments",
+        "type": "object"
+      },
+      "meta": {
+        "ui": {
+          "resourceUri": "ui://api-version/instances.html"
+        },
+        "ui/resourceUri": "ui://api-version/instances.html"
+      },
+      "name": "view_api_version_instances",
+      "title": "View API Version Instances"
+    },
+    {
+      "annotations": {
+        "openWorldHint": false,
+        "readOnlyHint": true
+      },
+      "description": "Fetch the latest Governance Governance Strategy report for an organization and render it in an interactive MCP app panel.",
+      "inputSchema": {
+        "properties": {
+          "organization_id": {
+            "title": "Organization Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "organization_id"
+        ],
+        "title": "view_governance_reportArguments",
+        "type": "object"
+      },
+      "meta": {
+        "ui": {
+          "resourceUri": "ui://governance-report/app.html"
+        },
+        "ui/resourceUri": "ui://governance-report/app.html"
+      },
+      "name": "view_governance_report",
+      "title": "View Governance Report"
+    },
+    {
+      "annotations": {
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Show read-only details for one LLM model, including versions, instances, and metadata.",
+      "inputSchema": {
+        "properties": {
+          "asset_id": {
+            "title": "Asset Id",
+            "type": "string"
+          },
+          "asset_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Asset Version"
+          },
+          "organization_id": {
+            "title": "Organization Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "organization_id",
+          "asset_id"
+        ],
+        "title": "view_llm_detailsArguments",
+        "type": "object"
+      },
+      "meta": {
+        "ui": {
+          "resourceUri": "ui://llm/details.html"
+        },
+        "ui/resourceUri": "ui://llm/details.html"
+      },
+      "name": "view_llm_details",
+      "title": "View LLM Details"
+    },
+    {
+      "annotations": {
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Show read-only details for one MCP server, including versions, instances, and metadata.",
+      "inputSchema": {
+        "properties": {
+          "asset_id": {
+            "title": "Asset Id",
+            "type": "string"
+          },
+          "asset_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Asset Version"
+          },
+          "organization_id": {
+            "title": "Organization Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "organization_id",
+          "asset_id"
+        ],
+        "title": "view_mcp_server_detailsArguments",
+        "type": "object"
+      },
+      "meta": {
+        "ui": {
+          "resourceUri": "ui://mcp-server/details.html"
+        },
+        "ui/resourceUri": "ui://mcp-server/details.html"
+      },
+      "name": "view_mcp_server_details",
+      "title": "View MCP Server Details"
+    }
+  ],
+  "transport": {
+    "kind": "streamableHttp",
+    "path": "https://omni.mulesoft.com/mcp/"
+  },
+  "provider": {
+    "organization": "MuleSoft",
+    "url": "https://omni.mulesoft.com"
+  }
+}

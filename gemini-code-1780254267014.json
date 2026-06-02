@@ -1,0 +1,56 @@
+{
+  "SchemaDefinition": {
+    "SObjectName": "DataCloud_KPI_Metric__c",
+    "Fields": [
+      { "ApiName": "Category__c", "DataType": "String", "Required": true },
+      { "ApiName": "KPI_Name__c", "DataType": "String", "Required": true },
+      { "ApiName": "KPI_Calculation__c", "DataType": "String", "Required": false },
+      { "ApiName": "Description__c", "DataType": "String", "Required": true },
+      { "ApiName": "ROI_Metric__c", "DataType": "String", "Required": false },
+      { "ApiName": "ROI_Calculation__c", "DataType": "String", "Required": false },
+      { "ApiName": "PromptTemplateType__c", "DataType": "String", "DefaultValue": "Standard" },
+      { "ApiName": "PromptInstructions__c", "DataType": "String", "Required": false },
+      { "ApiName": "GroundingSource__c", "DataType": "String", "DefaultValue": "Merge Fields" }
+    ]
+  },
+  "ETLInferenceRules": {
+    "Category__c": ["Category", "Metric Type", "Domain"],
+    "KPI_Name__c": ["KPI", "Indicator", "Metric Name"],
+    "KPI_Calculation__c": ["KPI Calculation", "Formula", "Math"],
+    "Description__c": ["Description", "Details", "Summary"],
+    "ROI_Metric__c": ["ROI", "Return on Investment", "Value"],
+    "ROI_Calculation__c": ["ROI Calculation", "ROI Formula"]
+  },
+  "DataCleansingRules": {
+    "GarbageKeywordsBlacklist": [
+      "N/A", "null", "undefined", "test data"
+    ],
+    "Normalization": {
+      "RemoveSymbols": ["↑", "↓"],
+      "EinsteinTrustLayer": {
+        "EnforceGrounding": true,
+        "ValidGroundingSources": ["Merge Fields", "Flows", "Apex"]
+      }
+    }
+  },
+  "PromptBuilderRouting": {
+    "Sales metrics": {
+      "ExpectedKPIs": [
+        "New Sales Revenue: %", 
+        "Win Rate: %", 
+        "Sales Deal Closure Time: %", 
+        "Sales Productivity: %", 
+        "Forecast Accuracy: %"
+      ],
+      "DefaultGrounding": "Flows"
+    },
+    "Overall & Employee Engagement Metrics": {
+      "ExpectedKPIs": [
+        "Collaboration Effectiveness: %", 
+        "Employee Engagement: %", 
+        "Employee Productivity: %"
+      ],
+      "DefaultGrounding": "Apex"
+    }
+  }
+}
