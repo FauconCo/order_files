@@ -1,0 +1,129 @@
+
+
+    <script>
+        const app = {
+            charts: {},
+            
+            init() {
+                lucide.createIcons();
+                this.initAllCharts();
+            },
+
+            switchTab(tabId) {
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                document.getElementById(`tab-${tabId}`).classList.add('active');
+                
+                document.querySelectorAll('.nav-btn').forEach(btn => {
+                    btn.classList.remove('text-emerald-600', 'border-emerald-500');
+                    btn.classList.add('text-slate-500', 'border-transparent');
+                    if(btn.classList.contains('nav-' + tabId)) {
+                        btn.classList.add('text-emerald-600', 'border-emerald-500');
+                    }
+                });
+                
+                // Refresh MathJax on tab switch
+                if (window.MathJax) {
+                    MathJax.typesetPromise();
+                }
+
+                // Force resize for charts
+                setTimeout(() => window.dispatchEvent(new Event('resize')), 100);
+            },
+
+            initAllCharts() {
+                // 1. ROI Chart (Visión)
+                const ctxRoi = document.getElementById('roiChart').getContext('2d');
+                this.charts.roi = new Chart(ctxRoi, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'],
+                        datasets: [
+                            { label: 'Pérdida por Mora (Sin ALRO)', data: [15, 18, 12, 20, 16], backgroundColor: '#94a3b8' },
+                            { label: 'Capital Retenido (ALRO)', data: [12, 15, 10, 18, 14], backgroundColor: '#10b981' }
+                        ]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { tooltip: { callbacks: { label: function(context) { return context.dataset.label + ': $' + context.raw + 'k'; } } } } }
+                });
+
+                // 2. Workload Chart (Visión)
+                const ctxWork = document.getElementById('workloadChart').getContext('2d');
+                this.charts.work = new Chart(ctxWork, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Planes Proactivos (IA)', 'Análisis (IA)', 'Cobranza Reactiva (Humano)'],
+                        datasets: [{ data: [75, 20, 5], backgroundColor: ['#10b981', '#14b8a6', '#cbd5e1'], borderWidth: 0 }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: {size: 10} } } } }
+                });
+
+                // 3. Journey Chart (Journey)
+                const ctxJourney = document.getElementById('journeyChart').getContext('2d');
+                this.charts.journey = new Chart(ctxJourney, {
+                    type: 'line',
+                    data: {
+                        labels: ['W1', 'W2', 'W3', 'W4'],
+                        datasets: [{ label: 'Probabilidad Mora (%)', data: [15, 22, 65, 89], borderColor: '#ef4444', tension: 0.4, fill: true, backgroundColor: 'rgba(239, 68, 68, 0.1)' }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, scales: { x: { display: false } }, plugins: { legend: { display: false } } }
+                });
+
+                // 4. Math Sim Chart (Motores)
+                const ctxMathSim = document.getElementById('mathSimChart').getContext('2d');
+                this.charts.mathSim = new Chart(ctxMathSim, {
+                    type: 'line',
+                    data: {
+                        labels: ['-3', '-2', '-1', '0', '1', '2', '3'],
+                        datasets: [
+                            { label: 'Señal de Riesgo (Volátil)', data: [-3, -2, -1, 0, 1, 2, 3], borderColor: '#94a3b8', borderDash: [5, 5], fill: false },
+                            { label: 'Respuesta Tanh (Controlada)', data: [-0.99, -0.96, -0.76, 0, 0.76, 0.96, 0.99], borderColor: '#10b981', fill: true, backgroundColor: 'rgba(16, 185, 129, 0.2)', tension: 0.4 }
+                        ]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+
+                // 5. Engine Efficiency (Motores)
+                const ctxEngine = document.getElementById('engineEfficiencyChart').getContext('2d');
+                this.charts.engine = new Chart(ctxEngine, {
+                    type: 'radar',
+                    data: {
+                        labels: ['Seguridad', 'Privacidad (DP)', 'Velocidad Web', 'Retorno Neto'],
+                        datasets: [{ data: [98, 100, 95, 90], backgroundColor: 'rgba(20, 184, 166, 0.2)', borderColor: '#0f766e', borderWidth: 2 }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, scales: { r: { min: 0, max: 100, ticks: { display: false } } }, plugins: { legend: { display: false } } }
+                });
+
+                // 6. Cost Savings (Economics)
+                const ctxCost = document.getElementById('costSavingsChart').getContext('2d');
+                this.charts.cost = new Chart(ctxCost, {
+                    type: 'line',
+                    data: {
+                        labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+                        datasets: [
+                            { label: 'Costo Operacional SF', data: [15, 15, 15, 15], borderColor: '#cbd5e1', borderDash: [5,5], fill: false },
+                            { label: 'Ahorro Acumulado (Mora Evitada)', data: [100, 250, 480, 800], borderColor: '#10b981', fill: true, backgroundColor: 'rgba(16, 185, 129, 0.1)', tension: 0.4 }
+                        ]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+
+                // 7. SF Deployment (Economics)
+                const ctxSF = document.getElementById('sfDeploymentChart').getContext('2d');
+                this.charts.sf = new Chart(ctxSF, {
+                    type: 'polarArea',
+                    data: {
+                        labels: ['Data Cloud (Zero-Copy)', 'Agentforce Orchestration', 'Moirai 2.0 (BYOM)', 'Web App UI (Zero-Install)'],
+                        datasets: [{
+                            data: [35, 40, 15, 10],
+                            backgroundColor: ['#10b981', '#059669', '#34d399', '#cbd5e1']
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { boxWidth: 10, font: {size: 10} } } } }
+                });
+            }
+        };
+
+        window.app = app;
+        window.onload = () => app.init();
+    </script>
+</body>
+</html>
